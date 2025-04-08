@@ -1,7 +1,7 @@
 {
   "transactions": [
     {
-      "id": 1,
+      "id": "1",
       "date": "2025-04-07",
       "type": "income",
       "category": "월급",
@@ -9,7 +9,7 @@
       "memo": "4월 급여"
     },
     {
-      "id": 2,
+      "id": "2",
       "date": "2025-04-08",
       "type": "expense",
       "category": "식비",
@@ -17,7 +17,7 @@
       "memo": "점심 식사"
     },
     {
-      "id": 3,
+      "id": "3",
       "date": "2025-04-16",
       "type": "income",
       "category": "월급",
@@ -25,7 +25,7 @@
       "memo": "4월 급여"
     },
     {
-      "id": 4,
+      "id": "4",
       "date": "2025-04-22",
       "type": "expense",
       "category": "식비",
@@ -33,7 +33,7 @@
       "memo": "점심 식사"
     },
     {
-      "id": 5,
+      "id": "5",
       "date": "2025-04-23",
       "type": "income",
       "category": "월급",
@@ -41,7 +41,7 @@
       "memo": "4월 급여"
     },
     {
-      "id": 6,
+      "id": "6",
       "date": "2025-04-14",
       "type": "expense",
       "category": "식비",
@@ -49,7 +49,7 @@
       "memo": "점심 식사"
     },
     {
-      "id": 7,
+      "id": "7",
       "date": "2025-04-15",
       "type": "income",
       "category": "월급",
@@ -57,7 +57,7 @@
       "memo": "4월 급여"
     },
     {
-      "id": 8,
+      "id": "8",
       "date": "2025-04-21",
       "type": "expense",
       "category": "식비",
@@ -65,23 +65,23 @@
       "memo": "점심 식사"
     },
     {
-      "id": 9,
-      "date": "2025-04-30",
+      "id": "9",
+      "date": "2025-04-03",
       "type": "income",
       "category": "월급",
-      "amount": 3000000,
+      "amount": 200000,
       "memo": "4월 급여"
     },
     {
-      "id": 10,
-      "date": "2025-04-30",
+      "id": "10",
+      "date": "2025-04-18",
       "type": "expense",
-      "category": "식비",
+      "category": "교통비",
       "amount": 15000,
       "memo": "점심 식사"
     },
     {
-      "id": 11,
+      "id": "11",
       "date": "2025-04-02",
       "type": "income",
       "category": "월급",
@@ -89,8 +89,24 @@
       "memo": "4월 급여"
     },
     {
-      "id": 12,
+      "id": "12",
       "date": "2025-04-13",
+      "type": "expense",
+      "category": "식비",
+      "amount": 15000,
+      "memo": "점심 식사"
+    },
+    {
+      "id": "13",
+      "date": "2025-04-02",
+      "type": "expense",
+      "category": "식비",
+      "amount": 15000,
+      "memo": "점심 식사"
+    },
+    {
+      "id": "14",
+      "date": "2025-04-07",
       "type": "expense",
       "category": "식비",
       "amount": 15000,
@@ -98,11 +114,23 @@
     }
   ],
   "incomeCategory": [
-    { "id": 1, "value": "월급" },
-    { "id": 2, "value": "용돈" }
+    {
+      "id": "1",
+      "value": "월급"
+    },
+    {
+      "id": "2",
+      "value": "용돈"
+    }
   ],
   "expenseCategory": [
-    { "id": 1, "value": "식비" },
-    { "id": 2, "value": "교통비" }
+    {
+      "id": "1",
+      "value": "식비"
+    },
+    {
+      "id": "2",
+      "value": "교통비"
+    }
   ]
 }

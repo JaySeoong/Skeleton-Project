@@ -74,16 +74,19 @@ const onClickDay = (day) => {
   gap: 10px;
 }
 .calendar-cell {
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 6px;
-  min-height: 90px;
-  background: #fefefe;
-  cursor: pointer;
-  transition: background 0.2s;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  .calendar-cell {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 110px; /* 고정 높이 */
+    min-height: 110px;
+    padding: 6px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
 }
 .calendar-cell:hover {
   background: #f9f9f9;

@@ -1,6 +1,7 @@
 <template>
+  <!-- 모달 바깥 클릭 시 닫힘 유지 -->
   <div class="modal-overlay" @click.self="$emit('close')">
-    <div class="modal-content">
+    <div class="modal-content" @click.stop>
       <header>
         <slot name="header"></slot>
       </header>
@@ -25,17 +26,20 @@ defineEmits(['close']);
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1000;
 }
 
 .modal-content {
   background: #fff;
   padding: 20px;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 400px;
+  border-radius: 12px;
+  min-width: 300px;
+  max-width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 </style>
