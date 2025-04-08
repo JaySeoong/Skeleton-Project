@@ -13,16 +13,17 @@ import { createRouter, createWebHistory } from 'vue-router';
 // import DashboardView from '@/views/DashboardView.vue'
 // import SettingsView from '@/views/SettingsView.vue'
 // import TransactionFormView from '@/views/TransactionFormView.vue'
-import Homeview from '@/views/HomeView.vue';
+import TransactionView from '@/views/TransactionView.vue';
+// import Homeview from '@/views/HomeView.vue';
 
 const routes = [
   // 더미 페이지 (각 기능상태를 보려면 주석처리)
-  {
-    path: '/',
-    name: 'Default',
-    component: Homeview,
-    meta: { layout: 'Default' },
-  },
+  // {
+  //   path: '/',
+  //   name: 'Default',
+  //   component: Homeview,
+  //   meta: { layout: 'Default' },
+  // },
   // ✅ 기본 리다이렉트 경로 (로그인 페이지로)
   // {
   //   path: '/',
@@ -52,6 +53,15 @@ const routes = [
   //   component: SettingsView,
   //   meta: { requiresAuth: true },
   // },
+
+  // ✅ 거래 내역 페이지: 로그인 후 접근 가능
+  {
+    // path: '/transactions', 수정 필요
+    path: '/',
+    name: 'Transactions',
+    component: TransactionView,
+    meta: { requiresAuth: true },
+  },
 
   // ✅ 거래 등록 + 카테고리 선택 화면에서 사용
   // {
