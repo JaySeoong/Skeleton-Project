@@ -1,41 +1,79 @@
 <template>
   <div class="transaction-view">
-    <!-- 필터바: 날짜/카테고리 선택 -->
-    <div class="filter-bar">
-      <label>
-        날짜:
-        <input type="date" v-model="date" />
-      </label>
-      <label>
-        카테고리:
-        <select v-model="category">
-          <option value="">전체</option>
-          <option value="식비">식비</option>
-          <option value="교통">교통</option>
-        </select>
-      </label>
-      <button @click="applyFilter">필터 적용</button>
+    <!-- 🔹 네비게이션 탭 -->
+    <nav class="tab-nav">
+      <button
+        :class="{ active: viewMode === 'daily' }"
+        @click="viewMode = 'daily'"
+      >
+        일일
+      </button>
+      <button
+        :class="{ active: viewMode === 'monthly' }"
+        @click="viewMode = 'monthly'"
+      >
+        월별
+      </button>
+    </nav>
+
+    <!-- 🔹 일일 거래 내역 -->
+    <div v-if="viewMode === 'daily'">
+      <TransactionList />
     </div>
 
-    <!-- 거래 목록 컴포넌트 -->
-    <TransactionList :transactions="filteredTransactions" />
+    <!-- 🔹 월별 거래 내역 -->
+    <div v-else-if="viewMode === 'monthly'">
+      <CalendarView @select-day="openDayPopup" />
+    </div>
+
+    <!-- 🔹 팝업 (거래 상세/수정/삭제) -->
+    <Modal v-if="selectedTransaction" @close="selectedTransaction = null">
+      <div class="popup-content">
+        <p>
+          {{ selectedTransaction.memo }} - {{ selectedTransaction.amount }}원
+        </p>
+        <button @click="editTransaction(selectedTransaction)">수정</button>
+        <button @click="deleteTransaction(selectedTransaction.id)">삭제</button>
+      </div>
+    </Modal>
   </div>
 </template>
 
-<script setup lang="ts">
-import { ref, computed } from 'vue';
+<script setup>
+import { ref } from 'vue';
 import { useTransactionStore } from '@/stores/transactionStore';
-import TransactionList from '../components/TransactionList.vue';
+import TransactionList from '@/components/TransactionList.vue';
+import CalendarView from './CalendarView.vue'; // 월별 뷰용 컴포넌트
+import Modal from '../components/base/baseModal.vue'; // 팝업 컴포넌트
 
 const store = useTransactionStore();
+const viewMode = ref('daily'); // 'daily' or 'monthly'
+const selectedTransaction = ref(null);
 
-const date = ref('');
-const category = ref('');
-
-const applyFilter = () => {
-  store.filterTransactions(date.value, category.value);
+const openDayPopup = (transaction) => {
+  selectedTransaction.value = transaction;
 };
 
-// Pinia에서 필터링된 거래 목록 가져오기
-const filteredTransactions = computed(() => store.filteredTransactions);
+const editTransaction = (tx) => {
+  alert(`${tx.id}번 거래 수정`);
+};
+
+const deleteTransaction = (id) => {
+  if (confirm('정말 삭제할까요?')) {
+    store.deleteTransaction(id);
+    selectedTransaction.value = null;
+  }
+};
 </script>
+
+<style scoped>
+.tab-nav {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.tab-nav button.active {
+  font-weight: bold;
+  text-decoration: underline;
+}
+</style>
