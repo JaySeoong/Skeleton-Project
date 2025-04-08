@@ -1,8 +1,9 @@
 <template>
-  <component :is="layout">
-    <!-- 실제 화면은 여기에 출력 -->
-    <router-view />
-  </component>
+  <!-- <component :is="layout"> -->
+  <!-- 실제 화면은 여기에 출력 -->
+  <H1>박다빈 천재</H1>
+  <router-view></router-view>
+  <!-- </component> -->
 
   <!-- 전역 모달이 있다면 여기에 -->
   <!-- <BaseModal v-if="uiStore.showModal" /> -->

@@ -1,31 +1,33 @@
-// 거래 목록 관리 (조회, 추가, 삭제)
 // stores/transactionStore.js
 import { defineStore } from 'pinia';
+import axios from 'axios'; // 또는 service로 분리 가능
 
-export const useTransactionStore = defineStore('transaction', {
+export const useTransactiontStore = defineStore('transaction', {
   state: () => ({
-    transactions: [
-      {
-        id: 1,
-        date: '2025-04-06',
-        category: '식비',
-        memo: '점심',
-        amount: 8000,
-        type: 'expense',
-      },
-      {
-        id: 2,
-        date: '2025-04-05',
-        category: '교통',
-        memo: '버스',
-        amount: 1200,
-        type: 'expense',
-      },
-    ],
-    filteredTransactions: [],
+    transactions: [], // 기존 budget → 명확한 이름으로 변경
+    filteredTransactions: [], // 필터링된 거래
+    incomeCategory: [],
+    expenseCategory: [],
   }),
 
   actions: {
+    async fetchData() {
+      try {
+        r;
+        const [transactionRes, incomeRes, expenseRes] = await Promise.all([
+          axios.get('/api/budget'),
+          axios.get('/api/incomeCategory'),
+          axios.get('/api/expenseCategory'),
+        ]);
+        this.transactions = transactionRes.data;
+        this.filteredTransactions = transactionRes.data; // 기본값 설정
+        this.incomeCategory = incomeRes.data;
+        this.expenseCategory = expenseRes.data;
+      } catch (error) {
+        console.error('데이터 로딩 실패:', error);
+      }
+    },
+
     filterTransactions(date, category) {
       this.filteredTransactions = this.transactions.filter((tx) => {
         const matchDate = !date || tx.date === date;

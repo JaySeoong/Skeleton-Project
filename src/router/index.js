@@ -14,6 +14,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 // import SettingsView from '@/views/SettingsView.vue'
 // import TransactionFormView from '@/views/TransactionFormView.vue'
 import Homeview from '@/views/HomeView.vue';
+import TransactionForm from '@/views/TransactionForm.vue';
 
 const routes = [
   // 더미 페이지 (각 기능상태를 보려면 주석처리)
@@ -60,6 +61,13 @@ const routes = [
   //   component: TransactionFormView,
   //   meta: { requiresAuth: true },
   // }
+
+  // 임시로 router 등록
+  {
+    path: '/',
+    name: 'InputView',
+    component: transactionStore,
+  },
 ];
 
 const router = createRouter({
