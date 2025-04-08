@@ -54,9 +54,10 @@ const daysInMonth = computed(() => {
 const getCategoryEmoji = (category) => {
   const map = {
     식비: '🍽️',
-    교통: '🚌',
+    교통비: '🚌',
     쇼핑: '🛍️',
-    급여: '💰',
+    월급: '💰',
+    용돈: '💸',
   };
   return map[category] || '💬';
 };
