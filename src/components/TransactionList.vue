@@ -1,32 +1,19 @@
 <template>
-  <div v-if="store.filteredTransactions.length > 0">
+  <div>
+    <div v-if="transactions.length === 0">거래내역이 없습니다.</div>
     <TransactionItem
-      v-for="tx in store.filteredTransactions"
-      :key="tx.id"
-      :transaction="tx"
+      v-for="transaction in transactions"
+      :key="transaction.id"
+      :transaction="transaction"
     />
   </div>
-  <div v-else-if="store.transactions.length > 0">
-    <TransactionItem
-      v-for="tx in store.transactions"
-      :key="tx.id"
-      :transaction="tx"
-    />
-  </div>
-  <div v-else>거래내역이 없어요</div>
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
-import { useTransactionStore } from '@/stores/transactionStore'; // JS 파일이어도 import는 동일
-import TransactionItem from './TransactionItem.vue';
+import { storeToRefs } from 'pinia';
+import { useTransactionStore } from '@/stores/transactionStore';
+import TransactionItem from '@/components/TransactionItem.vue';
 
-const store = useTransactionStore();
-
-// 컴포넌트가 마운트될 때 초기 필터링 적용 (없으면 전체를 보여주기 위해)
-onMounted(() => {
-  if (store.filteredTransactions.length === 0) {
-    store.filteredTransactions = [...store.transactions];
-  }
-});
+const transactionStore = useTransactionStore();
+const { transactions } = storeToRefs(transactionStore);
 </script>

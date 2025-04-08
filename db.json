@@ -1,28 +1,28 @@
 {
-  "budget": [
+  "transactions": [
     {
-      "id": "1",
-      "date": "20250407",
+      "id": 1,
+      "date": "2025-04-07",
       "type": "income",
       "category": "월급",
-      "amount": 10000151616500,
-      "memo": ""
+      "amount": 3000000,
+      "memo": "4월 급여"
     },
     {
-      "id": "2",
-      "date": "20250408",
-      "type": "income",
-      "category": "월급",
-      "amount": 1000005,
-      "memo": ""
+      "id": 2,
+      "date": "2025-04-08",
+      "type": "expense",
+      "category": "식비",
+      "amount": 15000,
+      "memo": "점심 식사"
     }
   ],
   "incomeCategory": [
-    { "id": "1", "value": "월급" },
-    { "id": "2", "value": "용돈" }
+    { "id": 1, "value": "월급" },
+    { "id": 2, "value": "용돈" }
   ],
   "expenseCategory": [
-    { "id": "1", "value": "식비" },
-    { "id": "2", "value": "교통비" }
+    { "id": 1, "value": "식비" },
+    { "id": 2, "value": "교통비" }
   ]
 }

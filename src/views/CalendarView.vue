@@ -5,15 +5,21 @@
         v-for="day in daysInMonth"
         :key="day.date"
         class="calendar-cell"
-        @click="$emit('select-day', day.transaction)"
+        @click="onClickDay(day)"
       >
         <div class="date">{{ day.date }}</div>
-        <div v-if="day.transaction" class="summary">
-          <span class="emoji">{{
-            getCategoryEmoji(day.transaction.category)
-          }}</span>
-          <span class="amount">{{ day.transaction.amount }}원</span>
+        <div v-if="day.transactions.length">
+          <div
+            v-for="tx in day.transactions"
+            :key="tx.id"
+            class="summary"
+            :class="tx.type"
+          >
+            <span>{{ getCategoryEmoji(tx.category) }}</span>
+            <span>{{ tx.amount.toLocaleString() }}원</span>
+          </div>
         </div>
+        <div v-else class="no-transaction-placeholder"></div>
       </div>
     </div>
   </div>
@@ -21,42 +27,42 @@
 
 <script setup>
 import { computed } from 'vue';
-import { useTransactionStore } from '@/stores/transactionStore';
+const emit = defineEmits(['select-day']);
 
-const store = useTransactionStore();
+const props = defineProps({
+  year: Number,
+  month: Number,
+  transactions: Array,
+});
 
-// 이번 달 날짜 목록 만들기
-const today = new Date();
-const currentYear = today.getFullYear();
-const currentMonth = today.getMonth(); // 0-indexed
-
-// 날짜 수 계산
 const getDaysInMonth = (year, month) => new Date(year, month + 1, 0).getDate();
 
-// 날짜와 거래 매칭
 const daysInMonth = computed(() => {
   const days = [];
-  const totalDays = getDaysInMonth(currentYear, currentMonth);
-  for (let i = 1; i <= totalDays; i++) {
-    const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(
-      2,
-      '0'
-    )}-${String(i).padStart(2, '0')}`;
-    const transaction = store.transactions.find((tx) => tx.date === dateStr);
-    days.push({ date: i, transaction });
+  const total = getDaysInMonth(props.year, props.month);
+
+  for (let i = 1; i <= total; i++) {
+    const dayStr = String(i).padStart(2, '0');
+    const monthStr = String(props.month + 1).padStart(2, '0');
+    const fullDate = `${props.year}-${monthStr}-${dayStr}`;
+    const txs = props.transactions.filter((tx) => tx.date === fullDate);
+    days.push({ date: i, fullDate, transactions: txs });
   }
   return days;
 });
 
-// 카테고리에 따라 이모지 표시 (간단 예시)
 const getCategoryEmoji = (category) => {
   const map = {
-    식비: '🍕',
+    식비: '🍽️',
     교통: '🚌',
     쇼핑: '🛍️',
-    급여: '💵',
+    급여: '💰',
   };
   return map[category] || '💬';
+};
+
+const onClickDay = (day) => {
+  emit('select-day', day.fullDate);
 };
 </script>
 
@@ -67,20 +73,37 @@ const getCategoryEmoji = (category) => {
   gap: 10px;
 }
 .calendar-cell {
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 8px;
-  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 6px;
+  min-height: 90px;
+  background: #fefefe;
   cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.calendar-cell:hover {
+  background: #f9f9f9;
 }
 .date {
   font-weight: bold;
+  font-size: 0.95em;
+  margin-bottom: 4px;
 }
 .summary {
-  font-size: 0.9em;
-  margin-top: 4px;
+  font-size: 0.8em;
+  display: flex;
+  justify-content: space-between;
 }
-.emoji {
-  font-size: 1.2em;
+.no-transaction-placeholder {
+  flex: 1;
+}
+.income {
+  color: blue;
+}
+.expense {
+  color: red;
 }
 </style>
