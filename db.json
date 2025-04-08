@@ -70,6 +70,23 @@
         "identity": true,
         "authTerms": true
       }
+    },
+    {
+      "id": "lsung6744",
+      "password": "64190352c47adea0d50e62b29e5a18ddb2ba64bd33573e42023f907e0863fd86",
+      "salt": "d600229f5b8697276742ee020be29c5d",
+      "email": "lsung6743@naver.com",
+      "name": "이재성",
+      "birth": "2025-04-02",
+      "telecom": "KT",
+      "phone": "01028426742",
+      "agreements": {
+        "privacy": true,
+        "telecom": true,
+        "bank": true,
+        "identity": true,
+        "authTerms": true
+      }
     }
   ]
 }
