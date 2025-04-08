@@ -2,7 +2,7 @@
 import { defineStore } from 'pinia';
 import axios from 'axios'; // 또는 service로 분리 가능
 
-export const useTransactiontStore = defineStore('transaction', {
+export const useTransactionStore = defineStore('transaction', {
   state: () => ({
     transactions: [], // 기존 budget → 명확한 이름으로 변경
     filteredTransactions: [], // 필터링된 거래
@@ -13,7 +13,6 @@ export const useTransactiontStore = defineStore('transaction', {
   actions: {
     async fetchData() {
       try {
-        r;
         const [transactionRes, incomeRes, expenseRes] = await Promise.all([
           axios.get('/api/budget'),
           axios.get('/api/incomeCategory'),
@@ -41,6 +40,17 @@ export const useTransactiontStore = defineStore('transaction', {
       this.filteredTransactions = this.filteredTransactions.filter(
         (tx) => tx.id !== id
       );
+    },
+
+    async addTransaction(item) {
+      try {
+        const response = await axios.post('/api/budget', item);
+        this.transactions.push(response.data); // 서버에서 저장된 데이터 사용
+        this.filteredTransactions.push(response.data);
+      } catch (error) {
+        console.error('거래 저장 실패:', error);
+        alert('거래 저장 중 오류가 발생했습니다.');
+      }
     },
   },
 });

@@ -18,12 +18,12 @@ import TransactionForm from '@/views/TransactionForm.vue';
 
 const routes = [
   // 더미 페이지 (각 기능상태를 보려면 주석처리)
-  {
-    path: '/',
-    name: 'Default',
-    component: Homeview,
-    meta: { layout: 'Default' },
-  },
+  // {
+    // path: '/',
+    // name: 'Default',
+    // component: Homeview,
+    // meta: { layout: 'Default' },
+  // },
   // ✅ 기본 리다이렉트 경로 (로그인 페이지로)
   // {
   //   path: '/',
@@ -66,7 +66,7 @@ const routes = [
   {
     path: '/',
     name: 'InputView',
-    component: transactionStore,
+    component: TransactionForm,
   },
 ];
 

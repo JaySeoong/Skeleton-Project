@@ -1,7 +1,7 @@
 <template>
   <!-- <component :is="layout"> -->
   <!-- 실제 화면은 여기에 출력 -->
-  <H1>박다빈 천재</H1>
+  <h1>박다빈 천재</h1>
   <router-view></router-view>
   <!-- </component> -->
 
@@ -10,21 +10,21 @@
 </template>
 
 <script setup>
-import { useRoute } from 'vue-router';
-import { computed } from 'vue';
+// import { useRoute } from 'vue-router';
+// import { computed } from 'vue';
 
-import DefaultLayout from '@/layouts/DefaultLayout.vue';
-import AuthLayout from '@/layouts/AuthLayout.vue';
+// import DefaultLayout from '@/layouts/DefaultLayout.vue';
+// import AuthLayout from '@/layouts/AuthLayout.vue';
 
-// 현재 라우트 가져오기
-const route = useRoute();
+// // 현재 라우트 가져오기
+// const route = useRoute();
 
-// 라우트의 meta 정보에 따라 레이아웃 변경
-const layout = computed(() => {
-  const layoutName = route.meta.layout;
-  // if (layoutName === 'auth') return AuthLayout;
-  return DefaultLayout;
-});
+// // 라우트의 meta 정보에 따라 레이아웃 변경
+// const layout = computed(() => {
+//   const layoutName = route.meta.layout;
+//   // if (layoutName === 'auth') return AuthLayout;
+//   return DefaultLayout;
+// });
 </script>
 
 <style>

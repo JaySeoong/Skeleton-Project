@@ -1,3 +1,6 @@
+<!-- 거래 추가 컴포넌트 -->
+<!-- 수정자 박다빈 -->
+
 <template>
   <div>
     <form @submit.prevent="handleSubmit">
@@ -52,15 +55,15 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
-import { useTransactiontStore } from '@/stores/transactionStore';
+import { useTransactionStore } from '@/stores/transactionStore';
 
-const store = useTransactiontStore();
+const store = useTransactionStore();
 
 onMounted(() => {
   store.fetchData();
 });
 
-const form = ref({
+const form = ref({ //입력받는 폼 지정
   date: '',
   type: '',
   category: '',
