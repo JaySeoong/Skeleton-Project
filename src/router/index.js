@@ -8,6 +8,13 @@
 
 import { createRouter, createWebHistory } from 'vue-router';
 
+// 이재성 추가
+import IntroView from '@/views/IntroView.vue';
+import LoginView from '@/views/LoginView.vue';
+import SignUpView from '@/views/SignUpView.vue';
+import TermsAgreementView from '@/views/TermsAgreementView.vue';
+// 이재성 추가
+
 // ⚠️ 아직 컴포넌트가 구현되지 않았다면 주석 처리 필요
 // import LoginView from '@/views/LoginView.vue'
 // import DashboardView from '@/views/DashboardView.vue'
@@ -16,12 +23,40 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Homeview from '@/views/HomeView.vue';
 
 const routes = [
+  // 이재성 아래 주석처리
   // 더미 페이지 (각 기능상태를 보려면 주석처리)
+  // {
+  //   path: '/',
+  //   name: 'Default',
+  //   component: IntroView,
+  //   meta: { layout: 'Default' },
+  // },
+
+  // 이재성 추가
   {
     path: '/',
-    name: 'Default',
-    component: Homeview,
-    meta: { layout: 'Default' },
+    name: 'Intro',
+    component: IntroView,
+    meta: { layout: 'auth' },
+  },
+
+  {
+    path: '/login',
+    name: 'Login',
+    component: LoginView,
+    meta: { layout: 'auth' },
+  },
+  {
+    path: '/signup',
+    name: 'SignUp',
+    component: SignUpView,
+    meta: { layout: 'auth' },
+  },
+  {
+    path: '/terms',
+    name: 'TermsAgreement',
+    component: TermsAgreementView,
+    meta: { layout: 'auth' },
   },
   // ✅ 기본 리다이렉트 경로 (로그인 페이지로)
   // {

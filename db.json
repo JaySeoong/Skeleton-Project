@@ -18,11 +18,58 @@
     }
   ],
   "incomeCategory": [
-    { "id": "1", "value": "월급" },
-    { "id": "2", "value": "용돈" }
+    {
+      "id": "1",
+      "value": "월급"
+    },
+    {
+      "id": "2",
+      "value": "용돈"
+    }
   ],
   "expenseCategory": [
-    { "id": "1", "value": "식비" },
-    { "id": "2", "value": "교통비" }
+    {
+      "id": "1",
+      "value": "식비"
+    },
+    {
+      "id": "2",
+      "value": "교통비"
+    }
+  ],
+  "users": [
+    {
+      "id": "lsung6742",
+      "password": "$2b$10$NYI2R7vekdQk/tO6dUKUauyfWilC.pbkMbCwKVOw6H7PvdBJH.E/G",
+      "email": "lsung6742@naver.com",
+      "name": "이재성",
+      "birth": "2025-04-03",
+      "telecom": "SKT",
+      "phone": "01028426742",
+      "agreements": {
+        "privacy": true,
+        "telecom": true,
+        "bank": true,
+        "identity": true,
+        "authTerms": true
+      }
+    },
+    {
+      "id": "lsung6743",
+      "password": "64190352c47adea0d50e62b29e5a18ddb2ba64bd33573e42023f907e0863fd86",
+      "salt": "d600229f5b8697276742ee020be29c5d",
+      "email": "lsung6743@naver.com",
+      "name": "이재성",
+      "birth": "2025-04-02",
+      "telecom": "KT",
+      "phone": "01028426742",
+      "agreements": {
+        "privacy": true,
+        "telecom": true,
+        "bank": true,
+        "identity": true,
+        "authTerms": true
+      }
+    }
   ]
 }
