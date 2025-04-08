@@ -6,10 +6,17 @@
     </div>
 
     <BaseModal v-if="showModal" @close="closeModal">
-      <template #header> 거래 수정 ({{ transaction.date }}) </template>
+      <template #header> 거래 수정 </template>
 
       <template #body>
         <form @submit.prevent="saveChanges">
+          <!-- ✅ 날짜 입력 (추가할 부분) -->
+          <label>
+            날짜(date):
+            <input type="date" v-model="editable.date" required />
+          </label>
+
+          <!-- ✅ 유형 -->
           <label>
             유형(type):
             <select v-model="editable.type">
@@ -18,6 +25,7 @@
             </select>
           </label>
 
+          <!-- ✅ 카테고리 -->
           <label>
             카테고리(category):
             <select v-model="editable.category">
@@ -31,6 +39,7 @@
             </select>
           </label>
 
+          <!-- ✅ 금액 -->
           <label>
             금액(amount):
             <input
@@ -41,6 +50,7 @@
             />
           </label>
 
+          <!-- ✅ 메모 -->
           <label>
             메모(memo):
             <input v-model="editable.memo" type="text" />
