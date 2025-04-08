@@ -10,13 +10,11 @@
 
       <template #body>
         <form @submit.prevent="saveChanges">
-          <!-- ✅ 날짜 입력 (추가할 부분) -->
           <label>
             날짜(date):
             <input type="date" v-model="editable.date" required />
           </label>
 
-          <!-- ✅ 유형 -->
           <label>
             유형(type):
             <select v-model="editable.type">
@@ -25,7 +23,6 @@
             </select>
           </label>
 
-          <!-- ✅ 카테고리 -->
           <label>
             카테고리(category):
             <select v-model="editable.category">
@@ -39,7 +36,6 @@
             </select>
           </label>
 
-          <!-- ✅ 금액 -->
           <label>
             금액(amount):
             <input
@@ -50,7 +46,6 @@
             />
           </label>
 
-          <!-- ✅ 메모 -->
           <label>
             메모(memo):
             <input v-model="editable.memo" type="text" />
@@ -76,7 +71,6 @@ const props = defineProps({
   transaction: Object,
 });
 
-// 카테고리 목록 정의 (필요시 Pinia Store에서 가져와도 좋음)
 const incomeCategories = ['월급', '용돈', '기타수입'];
 const expenseCategories = ['식비', '교통비', '기타지출'];
 
@@ -105,7 +99,6 @@ watch(
   }
 );
 
-// 금액 입력 시 양의 정수만 허용
 const validateAmount = (event) => {
   const val = event.target.value.replace(/[^0-9]/g, '');
   editable.value.amount = val ? parseInt(val, 10) : '';
