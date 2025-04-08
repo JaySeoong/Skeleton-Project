@@ -23,7 +23,7 @@ import TermsAgreementView from '@/views/TermsAgreementView.vue';
 import Homeview from '@/views/HomeView.vue';
 
 const routes = [
-  // 이재성 아래 주석처리
+  // 이재성 주석처리(top)
   // 더미 페이지 (각 기능상태를 보려면 주석처리)
   // {
   //   path: '/',
@@ -31,6 +31,7 @@ const routes = [
   //   component: IntroView,
   //   meta: { layout: 'Default' },
   // },
+  // 이재성 주석처리(down)
 
   // 이재성 추가
   {

@@ -1,67 +1,76 @@
 <template>
-  <!-- 로그인 전체 래퍼 -->
+  <!-- 전체 화면 가운데 정렬 -->
   <div
-    class="container d-flex flex-column align-items-center justify-content-center border shadow loginWrapper"
-    style="max-width: 414px; max-height: 896px; background-color: #fff"
+    class="d-flex justify-content-center align-items-center min-vh-100 bg-white"
   >
-    <!-- 타이틀 -->
-    <h1 class="mb-4 fw-bold" style="font-size: 24px; color: burlywood">
-      <span class="d-block mt-3 text-warning" style="font-size: 16px"
-        >**뱅크</span
-      >
-      <span> 24시 간편한 자산관리</span>
-    </h1>
-
-    <!-- 아이디 입력창 -->
-    <div class="mt-5 mb-3 w-100">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="아이디를 입력하세요"
-        v-model="username"
-      />
-    </div>
-
-    <!-- 비밀번호 입력창 -->
-    <div class="mb-3 w-100">
-      <input
-        type="password"
-        class="form-control"
-        placeholder="비밀번호를 입력하세요"
-        v-model="password"
-      />
-    </div>
-
-    <!-- 로그인 버튼 -->
-    <button class="btn w-100 mb-3 mt-5 bg-warning" @click="login">
-      로그인
-    </button>
-
+    <!-- 고정된 로그인 박스 -->
     <div
-      class="d-flex justify-content-center w-100 mb-4"
-      style="font-size: 14px"
+      class="border shadow bg-white"
+      style="width: 414px; height: 896px; display: flex; flex-direction: column"
     >
-      <router-link
-        to="/terms"
-        class="text-decoration-none text-secondary"
-        style="cursor: pointer"
+      <!-- 중앙 영역 -->
+      <div
+        class="d-flex flex-column justify-content-center align-items-center flex-grow-1 px-4"
       >
-        회원가입
-      </router-link>
+        <!-- 타이틀 -->
+        <h1 class="fw-bold mb-5" style="font-size: 24px; color: burlywood">
+          <span class="d-block" style="font-size: 18px; color: #5e4b3c"
+            >**뱅크</span
+          >
+          <span class="text-warning">24시 간편한 자산관리</span>
+        </h1>
+
+        <!-- 아이디 입력 -->
+        <div class="mt-5 mb-3 w-100">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="아이디를 입력하세요"
+            v-model="username"
+            style="background-color: aliceblue"
+          />
+        </div>
+
+        <!-- 비밀번호 입력 -->
+        <div class="mb-5 w-100">
+          <input
+            type="password"
+            class="form-control"
+            placeholder="비밀번호를 입력하세요"
+            v-model="password"
+            style="background-color: aliceblue"
+          />
+        </div>
+
+        <!-- 로그인 버튼 -->
+        <button
+          class="btn text-warning fw-bold w-100 mb-2"
+          @click="login"
+          style="background-color: #5e4b3c"
+        >
+          로그인
+        </button>
+
+        <!-- ✅ 로그인 버튼 아래 회원가입 -->
+        <div class="text-center mt-2" style="font-size: 14px">
+          <router-link to="/terms" class="text-secondary text-decoration-none">
+            회원가입
+          </router-link>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-// 로그인 로직 (아이디/비밀번호 확인)
 import axios from 'axios';
 import CryptoJS from 'crypto-js';
 
 export default {
   data() {
     return {
-      username: '', // 아이디
-      password: '', // 비밀번호
+      username: '',
+      password: '',
     };
   },
   methods: {
@@ -81,14 +90,11 @@ export default {
         }
 
         const user = res.data[0];
-
-        // 해시 처리된 비밀번호 비교
         const inputHash = CryptoJS.SHA256(user.salt + this.password).toString();
         const isMatch = inputHash === user.password;
 
         if (isMatch) {
-          alert(`${user.name}님, 로그인 성공!`);
-          // 여기서 토큰 저장 또는 홈으로 이동 등 처리 가능
+          alert(`${user.name}님, 로그인 성공 🎉`);
         } else {
           alert('비밀번호가 일치하지 않습니다.');
         }
@@ -99,13 +105,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.loginWrapper {
-  width: 414px;
-  height: 896px;
-  overflow-y: auto;
-  box-sizing: border-box;
-  border: 1px solid black;
-}
-</style>

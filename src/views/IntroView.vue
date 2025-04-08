@@ -1,30 +1,33 @@
 <template>
-  <!-- 인트로 화면(로그인 직전 3초간 작동) -->
+  <!-- 전체 뷰포트 영역 가운데 정렬 -->
   <div
-    class="mx-auto loginWrapper"
-    style="max-width: 414px; max-height: 896px; border: 1px solid black"
+    class="d-flex justify-content-center align-items-center min-vh-100 bg-white"
   >
+    <!-- 고정 크기 박스 -->
     <div
-      class="d-flex flex-column justify-content-center align-items-center vh-100 py-4"
-      style="background-color: white"
+      class="border shadow d-flex flex-column justify-content-center align-items-center p-4"
+      style="width: 414px; height: 896px"
     >
-      <!-- 메인 콘텐츠 -->
+      <!-- 메인 텍스트 -->
       <div class="text-center mt-auto">
         <p class="text-warning fw-bold mb-2 fs-3">세상을 바꾸는 금융</p>
-        <div class="bg-secondary text-white px-4 py-2 fw-bold rounded mb-4">
-          <div class="text-white p-2 fs-1">**뱅크</div>
+        <div
+          class="text-white px-4 py-2 fw-bold rounded mb-4"
+          style="background-color: #5e4b3c"
+        >
+          <div class="p-2 fs-1">** 뱅크</div>
         </div>
       </div>
 
-      <!-- 로딩 텍스트 -->
-      <div class="text-secondary mb-auto mt-5">
+      <!-- 로딩 -->
+      <div class="text-secondary my-5">
         <div class="spinner-border text-secondary" role="status">
           <span class="visually-hidden">Loading...</span>
         </div>
       </div>
 
       <!-- 하단 문구 -->
-      <div class="text-center small text-dark fw-semibold mb-5">
+      <div class="text-center small text-dark fw-semibold mb-auto">
         고객의 행복과 더 나은 세상을 만들어 갑니다.
       </div>
     </div>
@@ -39,17 +42,7 @@ const router = useRouter();
 
 onMounted(() => {
   setTimeout(() => {
-    router.push('/login'); // 3초 뒤 로그인 페이지로 이동
+    router.push('/login'); // 3초 후 로그인 화면으로 이동
   }, 3000);
 });
 </script>
-
-<style scoped>
-.loginWrapper {
-  width: 414px;
-  height: 896px; /* 높이 고정 */
-  /* overflow-y: auto; */
-  box-sizing: border-box;
-  border: 1px solid black;
-}
-</style>

@@ -87,6 +87,23 @@
         "identity": true,
         "authTerms": true
       }
+    },
+    {
+      "id": "lsung6740",
+      "password": "6f8ec80a56ae2ec6e21fd242d8e6ac3f02582ac455e7370a75ab6bde7f25f1f4",
+      "salt": "1bc8ba446de6e218775b8e20cea989f8",
+      "email": "lsung6740@naver.com",
+      "name": "이재성",
+      "birth": "2025-04-01",
+      "telecom": "SKT",
+      "phone": "01028426742",
+      "agreements": {
+        "privacy": true,
+        "telecom": true,
+        "bank": true,
+        "identity": true,
+        "authTerms": true
+      }
     }
   ]
 }

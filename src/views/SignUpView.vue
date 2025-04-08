@@ -1,166 +1,182 @@
 <template>
-  <div class="container mx-auto loginWrapper">
-    <h1 class="d-block mt-3 text-warning mb-5" style="font-size: 20px">
-      **뱅크
-    </h1>
-
-    <!-- 가입 완료 메시지 -->
+  <div
+    class="d-flex justify-content-center align-items-center min-vh-100 bg-white"
+  >
     <div
-      v-if="isSignedUp"
-      class="d-flex justify-content-center align-items-center text-center"
-      style="height: 80%"
+      class="border shadow p-4 bg-white"
+      style="width: 414px; height: 896px; overflow-y: auto"
     >
-      <p class="fw-bold fs-4 text-success">🎉 가입 완료 🎉</p>
-      <!-- <p class="text-muted">잠시 후 로그인 화면으로 이동합니다...</p> -->
-    </div>
-
-    <!-- 회원가입 폼 -->
-    <form v-else @submit.prevent="submitForm">
-      <!-- 아이디 입력 및 중복검사 -->
-      <div class="mb-3 d-flex align-items-center">
-        <input
-          type="text"
-          class="form-control me-2"
-          v-model="form.id"
-          placeholder="아이디"
-          :disabled="isIdChecked"
-        />
-        <button
-          type="button"
-          class="btn btn-outline-secondary btn-sm px-2 py-0"
-          style="font-size: 0.75rem; height: 32px; min-width: 70px"
-          @click="checkDuplicateId"
-        >
-          중복검사
-        </button>
-      </div>
-      <p
-        v-if="idCheckMessage"
-        :class="idCheckValid ? 'text-success' : 'text-danger'"
-        class="mb-2"
+      <h1
+        class="d-block mt-2 mb-4 text-warning fw-bold"
+        style="font-size: 20px"
       >
-        {{ idCheckMessage }}
-      </p>
+        **뱅크
+      </h1>
 
-      <div class="mb-3">
-        <input
-          type="password"
-          class="form-control"
-          v-model="form.password"
-          placeholder="비밀번호"
-        />
-        <small
-          v-if="form.password"
-          :class="isPasswordValid ? 'text-success' : 'text-danger'"
+      <!-- 가입 완료 메시지 -->
+      <div
+        v-if="isSignedUp"
+        class="d-flex justify-content-center align-items-center text-center"
+        style="height: 80%"
+      >
+        <p class="fw-bold fs-4 text-success">🎉 가입 완료 🎉</p>
+      </div>
+
+      <!-- 회원가입 폼 -->
+      <form v-else @submit.prevent="submitForm">
+        <!-- 아이디 + 중복검사 -->
+        <div class="mb-3 d-flex align-items-center">
+          <input
+            type="text"
+            class="form-control me-2"
+            v-model="form.id"
+            placeholder="아이디"
+            :disabled="isIdChecked"
+          />
+          <button
+            type="button"
+            class="btn btn-outline-secondary btn-sm"
+            style="height: 32px; min-width: 80px"
+            @click="checkDuplicateId"
+          >
+            중복검사
+          </button>
+        </div>
+
+        <p
+          v-if="idCheckMessage"
+          :class="idCheckValid ? 'text-success' : 'text-danger'"
+          class="mb-2"
         >
-          {{ passwordMessage }}
-        </small>
-      </div>
+          {{ idCheckMessage }}
+        </p>
 
-      <div class="mb-3">
-        <input
-          type="email"
-          class="form-control"
-          v-model="form.email"
-          placeholder="이메일"
-        />
-      </div>
-      <div class="mb-3">
-        <input
-          type="text"
-          class="form-control"
-          v-model="form.name"
-          placeholder="이름"
-        />
-      </div>
-      <div class="mb-3">
-        <input
-          type="date"
-          class="form-control"
-          v-model="form.birth"
-          :max="maxDate"
-        />
-      </div>
+        <!-- 비밀번호 -->
+        <div class="mb-3">
+          <input
+            type="password"
+            class="form-control"
+            v-model="form.password"
+            placeholder="비밀번호"
+          />
+          <small
+            v-if="form.password"
+            :class="isPasswordValid ? 'text-success' : 'text-danger'"
+          >
+            {{ passwordMessage }}
+          </small>
+        </div>
 
-      <div class="mb-4">
-        <select class="form-select" v-model="form.telecom">
-          <option value="">통신사 선택</option>
-          <option value="SKT">SKT</option>
-          <option value="KT">KT</option>
-          <option value="LG">LG U+</option>
-        </select>
-      </div>
+        <!-- 이메일, 이름, 생년월일 -->
+        <div class="mb-3">
+          <input
+            type="email"
+            class="form-control"
+            v-model="form.email"
+            placeholder="이메일"
+          />
+        </div>
+        <div class="mb-3">
+          <input
+            type="text"
+            class="form-control"
+            v-model="form.name"
+            placeholder="이름"
+          />
+        </div>
+        <div class="mb-3">
+          <input
+            type="date"
+            class="form-control"
+            v-model="form.birth"
+            :max="maxDate"
+          />
+        </div>
 
-      <div class="mb-3">
-        <input
-          type="tel"
-          class="form-control"
-          v-model="form.phone"
-          placeholder="휴대전화번호"
-        />
-      </div>
+        <!-- 통신사 -->
+        <div class="mb-4">
+          <select class="form-select" v-model="form.telecom">
+            <option value="">통신사 선택</option>
+            <option value="SKT">SKT</option>
+            <option value="KT">KT</option>
+            <option value="LG">LG U+</option>
+          </select>
+        </div>
 
-      <div class="mb-3">
-        <input
-          type="text"
-          class="form-control"
-          v-model="form.authCode"
-          placeholder="인증번호 6자리를 입력해주세요."
-          maxlength="6"
-          :disabled="!isAuthRequested"
-        />
-        <small v-if="!isAuthRequested" class="text-muted"
-          >* 인증 요청을 먼저 해주세요.</small
-        >
-      </div>
+        <!-- 전화번호 + 인증번호 -->
+        <div class="mb-3">
+          <input
+            type="tel"
+            class="form-control"
+            v-model="form.phone"
+            placeholder="휴대전화번호"
+          />
+        </div>
+        <div class="mb-3">
+          <input
+            type="text"
+            class="form-control"
+            v-model="form.authCode"
+            placeholder="인증번호 6자리를 입력해주세요."
+            maxlength="6"
+            :disabled="!isAuthRequested"
+          />
+          <small v-if="!isAuthRequested" class="text-muted">
+            * 인증 요청을 먼저 해주세요.
+          </small>
+        </div>
 
-      <div class="form-check mb-2">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          id="agreeAll"
-          v-model="form.agreeAll"
-          @change="toggleAllAgreements"
-        />
-        <label class="form-check-label fw-bold" for="agreeAll"
-          >[필수] 인증 약관 전체동의</label
-        >
-      </div>
-
-      <div class="ms-3 mb-3" v-if="form.showAgreements">
-        <div
-          class="form-check"
-          v-for="(value, key) in form.agreements"
-          :key="key"
-        >
+        <!-- 약관 전체동의 -->
+        <div class="form-check mb-2">
           <input
             class="form-check-input"
             type="checkbox"
-            :id="key"
-            v-model="form.agreements[key]"
-            @change="checkIfAllAgreed"
+            id="agreeAll"
+            v-model="form.agreeAll"
+            @change="toggleAllAgreements"
           />
-          <label class="form-check-label" :for="key">{{
-            agreementLabels[key]
-          }}</label>
+          <label class="form-check-label fw-bold" for="agreeAll">
+            [필수] 인증 약관 전체동의
+          </label>
         </div>
-      </div>
 
-      <button
-        type="submit"
-        class="btn w-100 mt-3 d-flex justify-content-center align-items-center"
-        style="background-color: #5e4b3c; color: white"
-        :disabled="!isFormValid || isLoading"
-      >
-        <span
-          v-if="isLoading"
-          class="spinner-border spinner-border-sm me-2"
-          role="status"
-          aria-hidden="true"
-        ></span>
-        {{ isAuthRequested ? '가입 완료' : '인증 요청' }}
-      </button>
-    </form>
+        <!-- 세부 약관들 -->
+        <div class="ms-3 mb-3" v-if="form.showAgreements">
+          <div
+            class="form-check"
+            v-for="(value, key) in form.agreements"
+            :key="key"
+          >
+            <input
+              class="form-check-input"
+              type="checkbox"
+              :id="key"
+              v-model="form.agreements[key]"
+              @change="checkIfAllAgreed"
+            />
+            <label class="form-check-label" :for="key">
+              {{ agreementLabels[key] }}
+            </label>
+          </div>
+        </div>
+
+        <!-- 제출 버튼 -->
+        <button
+          type="submit"
+          class="btn w-100 mt-3 d-flex justify-content-center align-items-center"
+          style="background-color: #5e4b3c; color: white"
+          :disabled="!isFormValid || isLoading"
+        >
+          <span
+            v-if="isLoading"
+            class="spinner-border spinner-border-sm me-2"
+            role="status"
+            aria-hidden="true"
+          ></span>
+          {{ isAuthRequested ? '가입 완료' : '인증 요청' }}
+        </button>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -356,7 +372,6 @@ export default {
         this.resetForm();
         this.isSignedUp = true;
 
-        // ✅ 가입 완료 메시지 보여주고 5초 후 로그인으로 이동
         setTimeout(() => {
           this.$router.push('/login');
         }, 5000);
@@ -394,14 +409,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.loginWrapper {
-  width: 414px;
-  height: 896px;
-  padding: 20px;
-  border: 1px solid black;
-  overflow-y: auto;
-  box-sizing: border-box;
-}
-</style>
