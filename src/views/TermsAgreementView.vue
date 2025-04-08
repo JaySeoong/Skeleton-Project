@@ -69,7 +69,7 @@
         class="btn w-100 mt-4 text-warning fw-bold"
         style="background-color: #5e4b3c"
       >
-        가입완료
+        다음
       </router-link>
       <button
         v-else
@@ -77,7 +77,7 @@
         style="background-color: #5e4b3c"
         disabled
       >
-        인증요청
+        다음
       </button>
     </div>
   </div>

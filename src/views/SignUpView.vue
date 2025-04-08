@@ -10,7 +10,7 @@
         class="d-block mt-2 mb-4 text-warning fw-bold"
         style="font-size: 20px"
       >
-        **뱅크
+        ** 뱅크
       </h1>
 
       <!-- 가입 완료 메시지 -->
@@ -240,7 +240,7 @@ export default {
       return {
         privacy: '개인정보 이용',
         telecom: '통신사 이용약관',
-        bank: '**뱅크 개인정보보호정책',
+        bank: '** 뱅크 개인정보보호정책',
         identity: '고유식별정보 처리',
         authTerms: '인증사 이용약관',
       };

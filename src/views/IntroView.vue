@@ -42,7 +42,7 @@ const router = useRouter();
 
 onMounted(() => {
   setTimeout(() => {
-    router.push('/login'); // 3초 후 로그인 화면으로 이동
-  }, 3000);
+    router.push('/login'); // 4초 후 로그인 화면으로 이동
+  }, 4000);
 });
 </script>

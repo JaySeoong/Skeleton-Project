@@ -15,7 +15,7 @@
         <!-- 타이틀 -->
         <h1 class="fw-bold mb-5" style="font-size: 24px; color: burlywood">
           <span class="d-block" style="font-size: 18px; color: #5e4b3c"
-            >**뱅크</span
+            >** 뱅크</span
           >
           <span class="text-warning">24시 간편한 자산관리</span>
         </h1>
