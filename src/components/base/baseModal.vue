@@ -25,15 +25,17 @@ defineEmits(['close']);
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .modal-content {
   background: #fff;
   padding: 20px;
-  border-radius: 12px;
-  min-width: 300px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
 }
 </style>

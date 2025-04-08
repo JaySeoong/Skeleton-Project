@@ -1,7 +1,7 @@
 {
   "transactions": [
     {
-      "id": 1,
+      "id": "1",
       "date": "2025-04-07",
       "type": "income",
       "category": "월급",
@@ -9,7 +9,7 @@
       "memo": "4월 급여"
     },
     {
-      "id": 2,
+      "id": "2",
       "date": "2025-04-08",
       "type": "expense",
       "category": "식비",
@@ -18,11 +18,23 @@
     }
   ],
   "incomeCategory": [
-    { "id": 1, "value": "월급" },
-    { "id": 2, "value": "용돈" }
+    {
+      "id": "1",
+      "value": "월급"
+    },
+    {
+      "id": "2",
+      "value": "용돈"
+    }
   ],
   "expenseCategory": [
-    { "id": 1, "value": "식비" },
-    { "id": 2, "value": "교통비" }
+    {
+      "id": "1",
+      "value": "식비"
+    },
+    {
+      "id": "2",
+      "value": "교통비"
+    }
   ]
 }
