@@ -6,21 +6,33 @@ export const useTransactionStore = defineStore('transaction', () => {
   const transactions = ref([]);
 
   const fetchTransactions = async () => {
-    const res = await axios.get('http://localhost:3000/transactions');
-    transactions.value = res.data;
+    try {
+      const res = await axios.get('http://localhost:3000/transactions');
+      transactions.value = res.data;
+    } catch (error) {
+      console.error('불러오기 오류:', error);
+    }
   };
 
   const updateTransaction = async (updatedTransaction) => {
-    await axios.put(
-      `http://localhost:3000/transactions/${updatedTransaction.id}`,
-      updatedTransaction
-    );
-    fetchTransactions();
+    try {
+      await axios.put(
+        `http://localhost:3000/transactions/${updatedTransaction.id}`,
+        updatedTransaction
+      );
+      await fetchTransactions();
+    } catch (error) {
+      console.error('업데이트 오류:', error);
+    }
   };
 
   const deleteTransaction = async (id) => {
-    await axios.delete(`http://localhost:3000/transactions/${id}`);
-    fetchTransactions();
+    try {
+      await axios.delete(`http://localhost:3000/transactions/${id}`);
+      await fetchTransactions();
+    } catch (error) {
+      console.error('삭제 오류:', error);
+    }
   };
 
   return {
