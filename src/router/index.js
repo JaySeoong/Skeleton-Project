@@ -48,9 +48,10 @@ const routes = [
     meta: { layout: 'default', requiresAuth: true },
   },
   {
-    path: '/',
+    path: '/inputview',
     name: 'InputView',
     component: TransactionForm,
+    meta:{layout:'default'}
 },
   {
     path: '/dashboard',
