@@ -15,6 +15,22 @@
       "category": "월급",
       "amount": 1000005,
       "memo": ""
+    },
+    {
+      "id": "20250408-fo4jzk",
+      "date": "20250415",
+      "type": "income",
+      "category": "용돈",
+      "amount": 12345,
+      "memo": "dfa"
+    },
+    {
+      "id": "20250408-v1qto2",
+      "date": "20250416",
+      "type": "income",
+      "category": "월급",
+      "amount": -12315,
+      "memo": "daf"
     }
   ],
   "incomeCategory": [
