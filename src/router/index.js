@@ -13,6 +13,8 @@ import IntroView from '@/views/IntroView.vue';
 import LoginView from '@/views/LoginView.vue';
 import SignUpView from '@/views/SignUpView.vue';
 import TermsAgreementView from '@/views/TermsAgreementView.vue';
+import ProfileView from '@/views/ProfileView.vue';
+import { useAuthStore } from '../stores/authStore';
 // 이재성 추가
 
 // ⚠️ 아직 컴포넌트가 구현되지 않았다면 주석 처리 필요
@@ -57,6 +59,12 @@ const routes = [
     name: 'TermsAgreement',
     component: TermsAgreementView,
     meta: { layout: 'auth' },
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: ProfileView,
+    meta: { requiresAuth: true },
   },
   // ✅ 기본 리다이렉트 경로 (로그인 페이지로)
   // {
@@ -111,5 +119,16 @@ const router = createRouter({
 //     next()
 //   }
 // })
+// ✅ 라우터 가드: 로그인 필요 페이지 접근 제한
+router.beforeEach((to, from, next) => {
+  const authStore = useAuthStore();
+
+  if (to.meta.requiresAuth && !authStore.isLoggedIn) {
+    alert('로그인이 필요합니다.');
+    next('/login');
+  } else {
+    next();
+  }
+});
 
 export default router;

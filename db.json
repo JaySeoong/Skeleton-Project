@@ -39,22 +39,6 @@
   ],
   "users": [
     {
-      "id": "lsung6742",
-      "password": "$2b$10$NYI2R7vekdQk/tO6dUKUauyfWilC.pbkMbCwKVOw6H7PvdBJH.E/G",
-      "email": "lsung6742@naver.com",
-      "name": "이재성",
-      "birth": "2025-04-03",
-      "telecom": "SKT",
-      "phone": "01028426742",
-      "agreements": {
-        "privacy": true,
-        "telecom": true,
-        "bank": true,
-        "identity": true,
-        "authTerms": true
-      }
-    },
-    {
       "id": "lsung6743",
       "password": "64190352c47adea0d50e62b29e5a18ddb2ba64bd33573e42023f907e0863fd86",
       "salt": "d600229f5b8697276742ee020be29c5d",
@@ -95,6 +79,23 @@
       "email": "lsung6740@naver.com",
       "name": "이재성",
       "birth": "2025-04-01",
+      "telecom": "SKT",
+      "phone": "01028426742",
+      "agreements": {
+        "privacy": true,
+        "telecom": true,
+        "bank": true,
+        "identity": true,
+        "authTerms": true
+      }
+    },
+    {
+      "id": "lsung6742",
+      "password": "2e31e6fc32c0a55b75195d6a859a26745977b59d54197bd3bbef75dd12f2d7a6",
+      "salt": "e5e1144a3d2c562447d083e5ba965faf",
+      "email": "lsung6742@naver.com",
+      "name": "이재성",
+      "birth": "2025-01-08",
       "telecom": "SKT",
       "phone": "01028426742",
       "agreements": {

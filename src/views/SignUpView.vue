@@ -36,8 +36,8 @@
           <button
             type="button"
             class="btn btn-outline-secondary btn-sm"
-            style="height: 32px; min-width: 80px"
             @click="checkDuplicateId"
+            style="font-size: 0.75rem; height: 32px; min-width: 70px"
           >
             중복검사
           </button>
@@ -121,9 +121,9 @@
             maxlength="6"
             :disabled="!isAuthRequested"
           />
-          <small v-if="!isAuthRequested" class="text-muted">
-            * 인증 요청을 먼저 해주세요.
-          </small>
+          <small v-if="!isAuthRequested" class="text-muted"
+            >* 인증 요청을 먼저 해주세요.</small
+          >
         </div>
 
         <!-- 약관 전체동의 -->
@@ -140,7 +140,7 @@
           </label>
         </div>
 
-        <!-- 세부 약관들 -->
+        <!-- 세부 약관 -->
         <div class="ms-3 mb-3" v-if="form.showAgreements">
           <div
             class="form-check"
@@ -180,232 +180,187 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, computed } from 'vue';
+import { useRouter } from 'vue-router';
+import { useAuthStore } from '@/stores/authStore';
 import axios from 'axios';
 import CryptoJS from 'crypto-js';
 
-export default {
-  name: 'RegisterForm',
-  data() {
-    return {
-      isPasswordValid: false,
-      isSignedUp: false,
-      isAuthRequested: false,
-      isLoading: false,
-      isIdChecked: false,
-      idCheckMessage: '',
-      idCheckValid: false,
-      form: {
-        id: '',
-        password: '',
-        email: '',
-        name: '',
-        birth: '',
-        telecom: '',
-        phone: '',
-        authCode: '',
-        agreeAll: false,
-        showAgreements: false,
-        agreements: {
-          privacy: false,
-          telecom: false,
-          bank: false,
-          identity: false,
-          authTerms: false,
-        },
-      },
+const router = useRouter();
+const authStore = useAuthStore();
+
+const isSignedUp = ref(false);
+const isAuthRequested = ref(false);
+const isLoading = ref(false);
+const isIdChecked = ref(false);
+const idCheckMessage = ref('');
+const idCheckValid = ref(false);
+
+const form = ref({
+  id: '',
+  password: '',
+  email: '',
+  name: '',
+  birth: '',
+  telecom: '',
+  phone: '',
+  authCode: '',
+  agreeAll: false,
+  showAgreements: false,
+  agreements: {
+    privacy: false,
+    telecom: false,
+    bank: false,
+    identity: false,
+    authTerms: false,
+  },
+});
+
+const agreementLabels = {
+  privacy: '개인정보 이용',
+  telecom: '통신사 이용약관',
+  bank: '** 뱅크 개인정보보호정책',
+  identity: '고유식별정보 처리',
+  authTerms: '인증사 이용약관',
+};
+
+const passwordMessage = computed(() => {
+  const password = form.value.password;
+  const hasUpper = /[A-Z]/.test(password);
+  const hasLower = /[a-z]/.test(password);
+  const hasNumber = /[0-9]/.test(password);
+  const hasSpecial = /[^A-Za-z0-9]/.test(password);
+  const count = [hasUpper, hasLower, hasNumber, hasSpecial].filter(
+    Boolean
+  ).length;
+
+  if (
+    (count >= 3 && password.length >= 8) ||
+    (count >= 2 && password.length >= 10)
+  ) {
+    return '사용 가능한 비밀번호입니다.';
+  } else {
+    return '비밀번호는 3종류 이상 조합 8자리 이상 또는 2종류 조합 10자리 이상이어야 합니다.';
+  }
+});
+
+const isPasswordValid = computed(() => {
+  return passwordMessage.value === '사용 가능한 비밀번호입니다.';
+});
+
+const maxDate = new Date().toISOString().split('T')[0];
+
+const isFormValid = computed(() => {
+  const f = form.value;
+  const allFilled =
+    f.id &&
+    f.password &&
+    f.email &&
+    f.name &&
+    f.birth &&
+    f.telecom &&
+    f.phone &&
+    f.agreeAll &&
+    isIdChecked.value;
+  const passwordOk = isPasswordValid.value;
+  return !isAuthRequested.value
+    ? allFilled && passwordOk
+    : allFilled && f.authCode.length === 6 && passwordOk;
+});
+
+const toggleAllAgreements = () => {
+  const isChecked = form.value.agreeAll;
+  for (let key in form.value.agreements) {
+    form.value.agreements[key] = isChecked;
+  }
+  form.value.showAgreements = isChecked;
+};
+
+const checkIfAllAgreed = () => {
+  const values = Object.values(form.value.agreements);
+  const allChecked = values.every((val) => val);
+  form.value.agreeAll = allChecked;
+  form.value.showAgreements = values.some((val) => val);
+};
+
+const checkDuplicateId = async () => {
+  if (!form.value.id) {
+    alert('아이디를 입력해주세요.');
+    return;
+  }
+  try {
+    const res = await axios.get(
+      `http://localhost:3000/users?id=${form.value.id}`
+    );
+    if (res.data.length > 0) {
+      idCheckValid.value = false;
+      idCheckMessage.value = '이미 사용 중인 아이디입니다.';
+    } else {
+      idCheckValid.value = true;
+      idCheckMessage.value = '사용 가능한 아이디입니다.';
+      isIdChecked.value = true;
+    }
+  } catch (error) {
+    alert('중복 검사 실패: ' + error.message);
+  }
+};
+
+const submitForm = async () => {
+  if (!isAuthRequested.value) {
+    if (form.value.phone.length < 10 || form.value.phone.length > 11) {
+      alert('휴대전화번호는 10자리 또는 11자리여야 합니다.');
+      return;
+    }
+    isAuthRequested.value = true;
+    alert('인증번호가 전송되었습니다.');
+    return;
+  }
+
+  if (!form.value.authCode || form.value.authCode.length !== 6) {
+    alert('6자리 인증번호를 입력해주세요.');
+    return;
+  }
+
+  if (!isIdChecked.value || !idCheckValid.value) {
+    alert('아이디 중복 검사를 완료해주세요.');
+    return;
+  }
+
+  isLoading.value = true;
+
+  try {
+    // 아래는 bcrypt 구현 -> 사용불가
+    // const hashedPassword = await bcrypt.hash(this.form.password, 10)
+    const salt = CryptoJS.lib.WordArray.random(16).toString();
+    const hashedPassword = CryptoJS.SHA256(
+      salt + form.value.password
+    ).toString();
+
+    const newUser = {
+      id: form.value.id,
+      password: hashedPassword,
+      salt: salt,
+      email: form.value.email,
+      name: form.value.name,
+      birth: form.value.birth,
+      telecom: form.value.telecom,
+      phone: form.value.phone,
+      agreements: form.value.agreements,
     };
-  },
-  computed: {
-    passwordMessage() {
-      const password = this.form.password;
-      const hasUpper = /[A-Z]/.test(password);
-      const hasLower = /[a-z]/.test(password);
-      const hasNumber = /[0-9]/.test(password);
-      const hasSpecial = /[^A-Za-z0-9]/.test(password);
-      const count = [hasUpper, hasLower, hasNumber, hasSpecial].filter(
-        Boolean
-      ).length;
 
-      if (
-        (count >= 3 && password.length >= 8) ||
-        (count >= 2 && password.length >= 10)
-      ) {
-        return '사용 가능한 비밀번호입니다.';
-      } else {
-        return '비밀번호는 3종류 이상 조합 8자리 이상 또는 2종류 조합 10자리 이상이어야 합니다.';
-      }
-    },
-    agreementLabels() {
-      return {
-        privacy: '개인정보 이용',
-        telecom: '통신사 이용약관',
-        bank: '** 뱅크 개인정보보호정책',
-        identity: '고유식별정보 처리',
-        authTerms: '인증사 이용약관',
-      };
-    },
-    maxDate() {
-      return new Date().toISOString().split('T')[0];
-    },
-    isFormValid() {
-      const f = this.form;
-      const allFieldsFilled =
-        f.id &&
-        f.password &&
-        f.email &&
-        f.name &&
-        f.birth &&
-        f.telecom &&
-        f.phone &&
-        f.agreeAll &&
-        this.isIdChecked;
-
-      const password = f.password;
-      const hasUpper = /[A-Z]/.test(password);
-      const hasLower = /[a-z]/.test(password);
-      const hasNumber = /[0-9]/.test(password);
-      const hasSpecial = /[^A-Za-z0-9]/.test(password);
-      const count = [hasUpper, hasLower, hasNumber, hasSpecial].filter(
-        Boolean
-      ).length;
-
-      const passwordValid =
-        (count >= 3 && password.length >= 8) ||
-        (count >= 2 && password.length >= 10);
-
-      return !this.isAuthRequested
-        ? allFieldsFilled && passwordValid
-        : allFieldsFilled && f.authCode.length === 6 && passwordValid;
-    },
-  },
-  watch: {
-    'form.password'(newVal) {
-      const hasUpper = /[A-Z]/.test(newVal);
-      const hasLower = /[a-z]/.test(newVal);
-      const hasNumber = /[0-9]/.test(newVal);
-      const hasSpecial = /[^A-Za-z0-9]/.test(newVal);
-      const count = [hasUpper, hasLower, hasNumber, hasSpecial].filter(
-        Boolean
-      ).length;
-      this.isPasswordValid =
-        (count >= 3 && newVal.length >= 8) ||
-        (count >= 2 && newVal.length >= 10);
-    },
-  },
-  methods: {
-    toggleAllAgreements() {
-      const isChecked = this.form.agreeAll;
-      for (let key in this.form.agreements) {
-        this.form.agreements[key] = isChecked;
-      }
-      this.form.showAgreements = isChecked;
-    },
-    checkIfAllAgreed() {
-      const values = Object.values(this.form.agreements);
-      const allChecked = values.every((val) => val);
-      this.form.agreeAll = allChecked;
-      this.form.showAgreements = values.some((val) => val);
-    },
-    async checkDuplicateId() {
-      if (!this.form.id) {
-        alert('아이디를 입력해주세요.');
-        return;
-      }
-      try {
-        const res = await axios.get(
-          `http://localhost:3000/users?id=${this.form.id}`
-        );
-        if (res.data.length > 0) {
-          this.idCheckValid = false;
-          this.idCheckMessage = '이미 사용 중인 아이디입니다.';
-        } else {
-          this.idCheckValid = true;
-          this.idCheckMessage = '사용 가능한 아이디입니다.';
-          this.isIdChecked = true;
-        }
-      } catch (error) {
-        alert('중복 검사 실패: ' + error.message);
-      }
-    },
-    async submitForm() {
-      if (!this.isAuthRequested) {
-        if (this.form.phone.length !== 10 && this.form.phone.length !== 11) {
-          alert('휴대전화번호는 10자리 또는 11자리여야 합니다.');
-          return;
-        }
-        this.isAuthRequested = true;
-        alert('인증번호가 전송되었습니다.');
-        return;
-      }
-
-      if (!this.form.authCode || this.form.authCode.length !== 6) {
-        alert('6자리 인증번호를 입력해주세요.');
-        return;
-      }
-
-      if (!this.isIdChecked || !this.idCheckValid) {
-        alert('아이디 중복 검사를 완료해주세요.');
-        return;
-      }
-
-      this.isLoading = true;
-      try {
-        const salt = CryptoJS.lib.WordArray.random(16).toString();
-        const hashedPassword = CryptoJS.SHA256(
-          salt + this.form.password
-        ).toString();
-
-        await axios.post('http://localhost:3000/users', {
-          id: this.form.id,
-          password: hashedPassword,
-          salt: salt,
-          email: this.form.email,
-          name: this.form.name,
-          birth: this.form.birth,
-          telecom: this.form.telecom,
-          phone: this.form.phone,
-          agreements: this.form.agreements,
-        });
-
-        alert('가입 완료!');
-        this.resetForm();
-        this.isSignedUp = true;
-
-        setTimeout(() => {
-          this.$router.push('/login');
-        }, 5000);
-      } catch (error) {
-        alert('가입 실패: ' + error.message);
-      } finally {
-        this.isLoading = false;
-      }
-    },
-    resetForm() {
-      this.form = {
-        id: '',
-        password: '',
-        email: '',
-        name: '',
-        birth: '',
-        telecom: '',
-        phone: '',
-        authCode: '',
-        agreeAll: false,
-        showAgreements: false,
-        agreements: {
-          privacy: false,
-          telecom: false,
-          bank: false,
-          identity: false,
-          authTerms: false,
-        },
-      };
-      this.isAuthRequested = false;
-      this.isIdChecked = false;
-      this.idCheckMessage = '';
-      this.idCheckValid = false;
-    },
-  },
+    const success = await authStore.register(newUser);
+    if (success) {
+      isSignedUp.value = true;
+      alert('가입 완료!');
+      setTimeout(() => router.push('/login'), 4000);
+    } else {
+      alert('가입 실패');
+    }
+  } catch (error) {
+    alert('가입 실패: ' + error.message);
+  } finally {
+    isLoading.value = false;
+  }
 };
 </script>
