@@ -31,6 +31,14 @@
       "category": "월급",
       "amount": -12315,
       "memo": "daf"
+    },
+    {
+      "id": "20250409-ah0wnm",
+      "date": "20250409",
+      "type": "income",
+      "category": "월급",
+      "amount": 1234,
+      "memo": "1"
     }
   ],
   "incomeCategory": [

@@ -6,6 +6,8 @@ export const useTransactionStore = defineStore('transaction', {
   state: () => ({
     transactions: [], // 빈 배열로 초기화
     filteredTransactions: [],
+    incomeCategory: [],
+    expenseCategory: [],
   }),
 
   actions: {
@@ -21,21 +23,21 @@ export const useTransactionStore = defineStore('transaction', {
     },
 
     // 거래 필터링
-    // async fetchData() {
-    //   try {
-    //     const [transactionRes, incomeRes, expenseRes] = await Promise.all([
-    //       axios.get('/api/budget'),
-    //       axios.get('/api/incomeCategory'),
-    //       axios.get('/api/expenseCategory'),
-    //     ]);
-    //     this.transactions = transactionRes.data;
-    //     this.filteredTransactions = transactionRes.data; // 기본값 설정
-    //     this.incomeCategory = incomeRes.data;
-    //     this.expenseCategory = expenseRes.data;
-    //   } catch (error) {
-    //     console.error('데이터 로딩 실패:', error);
-    //   }
-    // },
+    async fetchData() {
+      try {
+        const [transactionRes, incomeRes, expenseRes] = await Promise.all([
+          axios.get('/api/budget'),
+          axios.get('/api/incomeCategory'),
+          axios.get('/api/expenseCategory'),
+        ]);
+        this.transactions = transactionRes.data;
+        this.filteredTransactions = transactionRes.data; // 기본값 설정
+        this.incomeCategory = incomeRes.data;
+        this.expenseCategory = expenseRes.data;
+      } catch (error) {
+        console.error('데이터 로딩 실패:', error);
+      }
+    },
 
     filterTransactions(date, category) {
       this.filteredTransactions = this.transactions.filter((tx) => {

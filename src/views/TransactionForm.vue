@@ -13,6 +13,17 @@
 
       <div>
         <label>
+          타입:
+          <select v-model="form.type" required>
+            <option disabled value="">-- 선택하세요 --</option>
+            <option value="income">수입</option>
+            <option value="expense">지출</option>
+          </select>
+        </label>
+      </div>
+
+      <div>
+        <label>
           카테고리:
           <select v-model="form.category" :disabled="!form.type" required>
             <option disabled value="">-- 선택하세요 --</option>
@@ -23,8 +34,6 @@
         </label>
       </div>
 
-      <SelectCategory></SelectCategory>
-      
       <div>
         <label>
           금액:
