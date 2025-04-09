@@ -1,124 +1,116 @@
 {
   "budget": [
     {
-      "id": "1",
       "amount": 3000000,
       "type": "income",
       "category": "월급",
       "date": "2025-01-01",
-      "memo": ""
+      "memo": "",
+      "id": "4a81"
     },
     {
-      "id": "2",
       "amount": 200000,
       "type": "expense",
       "category": "식비",
       "date": "2025-01-05",
-      "memo": ""
+      "memo": "",
+      "id": "959f"
     },
     {
-      "id": "3",
       "amount": 50000,
       "type": "expense",
       "category": "교통비",
       "date": "2025-01-10",
-      "memo": ""
+      "memo": "",
+      "id": "80f6"
     },
     {
-      "id": "4",
       "amount": 3000000,
       "type": "income",
       "category": "월급",
       "date": "2025-02-01",
-      "memo": ""
+      "memo": "",
+      "id": "a3fb"
     },
     {
-      "id": "5",
       "amount": 150000,
       "type": "expense",
       "category": "쇼핑",
       "date": "2025-02-03",
-      "memo": ""
+      "memo": "",
+      "id": "d7ad"
     },
     {
-      "id": "6",
       "amount": 220000,
       "type": "expense",
       "category": "식비",
       "date": "2025-02-09",
-      "memo": ""
+      "memo": "",
+      "id": "fbfc"
     },
     {
-      "id": "7",
       "amount": 3000000,
       "type": "income",
       "category": "월급",
       "date": "2025-03-01",
-      "memo": ""
+      "memo": "",
+      "id": "6ba8"
     },
     {
-      "id": "8",
       "amount": 180000,
       "type": "expense",
       "category": "식비",
       "date": "2025-03-06",
-      "memo": ""
+      "memo": "",
+      "id": "5828"
     },
     {
-      "id": "9",
       "amount": 400000,
       "type": "expense",
       "category": "여행",
       "date": "2025-03-15",
-      "memo": ""
+      "memo": "",
+      "id": "dcda"
     },
     {
-      "id": "10",
       "amount": 500000,
       "type": "income",
       "category": "부수입",
       "date": "2025-04-02",
-      "memo": ""
+      "memo": "",
+      "id": "9d3e"
     },
     {
-      "id": "11",
       "amount": 210000,
       "type": "expense",
       "category": "식비",
       "date": "2025-04-05",
-      "memo": ""
+      "memo": "",
+      "id": "0602"
     },
     {
-      "id": "12",
       "amount": 70000,
       "type": "income",
       "category": "용돈",
       "date": "2025-04-07",
-      "memo": ""
+      "memo": "",
+      "id": "df30"
     },
     {
-      "id": "20250408-fo4jzk",
-      "date": "20250415",
-      "type": "income",
-      "category": "용돈",
-      "amount": 12345,
-      "memo": "dfa"
-    },
-    {
-      "id": "20250408-v1qto2",
-      "date": "20250416",
-      "type": "income",
-      "category": "월급",
-      "amount": -12315,
-      "memo": "daf"
-    },
-    {
-      "id": "20250409-ah0wnm",
       "date": "20250409",
       "type": "income",
       "category": "월급",
-      "amount": 1234,
-      "memo": "1"
+      "amount": 11111,
+      "memo": "11111",
+      "id": "e431"
+    },
+    {
+      "id": "3549",
+      "date": "20250409",
+      "type": "income",
+      "category": "월급",
+      "amount": 11111,
+      "memo": "11111"
     }
   ],
   "incomeCategory": [
@@ -255,7 +247,23 @@
         "identity": true,
         "authTerms": true
       }
+    },
+    {
+      "id": "1111",
+      "password": "8bc0052084163554b4ca54b42c8aff74f16c80113022f9b3687b251b1e121f2b",
+      "salt": "4c53cfcdaaac52f3e3be79d74315a59e",
+      "email": "1111@naver.com",
+      "name": "test",
+      "birth": "2025-04-09",
+      "telecom": "SKT",
+      "phone": "01011111111",
+      "agreements": {
+        "privacy": true,
+        "telecom": true,
+        "bank": true,
+        "identity": true,
+        "authTerms": true
+      }
     }
-
   ]
 }

@@ -5,8 +5,14 @@
       <RouterLink to="/home" class="font-semibold hover:text-blue-600"
         >🏠 홈</RouterLink
       >
+      <RouterLink to="/transactions" class="font-semibold hover:text-blue-600"
+        >💰거래내역</RouterLink
+      >
       <RouterLink to="/dashboard" class="font-semibold hover:text-blue-600"
-        >📊 대시보드</RouterLink
+        >📊 통계</RouterLink
+      >
+      <RouterLink to="/profile" class="font-semibold hover:text-blue-600"
+        >👤프로필설정</RouterLink
       >
     </nav>
 

@@ -60,7 +60,7 @@
         />
 
         <!-- ✨ 거래가 없을 경우 메시지 + 추가 버튼 -->
-        <div v-if="transactionsForSelectedDate.length === 0">
+        <div v-if="transactionsForSelectedDate.length === 0 && !modal.showForm">
           거래 내역이 없습니다.
           <button class="add-button" @click="modal.showForm = true">
             ＋ 거래 추가
@@ -92,7 +92,7 @@ import { useModalStore } from '@/stores/modalStore';
 import TransactionList from '@/components/TransactionList.vue';
 import CalendarView from '@/views/CalendarView.vue';
 import TransactionItem from '@/components/TransactionItem.vue';
-// import TransactionForm from '@/components/TransactionForm.vue';
+import TransactionForm from '@/views/TransactionForm.vue';
 import BaseModal from '@/components/base/baseModal.vue';
 
 // 🔧 상태 초기화

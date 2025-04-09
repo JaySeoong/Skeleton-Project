@@ -1,13 +1,16 @@
 // 📁 router/index.js
 import { createRouter, createWebHistory } from 'vue-router';
 
-// auth 레이아웃용 뷰들
+// auth 레이아웃용 뷰
 import IntroView from '@/views/IntroView.vue';
 import LoginView from '@/views/LoginView.vue';
 import SignUpView from '@/views/SignUpView.vue';
 import TermsAgreementView from '@/views/TermsAgreementView.vue';
 import ProfileView from '@/views/ProfileView.vue';
 import Home from '@/views/HomeView.vue';
+// default 레이아웃용 뷰뷰
+import TransactionForm from '@/views/TransactionForm.vue';
+import TransactionView from '@/views/TransactionView.vue';
 
 // Pinia store
 import { useAuthStore } from '@/stores/authStore';
@@ -53,6 +56,14 @@ const routes = [
     component: TransactionForm,
     meta: { layout: 'default' },
   },
+  // ✅ 거래 내역 페이지: 로그인 후 접근 가능
+  {
+    // path: '/transactions', 수정 필요
+    path: '/transactions',
+    name: 'Transactions',
+    component: TransactionView,
+    meta: { requiresAuth: true },
+  },
   {
     path: '/dashboard',
     redirect: '/dashboard/summary',
@@ -82,23 +93,10 @@ const routes = [
     component: ProfileView,
     meta: { layout: 'default', requiresAuth: true },
   },
-  // ✅ 거래 내역 페이지: 로그인 후 접근 가능
-  {
-    // path: '/transactions', 수정 필요
-    path: '/transactions',
-    name: 'Transactions',
-    component: TransactionView,
-    meta: { requiresAuth: true },
-  },
 ];
 // ⚠️ 아직 컴포넌트가 구현되지 않았다면 주석 처리 필요
-// import LoginView from '@/views/LoginView.vue';
 // import DashboardView from '@/views/DashboardView.vue'
-// import SettingsView from '@/views/SettingsView.vue'
 // import TransactionForm from '@/views/TransactionForm.vue';
-// import Homeview from '@/views/HomeView.vue';
-import TransactionForm from '@/views/TransactionForm.vue';
-import TransactionView from '@/views/TransactionView.vue';
 
 // 더미 페이지 (각 기능상태를 보려면 주석처리)
 // {

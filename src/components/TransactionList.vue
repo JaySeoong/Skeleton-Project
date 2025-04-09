@@ -39,7 +39,7 @@ import { useTransactionStore } from '@/stores/transactionStore';
 import { useModalStore } from '@/stores/modalStore';
 import TransactionItem from './TransactionItem.vue';
 import BaseModal from '@/components/base/baseModal.vue';
-// import TransactionForm from '@/components/TransactionForm.vue';
+import TransactionForm from '@/views/TransactionForm.vue';
 
 // 📥 부모로부터 전달된 현재 선택된 월
 const props = defineProps({
