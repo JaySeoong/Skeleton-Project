@@ -18,6 +18,8 @@ const handleDelete = async () => {
       categoryStore.selectIncome ? 'incomeCategory' : 'expenseCategory',
       props.categoryList.id,
     )
+    categoryStore.fetchIncome()
+    categoryStore.fetchExpense()
   } catch (error) {
     console.log(error)
   }
