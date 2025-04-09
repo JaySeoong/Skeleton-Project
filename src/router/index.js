@@ -13,7 +13,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 // import DashboardView from '@/views/DashboardView.vue'
 // import SettingsView from '@/views/SettingsView.vue'
 // import TransactionFormView from '@/views/TransactionFormView.vue'
-import Homeview from '@/views/HomeView.vue';
+// import Homeview from '@/views/HomeView.vue';
 import TransactionForm from '@/views/TransactionForm.vue';
 
 const routes = [

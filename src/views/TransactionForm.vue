@@ -37,7 +37,7 @@
       <div>
         <label>
           금액:
-          <input type="number" v-model.number="form.amount" required />
+          <input type="number" v-model.number="form.amount" min="1" required />
         </label>
       </div>
 
@@ -63,7 +63,8 @@ onMounted(() => {
   store.fetchData();
 });
 
-const form = ref({ //입력받는 폼 지정
+const form = ref({
+  //입력받는 폼 지정
   date: '',
   type: '',
   category: '',
