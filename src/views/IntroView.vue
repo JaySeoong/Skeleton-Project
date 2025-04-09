@@ -45,7 +45,7 @@ onMounted(() => {
   nextTick(() => {
     setTimeout(() => {
       router.push('/login'); // ✅ 렌더링 완료 후 이동
-    }, 4000);
+    }, 2000);
   });
 });
 </script>

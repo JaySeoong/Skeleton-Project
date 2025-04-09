@@ -7,6 +7,7 @@ import LoginView from '@/views/LoginView.vue';
 import SignUpView from '@/views/SignUpView.vue';
 import TermsAgreementView from '@/views/TermsAgreementView.vue';
 import ProfileView from '@/views/ProfileView.vue';
+import Home from '@/views/HomeView.vue';
 
 // Pinia store
 import { useAuthStore } from '@/stores/authStore';
@@ -39,6 +40,12 @@ const routes = [
     name: 'TermsAgreement',
     component: TermsAgreementView,
     meta: { layout: 'auth' },
+  },
+  {
+    path: '/home',
+    name: 'Home',
+    component: Home,
+    meta: { layout: 'default' },
   },
   {
     path: '/dashboard',

@@ -12,7 +12,7 @@
 
     <!-- 실제 페이지 내용 -->
     <main class="p-6">
-      <slot />
+      <router-view />
     </main>
   </div>
 </template>
