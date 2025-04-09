@@ -2,7 +2,7 @@
   <div class="min-h-screen bg-gray-50 text-gray-800">
     <!-- 네비게이션 바 -->
     <nav class="bg-white shadow-md p-4 flex gap-4">
-      <RouterLink to="/" class="font-semibold hover:text-blue-600"
+      <RouterLink to="/home" class="font-semibold hover:text-blue-600"
         >🏠 홈</RouterLink
       >
       <RouterLink to="/dashboard" class="font-semibold hover:text-blue-600"

@@ -90,23 +90,6 @@
       }
     },
     {
-      "id": "lsung6742",
-      "password": "2e31e6fc32c0a55b75195d6a859a26745977b59d54197bd3bbef75dd12f2d7a6",
-      "salt": "e5e1144a3d2c562447d083e5ba965faf",
-      "email": "lsung6742@naver.com",
-      "name": "이재성바보",
-      "birth": "2025-01-08",
-      "telecom": "SKT",
-      "phone": "01028426742",
-      "agreements": {
-        "privacy": true,
-        "telecom": true,
-        "bank": true,
-        "identity": true,
-        "authTerms": true
-      }
-    },
-    {
       "id": "test1234",
       "password": "1e8044bae836453e3a14e5bfd5300a957a6804125176365967ba9f749024ec70",
       "salt": "983fd5d8f3347a57033ca170ea516c2d",

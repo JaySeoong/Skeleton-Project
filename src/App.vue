@@ -12,8 +12,8 @@
 import { useRoute } from 'vue-router';
 import { computed } from 'vue';
 
-import AuthLayout from '@/layouts/AuthLayout.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
+import AuthLayout from '@/layouts/AuthLayout.vue';
 
 // 현재 라우트 가져오기
 const route = useRoute();

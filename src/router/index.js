@@ -21,7 +21,7 @@ const routes = [
     path: '/intro',
     name: 'Intro',
     component: IntroView,
-    meta: { layout: 'auth' },
+    meta: { layout: 'auth', requiresAuth: false },
   },
   {
     path: '/login',
@@ -45,7 +45,7 @@ const routes = [
     path: '/home',
     name: 'Home',
     component: Home,
-    meta: { layout: 'default' },
+    meta: { layout: 'default', requiresAuth: true },
   },
   {
     path: '/dashboard',
