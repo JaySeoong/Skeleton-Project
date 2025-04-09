@@ -18,30 +18,20 @@ import { useAuthStore } from '../stores/authStore';
 // 이재성 추가
 
 // ⚠️ 아직 컴포넌트가 구현되지 않았다면 주석 처리 필요
+// import LoginView from '@/views/LoginView.vue'
 // import DashboardView from '@/views/DashboardView.vue'
 // import SettingsView from '@/views/SettingsView.vue'
 // import TransactionFormView from '@/views/TransactionFormView.vue'
-import Homeview from '@/views/HomeView.vue';
+import Home from '@/views/HomeView.vue';
 
 const routes = [
-  // 이재성 주석처리(top)
   // 더미 페이지 (각 기능상태를 보려면 주석처리)
-  // {
-  //   path: '/',
-  //   name: 'Default',
-  //   component: IntroView,
-  //   meta: { layout: 'Default' },
-  // },
-  // 이재성 주석처리(down)
-
-  // 이재성 추가
   {
     path: '/',
-    name: 'Intro',
-    component: IntroView,
-    meta: { layout: 'auth' },
+    name: 'Home',
+    component: Home,
+    meta: { layout: 'default' },
   },
-
   {
     path: '/login',
     name: 'Login',
@@ -61,11 +51,34 @@ const routes = [
     meta: { layout: 'auth' },
   },
   {
+    path: '/dashboard',
+    redirect: '/dashboard/summary',
+    component: () => import('@/views/Dashboard.vue'),
+    children: [
+      {
+        path: 'summary',
+        name: 'DashboardSummary',
+        component: () => import('@/components/ChartMonthlySummary.vue'),
+      },
+      {
+        path: 'income',
+        name: 'DashboardIncome',
+        component: () => import('@/components/ChartMonthlyIncome.vue'),
+      },
+      {
+        path: 'spending',
+        name: 'DashboardSpending',
+        component: () => import('@/components/ChartMonthlySpending.vue'),
+      },
+    ],
+  },
+  {
     path: '/profile',
     name: 'Profile',
     component: ProfileView,
     meta: { requiresAuth: true },
   },
+
   // ✅ 기본 리다이렉트 경로 (로그인 페이지로)
   // {
   //   path: '/',
