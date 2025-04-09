@@ -5,11 +5,11 @@ import axios from 'axios';
 import CryptoJS from 'crypto-js';
 
 export const useAuthStore = defineStore('auth', () => {
-  // ✅ 전역으로 관리할 상태
+  //  전역으로 관리할 상태
   const user = ref(null); // 로그인한 사용자 정보
   const isLoggedIn = ref(false); // 로그인 여부
 
-  // ✅ 로그인
+  //  로그인
   const login = async (id, password) => {
     try {
       const res = await axios.get(`http://localhost:3000/users?id=${id}`);
@@ -32,7 +32,7 @@ export const useAuthStore = defineStore('auth', () => {
     }
   };
 
-  // ✅ 회원가입
+  //  회원가입
   const register = async (newUser) => {
     try {
       const res = await axios.post('http://localhost:3000/users', newUser);
@@ -46,7 +46,7 @@ export const useAuthStore = defineStore('auth', () => {
     }
   };
 
-  // ✅ 사용자 정보 수정
+  //  사용자 정보 수정
   const updateUser = async (updatedUser) => {
     try {
       const res = await axios.put(
@@ -62,14 +62,14 @@ export const useAuthStore = defineStore('auth', () => {
     }
   };
 
-  // ✅ 로그아웃
+  //  로그아웃
   const logout = () => {
     user.value = null;
     isLoggedIn.value = false;
     localStorage.removeItem('user');
   };
 
-  // ✅ 회원 탈퇴
+  //  회원 탈퇴
   const deleteUser = async () => {
     try {
       await axios.delete(`http://localhost:3000/users/${user.value.id}`);

@@ -94,8 +94,42 @@
       "password": "2e31e6fc32c0a55b75195d6a859a26745977b59d54197bd3bbef75dd12f2d7a6",
       "salt": "e5e1144a3d2c562447d083e5ba965faf",
       "email": "lsung6742@naver.com",
-      "name": "이재성",
+      "name": "이재성바보",
       "birth": "2025-01-08",
+      "telecom": "SKT",
+      "phone": "01028426742",
+      "agreements": {
+        "privacy": true,
+        "telecom": true,
+        "bank": true,
+        "identity": true,
+        "authTerms": true
+      }
+    },
+    {
+      "id": "test1234",
+      "password": "1e8044bae836453e3a14e5bfd5300a957a6804125176365967ba9f749024ec70",
+      "salt": "983fd5d8f3347a57033ca170ea516c2d",
+      "email": "test1234@naver.com",
+      "name": "양지윤",
+      "birth": "2025-04-04",
+      "telecom": "SKT",
+      "phone": "01012345678",
+      "agreements": {
+        "privacy": true,
+        "telecom": true,
+        "bank": true,
+        "identity": true,
+        "authTerms": true
+      }
+    },
+    {
+      "id": "test12345",
+      "password": "e1d024256578a187b5c7135a5232d89d65d9e56bbe4b24c1ef8bd14f3287f192",
+      "salt": "5e8e4ad4c9b7cd6f074ac09c650329f7",
+      "email": "test12345@naver.com",
+      "name": "이재성",
+      "birth": "2025-04-07",
       "telecom": "SKT",
       "phone": "01028426742",
       "agreements": {

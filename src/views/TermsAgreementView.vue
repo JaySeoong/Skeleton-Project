@@ -53,13 +53,12 @@
 
         <!-- 약관 내용 미리보기 -->
         <textarea
-          v-show="term.scroll"
+          v-if="term.scroll"
           class="form-control mt-2"
           rows="4"
           readonly
+          >{{ term.content }}</textarea
         >
-약관 내용 작성 필요. 약관 내용 작성 필요. 약관 내용 작성 필요. 약관 내용 작성 필요.
-        </textarea>
       </div>
 
       <!-- 다음 버튼 -->
@@ -90,25 +89,29 @@ export default {
       allChecked: false,
       terms: [
         {
-          title: '**뱅크 이용약관',
+          title: '**뱅크 서비스 이용약관',
           required: true,
           checked: false,
           scroll: true,
+          content: `제1조 목적
+본 약관은 **뱅크(이하 “회사”)가 제공하는 OO가계부 앱 및 웹 서비스(이하 “서비스”)의 이용과 관련하여 회사와 회원 간의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다.`,
         },
         {
           title: '개인정보 수집 및 이용',
           required: true,
           checked: false,
           scroll: true,
+          content: `제2조 개인정보 수집
+회사는 회원가입, 서비스 제공을 위해 최소한의 개인정보를 수집하며, 수집된 정보는 서비스 목적 외 사용되지 않습니다. 동의 없이 제3자에게 제공되지 않습니다.`,
         },
         {
-          title: '실명 인증된 아이디로 가입',
-          required: false,
+          title: '만 14세 이상 회원입니다.',
+          required: true,
           checked: false,
           scroll: false,
         },
         {
-          title: '위치기반서비스 이용약관',
+          title: '마케팅 정보 수신 동의',
           required: false,
           checked: false,
           scroll: false,
@@ -139,5 +142,6 @@ export default {
 <style scoped>
 textarea {
   transition: opacity 0.2s ease-in-out;
+  white-space: pre-wrap; /* 줄바꿈 보이게 */
 }
 </style>
