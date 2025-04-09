@@ -5,14 +5,14 @@
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router'
+import { useRouter } from 'vue-router';
 
-const router = useRouter()
+const router = useRouter();
 
 // 👉 '/transactions' 경로로 이동 (거래 내역 등록 화면)
 const goToTransactions = () => {
-  router.push('/transactions')
-}
+  router.push('/inputview');
+};
 </script>
 
 <style scoped>
