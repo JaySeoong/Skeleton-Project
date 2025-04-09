@@ -35,14 +35,17 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, nextTick } from 'vue';
+// nextTick 공부 필요
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
 onMounted(() => {
-  setTimeout(() => {
-    router.push('/login'); // 4초 후 로그인 화면으로 이동
-  }, 4000);
+  nextTick(() => {
+    setTimeout(() => {
+      router.push('/login'); // ✅ 렌더링 완료 후 이동
+    }, 4000);
+  });
 });
 </script>

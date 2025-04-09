@@ -139,6 +139,23 @@
         "identity": true,
         "authTerms": true
       }
+    },
+    {
+      "id": "yang",
+      "password": "315e70f79e3d1fc2b8ad01bb238c6f81d4b7182feed495a6d2bb678ecf29fc6f",
+      "salt": "505c07fb702f4d74ad379c6aa605656d",
+      "email": "yanghmo98@naver.com",
+      "name": "양야야야",
+      "birth": "2025-02-05",
+      "telecom": "KT",
+      "phone": "01043143433",
+      "agreements": {
+        "privacy": true,
+        "telecom": true,
+        "bank": true,
+        "identity": true,
+        "authTerms": true
+      }
     }
   ]
 }

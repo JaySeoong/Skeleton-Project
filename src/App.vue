@@ -12,8 +12,8 @@
 import { useRoute } from 'vue-router';
 import { computed } from 'vue';
 
-import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import AuthLayout from '@/layouts/AuthLayout.vue';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 
 // 현재 라우트 가져오기
 const route = useRoute();
@@ -21,7 +21,7 @@ const route = useRoute();
 // 라우트의 meta 정보에 따라 레이아웃 변경
 const layout = computed(() => {
   const layoutName = route.meta.layout;
-  // if (layoutName === 'auth') return AuthLayout;
+  if (layoutName === 'auth') return AuthLayout;
   return DefaultLayout;
 });
 </script>
