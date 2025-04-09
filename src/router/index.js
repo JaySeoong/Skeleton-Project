@@ -92,7 +92,7 @@ const routes = [
   },
 ];
 // ⚠️ 아직 컴포넌트가 구현되지 않았다면 주석 처리 필요
-import LoginView from '@/views/LoginView.vue';
+// import LoginView from '@/views/LoginView.vue';
 // import DashboardView from '@/views/DashboardView.vue'
 // import SettingsView from '@/views/SettingsView.vue'
 // import TransactionForm from '@/views/TransactionForm.vue';
