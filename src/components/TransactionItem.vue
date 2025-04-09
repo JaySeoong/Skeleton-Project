@@ -1,16 +1,18 @@
 <template>
   <div class="transaction-item" @click="openModal">
+    <!-- 🧾 왼쪽 정보 표시: 날짜, 카테고리, 금액 -->
     <div class="left-info">
       <div>{{ transaction.date }} | {{ transaction.category }}</div>
       <div>{{ transaction.amount.toLocaleString() }} 원</div>
     </div>
 
-    <!-- 수정/삭제 버튼 -->
+    <!-- 🛠️ 오른쪽 수정/삭제 버튼 -->
     <div class="right-actions" @click.stop>
       <button @click="openModal">수정</button>
       <button @click="deleteItem">삭제</button>
     </div>
 
+    <!-- 🧩 모달: 거래 수정 창 -->
     <BaseModal v-if="showModal" @close="closeModal">
       <template #header>거래 수정</template>
 
@@ -69,41 +71,49 @@
 </template>
 
 <script setup>
+// 📦 필요 모듈 및 컴포넌트
 import { ref, computed } from 'vue';
 import { useTransactionStore } from '@/stores/transactionStore';
 import BaseModal from '@/components/base/baseModal.vue';
 
+// 🧾 상위에서 전달된 거래 정보
 const props = defineProps({
   transaction: Object,
 });
 
+// 📌 모달 열림 여부 및 수정 대상 객체
 const showModal = ref(false);
 const editable = ref({});
 
+// ✅ 유형에 따른 카테고리 목록
 const incomeCategories = ['월급', '용돈', '기타수입'];
 const expenseCategories = ['식비', '교통비', '기타지출'];
 
+// 🔁 현재 거래의 유형에 따라 카테고리 옵션 변경
 const availableCategories = computed(() =>
   editable.value.type === 'income' ? incomeCategories : expenseCategories
 );
 
 const store = useTransactionStore();
 
+// 🔓 모달 열기 (깊은 복사)
 const openModal = () => {
-  // 깊은 복사로 반응형 유지
   editable.value = JSON.parse(JSON.stringify(props.transaction));
   showModal.value = true;
 };
 
+// 🔒 모달 닫기
 const closeModal = () => {
   showModal.value = false;
 };
 
+// 🔢 숫자 입력값 유효성 (양의 정수만 허용)
 const validateAmount = (event) => {
   const val = event.target.value.replace(/[^0-9]/g, '');
   editable.value.amount = val ? parseInt(val, 10) : '';
 };
 
+// ✅ 거래 수정 저장
 const saveChanges = async () => {
   if (!editable.value.amount || editable.value.amount <= 0) {
     alert('금액은 1 이상의 숫자만 입력 가능합니다.');
@@ -119,6 +129,7 @@ const saveChanges = async () => {
   closeModal();
 };
 
+// ❌ 거래 삭제
 const deleteItem = async () => {
   if (confirm('정말 삭제하시겠습니까?')) {
     await store.deleteTransaction(props.transaction.id);
@@ -138,7 +149,7 @@ const deleteItem = async () => {
   background: #fff;
   border-radius: 8px;
   margin-bottom: 8px;
-  cursor: pointer;
+  cursor: pointer; /* 항목 클릭 가능 */
 }
 
 .right-actions button {

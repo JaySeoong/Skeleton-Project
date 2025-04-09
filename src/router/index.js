@@ -57,7 +57,7 @@ const routes = [
   // ✅ 거래 내역 페이지: 로그인 후 접근 가능
   {
     // path: '/transactions', 수정 필요
-    path: '/',
+    path: '/transactions',
     name: 'Transactions',
     component: TransactionView,
     meta: { requiresAuth: true },
