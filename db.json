@@ -2,27 +2,131 @@
   "budget": [
     {
       "id": "1",
-      "date": "20250407",
+      "amount": 3000000,
       "type": "income",
       "category": "월급",
-      "amount": 10000151616500,
+      "date": "2025-01-01",
       "memo": ""
     },
     {
       "id": "2",
-      "date": "20250408",
+      "amount": 200000,
+      "type": "expense",
+      "category": "식비",
+      "date": "2025-01-05",
+      "memo": ""
+    },
+    {
+      "id": "3",
+      "amount": 50000,
+      "type": "expense",
+      "category": "교통비",
+      "date": "2025-01-10",
+      "memo": ""
+    },
+    {
+      "id": "4",
+      "amount": 3000000,
       "type": "income",
       "category": "월급",
-      "amount": 1000005,
+      "date": "2025-02-01",
+      "memo": ""
+    },
+    {
+      "id": "5",
+      "amount": 150000,
+      "type": "expense",
+      "category": "쇼핑",
+      "date": "2025-02-03",
+      "memo": ""
+    },
+    {
+      "id": "6",
+      "amount": 220000,
+      "type": "expense",
+      "category": "식비",
+      "date": "2025-02-09",
+      "memo": ""
+    },
+    {
+      "id": "7",
+      "amount": 3000000,
+      "type": "income",
+      "category": "월급",
+      "date": "2025-03-01",
+      "memo": ""
+    },
+    {
+      "id": "8",
+      "amount": 180000,
+      "type": "expense",
+      "category": "식비",
+      "date": "2025-03-06",
+      "memo": ""
+    },
+    {
+      "id": "9",
+      "amount": 400000,
+      "type": "expense",
+      "category": "여행",
+      "date": "2025-03-15",
+      "memo": ""
+    },
+    {
+      "id": "10",
+      "amount": 500000,
+      "type": "income",
+      "category": "부수입",
+      "date": "2025-04-02",
+      "memo": ""
+    },
+    {
+      "id": "11",
+      "amount": 210000,
+      "type": "expense",
+      "category": "식비",
+      "date": "2025-04-05",
+      "memo": ""
+    },
+    {
+      "id": "12",
+      "amount": 70000,
+      "type": "expense",
+      "category": "문화",
+      "date": "2025-04-08",
       "memo": ""
     }
   ],
   "incomeCategory": [
-    { "id": "1", "value": "월급" },
-    { "id": "2", "value": "용돈" }
+    {
+      "id": "1",
+      "value": "월급"
+    },
+    {
+      "id": "2",
+      "value": "부수입"
+    }
   ],
   "expenseCategory": [
-    { "id": "1", "value": "식비" },
-    { "id": "2", "value": "교통비" }
+    {
+      "id": "1",
+      "value": "식비"
+    },
+    {
+      "id": "2",
+      "value": "교통비"
+    },
+    {
+      "id": "3",
+      "value": "쇼핑"
+    },
+    {
+      "id": "4",
+      "value": "여행"
+    },
+    {
+      "id": "5",
+      "value": "문화"
+    }
   ]
 }

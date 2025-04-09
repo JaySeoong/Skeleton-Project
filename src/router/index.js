@@ -13,15 +13,37 @@ import { createRouter, createWebHistory } from 'vue-router';
 // import DashboardView from '@/views/DashboardView.vue'
 // import SettingsView from '@/views/SettingsView.vue'
 // import TransactionFormView from '@/views/TransactionFormView.vue'
-import Homeview from '@/views/HomeView.vue';
+import Home from '@/views/HomeView.vue';
 
 const routes = [
   // 더미 페이지 (각 기능상태를 보려면 주석처리)
   {
     path: '/',
-    name: 'Default',
-    component: Homeview,
-    meta: { layout: 'Default' },
+    name: 'Home',
+    component: Home,
+    meta: { layout: 'default' },
+  },
+  {
+    path: '/dashboard',
+    redirect: '/dashboard/summary',
+    component: () => import('@/views/Dashboard.vue'),
+    children: [
+      {
+        path: 'summary',
+        name: 'DashboardSummary',
+        component: () => import('@/components/ChartMonthlySummary.vue'),
+      },
+      {
+        path: 'income',
+        name: 'DashboardIncome',
+        component: () => import('@/components/ChartMonthlyIncome.vue'),
+      },
+      {
+        path: 'spending',
+        name: 'DashboardSpending',
+        component: () => import('@/components/ChartMonthlySpending.vue'),
+      },
+    ],
   },
   // ✅ 기본 리다이렉트 경로 (로그인 페이지로)
   // {
