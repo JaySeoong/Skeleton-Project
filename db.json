@@ -1,20 +1,116 @@
 {
   "budget": [
     {
-      "id": "1",
-      "date": "20250407",
+      "amount": 3000000,
       "type": "income",
       "category": "월급",
-      "amount": 10000151616500,
-      "memo": ""
+      "date": "2025-01-01",
+      "memo": "",
+      "id": "4a81"
     },
     {
-      "id": "2",
-      "date": "20250408",
+      "amount": 200000,
+      "type": "expense",
+      "category": "식비",
+      "date": "2025-01-05",
+      "memo": "",
+      "id": "959f"
+    },
+    {
+      "amount": 50000,
+      "type": "expense",
+      "category": "교통비",
+      "date": "2025-01-10",
+      "memo": "",
+      "id": "80f6"
+    },
+    {
+      "amount": 3000000,
       "type": "income",
       "category": "월급",
-      "amount": 1000005,
-      "memo": ""
+      "date": "2025-02-01",
+      "memo": "",
+      "id": "a3fb"
+    },
+    {
+      "amount": 150000,
+      "type": "expense",
+      "category": "쇼핑",
+      "date": "2025-02-03",
+      "memo": "",
+      "id": "d7ad"
+    },
+    {
+      "amount": 220000,
+      "type": "expense",
+      "category": "식비",
+      "date": "2025-02-09",
+      "memo": "",
+      "id": "fbfc"
+    },
+    {
+      "amount": 3000000,
+      "type": "income",
+      "category": "월급",
+      "date": "2025-03-01",
+      "memo": "",
+      "id": "6ba8"
+    },
+    {
+      "amount": 180000,
+      "type": "expense",
+      "category": "식비",
+      "date": "2025-03-06",
+      "memo": "",
+      "id": "5828"
+    },
+    {
+      "amount": 400000,
+      "type": "expense",
+      "category": "여행",
+      "date": "2025-03-15",
+      "memo": "",
+      "id": "dcda"
+    },
+    {
+      "amount": 500000,
+      "type": "income",
+      "category": "부수입",
+      "date": "2025-04-02",
+      "memo": "",
+      "id": "9d3e"
+    },
+    {
+      "amount": 210000,
+      "type": "expense",
+      "category": "식비",
+      "date": "2025-04-05",
+      "memo": "",
+      "id": "0602"
+    },
+    {
+      "amount": 70000,
+      "type": "income",
+      "category": "용돈",
+      "date": "2025-04-07",
+      "memo": "",
+      "id": "df30"
+    },
+    {
+      "date": "20250409",
+      "type": "income",
+      "category": "월급",
+      "amount": 11111,
+      "memo": "11111",
+      "id": "e431"
+    },
+    {
+      "id": "3549",
+      "date": "20250409",
+      "type": "income",
+      "category": "월급",
+      "amount": 11111,
+      "memo": "11111"
     }
   ],
   "incomeCategory": [
@@ -35,6 +131,18 @@
     {
       "id": "2",
       "value": "교통비"
+    },
+    {
+      "id": "3",
+      "value": "쇼핑"
+    },
+    {
+      "id": "4",
+      "value": "여행"
+    },
+    {
+      "id": "5",
+      "value": "문화"
     }
   ],
   "users": [
@@ -132,6 +240,23 @@
       "birth": "2025-02-05",
       "telecom": "KT",
       "phone": "01043143433",
+      "agreements": {
+        "privacy": true,
+        "telecom": true,
+        "bank": true,
+        "identity": true,
+        "authTerms": true
+      }
+    },
+    {
+      "id": "1111",
+      "password": "8bc0052084163554b4ca54b42c8aff74f16c80113022f9b3687b251b1e121f2b",
+      "salt": "4c53cfcdaaac52f3e3be79d74315a59e",
+      "email": "1111@naver.com",
+      "name": "test",
+      "birth": "2025-04-09",
+      "telecom": "SKT",
+      "phone": "01011111111",
       "agreements": {
         "privacy": true,
         "telecom": true,

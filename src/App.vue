@@ -1,7 +1,7 @@
 <template>
   <component :is="layout">
-    <!-- 실제 화면은 여기에 출력 -->
-    <router-view />
+  <!-- 실제 화면은 여기에 출력 -->
+  <router-view></router-view>
   </component>
 
   <!-- 전역 모달이 있다면 여기에 -->
@@ -15,7 +15,7 @@ import { computed } from 'vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import AuthLayout from '@/layouts/AuthLayout.vue';
 
-// 현재 라우트 가져오기
+// // 현재 라우트 가져오기
 const route = useRoute();
 
 // 라우트의 meta 정보에 따라 레이아웃 변경
