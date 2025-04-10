@@ -1,7 +1,7 @@
 <!-- 수정자 전효빈 -->
 <template>
   <div>
-    <form @submit.prevent="handleSubmit">
+    <form @submit.prevent="handleSubmit" id="transactionForm">
       <div>
         <label>
           날짜:
@@ -54,6 +54,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import { useTransactionStore } from '@/stores/transactionStore';
+import { useAuthStore } from '../stores/authStore';
 
 const emit = defineEmits(['completed']); // ✅ 부모에게 완료 알림
 
@@ -93,7 +94,9 @@ const categoryOptions = computed(() => {
 //   return `${datePart}-${randomPart}`;
 // }
 
-// 거래 저장 및 완료 이벤트 emit
+// 거래 저장 및 완료 이벤트 emit //
+const authStore = useAuthStore();
+
 const handleSubmit = async () => {
   const item = {
     id: authStore.user.id,

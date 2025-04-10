@@ -1,30 +1,36 @@
 <template>
   <div class="calendar">
+    <!-- 📅 요일 헤더 -->
+    <div class="weekday-header">
+      <div v-for="day in weekdays" :key="day" class="weekday">{{ day }}</div>
+    </div>
+
+    <!-- 📆 달력 셀 -->
     <div class="calendar-grid">
-      <!-- 📅 한 달의 각 날짜를 반복 렌더링 -->
       <div
-        v-for="day in daysInMonth"
-        :key="day.date"
+        v-for="(day, index) in daysInMonth"
+        :key="index"
         class="calendar-cell"
+        :class="{ 'outside-month': !day.date }"
         @click="onClickDay(day)"
       >
-        <!-- 📌 날짜 숫자 -->
-        <div class="date">{{ day.date }}</div>
+        <div v-if="day.date" class="date">{{ day.date }}</div>
 
-        <!-- 💸 해당 날짜의 거래 내역 존재 시 -->
         <div v-if="day.transactions.length">
           <div
-            v-for="tx in day.transactions"
+            v-for="(tx, i) in day.transactions.slice(0, 3)"
             :key="tx.id"
             class="summary"
             :class="tx.type"
           >
             <span>{{ getCategoryEmoji(tx.category) }}</span>
-            <span>{{ tx.amount.toLocaleString() }}원</span>
+            <span>{{ tx.amount.toLocaleString() }}</span>
+          </div>
+          <div v-if="day.transactions.length > 3" class="more-indicator">
+            +{{ day.transactions.length - 3 }}개
           </div>
         </div>
 
-        <!-- ❗ 거래가 없는 날짜 표시용 placeholder -->
         <div v-else class="no-transaction-placeholder"></div>
       </div>
     </div>
@@ -34,23 +40,27 @@
 <script setup>
 import { computed } from 'vue';
 
-// 📤 부모 컴포넌트로 날짜 클릭 이벤트 전달
 const emit = defineEmits(['select-day']);
 
-// 📥 부모로부터 전달받는 props
 const props = defineProps({
   year: Number,
   month: Number,
   transactions: Array,
 });
 
-// 📆 해당 달의 날짜 수 구하기 (28~31일)
-const getDaysInMonth = (year, month) => new Date(year, month + 1, 0).getDate();
+const weekdays = ['월', '화', '수', '목', '금', '토', '일'];
 
-// 📌 날짜별 거래 목록 정리된 배열 생성
+const getDaysInMonth = (year, month) => new Date(year, month + 1, 0).getDate();
+const getStartDay = (year, month) => new Date(year, month, 1).getDay();
+
 const daysInMonth = computed(() => {
   const days = [];
   const total = getDaysInMonth(props.year, props.month);
+  const start = (getStartDay(props.year, props.month) + 6) % 7; // 월요일 시작
+
+  for (let i = 0; i < start; i++) {
+    days.push({ date: '', fullDate: '', transactions: [] });
+  }
 
   for (let i = 1; i <= total; i++) {
     const dayStr = String(i).padStart(2, '0');
@@ -59,10 +69,14 @@ const daysInMonth = computed(() => {
     const txs = props.transactions.filter((tx) => tx.date === fullDate);
     days.push({ date: i, fullDate, transactions: txs });
   }
+
+  while (days.length % 7 !== 0) {
+    days.push({ date: '', fullDate: '', transactions: [] });
+  }
+
   return days;
 });
 
-// 📊 카테고리에 따라 이모지로 변환
 const getCategoryEmoji = (category) => {
   const map = {
     식비: '🍽️',
@@ -74,58 +88,94 @@ const getCategoryEmoji = (category) => {
   return map[category] || '💬';
 };
 
-// ✅ 날짜 클릭 시 부모로 fullDate 전달
 const onClickDay = (day) => {
-  emit('select-day', day.fullDate);
+  if (day.fullDate) emit('select-day', day.fullDate);
 };
 </script>
 
 <style scoped>
+.calendar {
+  width: 100%;
+}
+
+.weekday-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-weight: bold;
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #ddd;
+}
+
+.weekday {
+  padding: 10px 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
 .calendar-grid {
   display: grid;
-  grid-template-columns: repeat(7, 1fr); /* 일주일 7열 */
-  gap: 10px;
+  grid-template-columns: repeat(7, 1fr);
+  width: 100%;
 }
 
 .calendar-cell {
+  border: 1px solid #ddd;
+  padding: 6px;
+  min-height: 120px;
+  box-sizing: border-box;
+  background: #fff;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  height: 110px; /* 일정한 높이 유지 */
-  min-height: 110px;
-  padding: 6px;
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  cursor: pointer; /* 손모양 커서 */
-  transition: background 0.2s;
+  cursor: pointer;
 }
 
 .calendar-cell:hover {
-  background: #f9f9f9; /* hover 효과 */
+  background-color: #f9f9f9;
+}
+
+.calendar-cell.outside-month {
+  background-color: #f0f0f0; /* 연한 회색 */
+  color: #aaa;
+  pointer-events: none; /* 클릭 방지 (선택사항) */
 }
 
 .date {
   font-weight: bold;
-  font-size: 0.95em;
+  font-size: 0.9em;
   margin-bottom: 4px;
 }
 
-.summary {
-  font-size: 0.8em;
+.tx-wrap {
+  flex: 1;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 2px;
+  flex-wrap: wrap;
+  word-break: break-word;
 }
 
-.no-transaction-placeholder {
-  flex: 1;
+.summary {
+  font-size: 0.72em; /* ✅ 줄임 */
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  word-break: break-word; /* ✅ 줄바꿈 허용 */
+  line-height: 1.2;
+}
+
+.more-indicator {
+  font-size: 0.68em;
+  color: #999;
+  text-align: right;
+  margin-top: 2px;
 }
 
 .income {
-  color: blue; /* 수입 파란색 */
+  color: #007bff;
 }
 
 .expense {
-  color: red; /* 지출 빨간색 */
+  color: #dc3545;
 }
 </style>

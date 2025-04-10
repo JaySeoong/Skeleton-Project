@@ -25,6 +25,9 @@
       </template>
 
       <template #footer>
+        <button class="btn btn-primary" form="transactionForm" type="submit">
+          저장
+        </button>
         <button @click="modal.close">닫기</button>
       </template>
     </BaseModal>
@@ -111,9 +114,20 @@ const defaultDate = `${today.getFullYear()}-${String(
   text-align: center;
   margin-top: 16px;
 }
+/* .add-container {
+  background-color: #5e4b3c;
+  color: white;
+  padding: 0px 10px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.5rem; */
+/* font-weight: bold; */
+/* cursor: pointer;
+  transition: background-color 0.3s;
+} */
 
 .add-btn {
-  background: #4a90e2;
+  background-color: #5e4b3c;
   color: white;
   padding: 8px 16px;
   border: none;
@@ -122,6 +136,6 @@ const defaultDate = `${today.getFullYear()}-${String(
 }
 
 .add-btn:hover {
-  background-color: #357bd8;
+  color: #ffc107;
 }
 </style>

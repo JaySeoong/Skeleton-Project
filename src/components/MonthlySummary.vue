@@ -1,5 +1,5 @@
 <template>
-  <div class="card p-3 mb-4 shadow-sm text-center w-100">
+  <div class="card p-3 mb-4 shadow-sm text-center w-100 Bbox">
     <!-- 코멘트 -->
     <div class="d-flex align-items-center gap-2 my-6 px-2">
       <p class="fw-bold fs-3" style="color: #ffc107">한달을 돌아보며...</p>
@@ -8,18 +8,22 @@
       {{ feedbackComment }}
     </p>
     <!-- 요약 박스 -->
-    <div class="summary-box text-start">
+    <div class="summary-box text-start text-center">
       <div>
-        <span class="fw-bold">총 수입:</span>
-        {{ totalIncome.toLocaleString() }} 원
+        <span class="fw-bold text-primary"
+          >총 수입: {{ totalIncome.toLocaleString() }} 원</span
+        >
       </div>
       <div>
-        <span class="fw-bold">총 지출:</span>
-        {{ totalExpense.toLocaleString() }} 원
+        <span class="fw-bold text-danger"
+          >총 지출: {{ totalExpense.toLocaleString() }} 원</span
+        >
       </div>
       <div>
-        <span class="fw-bold">순수익 :</span>
-        {{ (totalIncome - totalExpense).toLocaleString() }} 원
+        <span :class="netIncomeClass" class="fw-bold"
+          >순 수입 :
+          {{ (totalIncome - totalExpense).toLocaleString() }} 원</span
+        >
       </div>
     </div>
   </div>
@@ -37,6 +41,15 @@ const selectedMonth = computed(() => {
   const y = now.getFullYear();
   const m = (now.getMonth() + 1).toString().padStart(2, '0');
   return `${y}-${m}`;
+});
+
+// 📈 순수익 계산
+const netIncome = computed(() => totalIncome.value - totalExpense.value);
+
+const netIncomeClass = computed(() => {
+  if (netIncome.value > 0) return 'text-primary'; // 파란색
+  if (netIncome.value < 0) return 'text-danger'; // 빨간색
+  return ''; // 0이면 기본색
 });
 
 const transactionsForMonth = computed(() =>
@@ -73,9 +86,12 @@ const feedbackComment = computed(() => {
 
 <style scoped>
 .summary-box {
-  background: #f4f4f4;
+  background: #ffc107;
   padding: 10px;
   border-radius: 8px;
   /* font-weight: bold; */
+}
+.Bbox {
+  background-color: #f8f9fa;
 }
 </style>

@@ -36,7 +36,7 @@ onMounted(() => {
 const recentTransactions = computed(() =>
   [...store.transactions]
     .sort((a, b) => new Date(b.date) - new Date(a.date))
-    .slice(0, 5)
+    .slice(0, 7)
 );
 
 const formatDate = (dateStr) => {

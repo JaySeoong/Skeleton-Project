@@ -5,57 +5,19 @@
   >
     <!-- 고정 크기 박스 -->
     <div
-      class="border shadow d-flex flex-column justify-content-start align-items-center p-4"
-      style="width: 414px; height: 896px"
+      class="border shadow d-flex flex-column justify-content-start align-items-center"
+      style="width: 390px; height: 844px"
     >
-      <!-- 네비게이션 바 -->
-      <nav class="bg-white shadow-md p-4 flex gap-4">
-        <ul class="d-flex gap-4 list-unstyled">
-          <li>
-            <RouterLink
-              to="/home"
-              class="font-semibold text-decoration-none text-dark hover:text-primary"
-            >
-              홈
-            </RouterLink>
-          </li>
-          <li>
-            <RouterLink
-              to="/transactions"
-              class="font-semibold text-decoration-none text-dark hover:text-primary"
-            >
-              거래내역
-            </RouterLink>
-          </li>
-          <li>
-            <RouterLink
-              to="/dashboard"
-              class="font-semibold text-decoration-none hover:text-primary"
-              style="
-                background-color: #6c757d;
-                opacity: 0.7;
-                padding: 3px 10px;
-                color: white;
-                border-radius: 5px;
-              "
-            >
-              통계
-            </RouterLink>
-          </li>
-          <li>
-            <RouterLink
-              to="/profile"
-              class="font-semibold text-decoration-none text-dark hover:text-primary"
-            >
-              설정
-            </RouterLink>
-          </li>
-        </ul>
-      </nav>
-      <div class="space-y-6">
-        <!-- 상단 탭 메뉴 -->
+      <!-- 탭 및 페이지 영역 -->
+      <div
+        class="w-100 px-3 py-2 d-flex flex-column gap-3"
+        style="flex: 1; overflow-y: auto"
+      >
+        <!-- 탭 메뉴 -->
         <div class="d-flex gap-3 border-bottom pb-2">
-          <ul class="d-flex gap-3 list-unstyled mb-0">
+          <ul
+            class="d-flex gap-3 list-unstyled mb-0 w-100 justify-content-around"
+          >
             <li>
               <RouterLink
                 to="/dashboard/summary"
@@ -100,8 +62,11 @@
             </li>
           </ul>
         </div>
+
         <!-- 서브 페이지 표시 영역 -->
-        <RouterView />
+        <div class="flex-grow-1 overflow-auto">
+          <RouterView />
+        </div>
       </div>
     </div>
   </div>
@@ -118,10 +83,6 @@ const $route = useRoute();
 </script>
 
 <style scoped>
-.space-y-6 {
-  max-width: 500px;
-  margin: 0 auto;
-}
 .router-link-exact-active {
   font-weight: bold;
 }

@@ -11,6 +11,12 @@
       "phone": "01012341234",
       "code": "485393",
       "createdAt": "2025-04-10T04:41:29.416Z"
+    },
+    {
+      "id": "01063061140",
+      "phone": "01063061140",
+      "code": "786443",
+      "createdAt": "2025-04-10T20:44:09.522Z"
     }
   ],
   "budget": [
@@ -1020,6 +1026,22 @@
       "email": "test@naver.com",
       "name": "박다빈",
       "birth": "2025-04-04",
+      "telecom": "SKT",
+      "phone": "01063061140",
+      "agreements": {
+        "privacy": true,
+        "telecom": true,
+        "bank": true,
+        "authTerms": true
+      }
+    },
+    {
+      "id": "test",
+      "password": "46f20c3ca72967cf9be8cd24281fb35bb52e1733869c17b2d867dd45af0aff96",
+      "salt": "6fc2b85ddc842969ef3b1790156a0560",
+      "email": "test@naver.com",
+      "name": "전효빈",
+      "birth": "2025-04-08",
       "telecom": "SKT",
       "phone": "01063061140",
       "agreements": {
