@@ -1,4 +1,12 @@
 {
+  "authCodes": [
+    {
+      "id": "01012345678",
+      "phone": "01012345678",
+      "code": "934081",
+      "createdAt": "2025-04-10T04:13:14.137Z"
+    }
+  ],
   "budget": [
     {
       "amount": 3000000,
@@ -147,74 +155,6 @@
   ],
   "users": [
     {
-      "id": "lsung6743",
-      "password": "64190352c47adea0d50e62b29e5a18ddb2ba64bd33573e42023f907e0863fd86",
-      "salt": "d600229f5b8697276742ee020be29c5d",
-      "email": "lsung6743@naver.com",
-      "name": "이재성",
-      "birth": "2025-04-02",
-      "telecom": "KT",
-      "phone": "01028426742",
-      "agreements": {
-        "privacy": true,
-        "telecom": true,
-        "bank": true,
-        "identity": true,
-        "authTerms": true
-      }
-    },
-    {
-      "id": "lsung6744",
-      "password": "64190352c47adea0d50e62b29e5a18ddb2ba64bd33573e42023f907e0863fd86",
-      "salt": "d600229f5b8697276742ee020be29c5d",
-      "email": "lsung6743@naver.com",
-      "name": "이재성",
-      "birth": "2025-04-02",
-      "telecom": "KT",
-      "phone": "01028426742",
-      "agreements": {
-        "privacy": true,
-        "telecom": true,
-        "bank": true,
-        "identity": true,
-        "authTerms": true
-      }
-    },
-    {
-      "id": "lsung6740",
-      "password": "6f8ec80a56ae2ec6e21fd242d8e6ac3f02582ac455e7370a75ab6bde7f25f1f4",
-      "salt": "1bc8ba446de6e218775b8e20cea989f8",
-      "email": "lsung6740@naver.com",
-      "name": "이재성",
-      "birth": "2025-04-01",
-      "telecom": "SKT",
-      "phone": "01028426742",
-      "agreements": {
-        "privacy": true,
-        "telecom": true,
-        "bank": true,
-        "identity": true,
-        "authTerms": true
-      }
-    },
-    {
-      "id": "test1234",
-      "password": "1e8044bae836453e3a14e5bfd5300a957a6804125176365967ba9f749024ec70",
-      "salt": "983fd5d8f3347a57033ca170ea516c2d",
-      "email": "test1234@naver.com",
-      "name": "양지윤",
-      "birth": "2025-04-04",
-      "telecom": "SKT",
-      "phone": "01012345678",
-      "agreements": {
-        "privacy": true,
-        "telecom": true,
-        "bank": true,
-        "identity": true,
-        "authTerms": true
-      }
-    },
-    {
       "id": "test12345",
       "password": "e1d024256578a187b5c7135a5232d89d65d9e56bbe4b24c1ef8bd14f3287f192",
       "salt": "5e8e4ad4c9b7cd6f074ac09c650329f7",
@@ -232,36 +172,18 @@
       }
     },
     {
-      "id": "yang",
-      "password": "315e70f79e3d1fc2b8ad01bb238c6f81d4b7182feed495a6d2bb678ecf29fc6f",
-      "salt": "505c07fb702f4d74ad379c6aa605656d",
-      "email": "yanghmo98@naver.com",
-      "name": "양야야야",
-      "birth": "2025-02-05",
-      "telecom": "KT",
-      "phone": "01043143433",
-      "agreements": {
-        "privacy": true,
-        "telecom": true,
-        "bank": true,
-        "identity": true,
-        "authTerms": true
-      }
-    },
-    {
-      "id": "1111",
-      "password": "8bc0052084163554b4ca54b42c8aff74f16c80113022f9b3687b251b1e121f2b",
-      "salt": "4c53cfcdaaac52f3e3be79d74315a59e",
-      "email": "1111@naver.com",
-      "name": "test",
-      "birth": "2025-04-09",
+      "id": "DongMin",
+      "password": "1079ce45ae99856c1e55f8e1bbddedd5fa81d4c3bf15f24fc0a5d4e7dd91fc31",
+      "salt": "e840a7fe53c7a01b05156a2f8f5c80d1",
+      "email": "DongMin@naver.com",
+      "name": "DongMin",
+      "birth": "2025-04-03",
       "telecom": "SKT",
-      "phone": "01011111111",
+      "phone": "01012345678",
       "agreements": {
         "privacy": true,
         "telecom": true,
         "bank": true,
-        "identity": true,
         "authTerms": true
       }
     }

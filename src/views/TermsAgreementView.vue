@@ -87,36 +87,7 @@ export default {
   data() {
     return {
       allChecked: false,
-      terms: [
-        {
-          title: '**뱅크 서비스 이용약관',
-          required: true,
-          checked: false,
-          scroll: true,
-          content: `제1조 목적
-본 약관은 **뱅크(이하 “회사”)가 제공하는 OO가계부 앱 및 웹 서비스(이하 “서비스”)의 이용과 관련하여 회사와 회원 간의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다.`,
-        },
-        {
-          title: '개인정보 수집 및 이용',
-          required: true,
-          checked: false,
-          scroll: true,
-          content: `제2조 개인정보 수집
-회사는 회원가입, 서비스 제공을 위해 최소한의 개인정보를 수집하며, 수집된 정보는 서비스 목적 외 사용되지 않습니다. 동의 없이 제3자에게 제공되지 않습니다.`,
-        },
-        {
-          title: '만 14세 이상 회원입니다.',
-          required: true,
-          checked: false,
-          scroll: false,
-        },
-        {
-          title: '마케팅 정보 수신 동의',
-          required: false,
-          checked: false,
-          scroll: false,
-        },
-      ],
+      terms: [],
     };
   },
   computed: {
@@ -135,6 +106,27 @@ export default {
     syncAllCheck() {
       this.allChecked = this.terms.every((term) => term.checked);
     },
+    async loadTermContents() {
+      for (const term of this.terms) {
+        if (term.scroll && term.contentUrl) {
+          try {
+            const response = await fetch(term.contentUrl);
+            term.content = await response.text();
+          } catch (err) {
+            term.content = '약관을 불러오는 데 실패했습니다.';
+          }
+        }
+      }
+    },
+  },
+  async mounted() {
+    try {
+      const res = await fetch('/terms.json');
+      this.terms = await res.json();
+      await this.loadTermContents();
+    } catch (error) {
+      console.error('약관 데이터를 불러오는 중 오류:', error);
+    }
   },
 };
 </script>
