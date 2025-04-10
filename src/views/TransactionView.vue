@@ -4,6 +4,7 @@
 
     <!-- 👇 보기 모드 선택 탭: 일일 / 월별 -->
     <div class="view-toggle">
+      0
       <button
         @click="viewMode = 'daily'"
         :class="{ active: viewMode === 'daily' }"

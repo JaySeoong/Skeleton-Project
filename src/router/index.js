@@ -8,6 +8,7 @@ import SignUpView from '@/views/SignUpView.vue';
 import TermsAgreementView from '@/views/TermsAgreementView.vue';
 import ProfileView from '@/views/ProfileView.vue';
 import Home from '@/views/HomeView.vue';
+
 // default 레이아웃용 뷰뷰
 import TransactionForm from '@/views/TransactionForm.vue';
 import TransactionView from '@/views/TransactionView.vue';

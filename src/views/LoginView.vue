@@ -17,7 +17,7 @@ const login = async () => {
 
   const success = await authStore.login(username.value, password.value);
   if (success) {
-    alert(`${authStore.user.name}님, 로그인 성공 🎉`);
+    alert(`${authStore.user.name}님, 환영합니다.`);
     router.push('/home');
   } else {
     alert('아이디 또는 비밀번호가 일치하지 않습니다.');

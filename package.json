@@ -13,6 +13,7 @@
     "axios": "^1.8.4",
     "bootstrap": "^5.3.5",
     "chart.js": "^4.4.8",
+    "chartjs-plugin-datalabels": "^2.2.0",
     "crypto-js": "^4.2.0",
     "crypto.js": "^3.3.4",
     "date-fns": "^4.1.0",
