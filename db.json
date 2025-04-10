@@ -105,7 +105,7 @@
       "id": "df30"
     },
     {
-      "date": "20250409",
+      "date": "2025-04-09",
       "type": "income",
       "category": "월급",
       "amount": 11111,
@@ -114,11 +114,19 @@
     },
     {
       "id": "3549",
-      "date": "20250409",
+      "date": "2025-04-09",
       "type": "income",
       "category": "월급",
       "amount": 11111,
       "memo": "11111"
+    },
+    {
+      "id": "449f",
+      "date": "2025-04-10",
+      "type": "income",
+      "category": "월급",
+      "amount": 1234,
+      "memo": "test"
     }
   ],
   "incomeCategory": [
@@ -180,6 +188,22 @@
       "birth": "2025-04-03",
       "telecom": "SKT",
       "phone": "01012345678",
+      "agreements": {
+        "privacy": true,
+        "telecom": true,
+        "bank": true,
+        "authTerms": true
+      }
+    },
+    {
+      "id": "test",
+      "password": "2eed1eba9aa1dea089464c39e2968aa28861213686e254dd81634f0383efc9ed",
+      "salt": "cd867c4dcc7896ebaa7fa2163310fc04",
+      "email": "test@naver.com",
+      "name": "전효빈",
+      "birth": "2025-04-10",
+      "telecom": "SKT",
+      "phone": "01063061140",
       "agreements": {
         "privacy": true,
         "telecom": true,
