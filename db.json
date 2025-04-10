@@ -5,6 +5,12 @@
       "phone": "01012345678",
       "code": "934081",
       "createdAt": "2025-04-10T04:13:14.137Z"
+    },
+    {
+      "id": "01012341234",
+      "phone": "01012341234",
+      "code": "485393",
+      "createdAt": "2025-04-10T04:41:29.416Z"
     }
   ],
   "budget": [
@@ -905,80 +911,8 @@
       "amount": 2385055,
       "type": "income",
       "category": "월급",
-      "date": "2025-04-03",
-      "memo": ""
-    },
-    {
-      "id": "id0101",
-      "userId": "test3",
-      "amount": 222331,
-      "type": "expense",
-      "category": "식비",
-      "date": "2025-04-25",
-      "memo": ""
-    },
-    {
-      "id": "id0102",
-      "userId": "test3",
-      "amount": 373399,
-      "type": "expense",
-      "category": "식비",
-      "date": "2025-04-28",
-      "memo": ""
-    },
-    {
-      "id": "id0103",
-      "userId": "test3",
-      "amount": 1885779,
-      "type": "income",
-      "category": "용돈",
-      "date": "2025-04-03",
-      "memo": ""
-    },
-    {
-      "id": "id0104",
-      "userId": "test3",
-      "amount": 205856,
-      "type": "expense",
-      "category": "문화",
-      "date": "2025-04-15",
-      "memo": ""
-    },
-    {
-      "id": "id0105",
-      "userId": "test3",
-      "amount": 207200,
-      "type": "expense",
-      "category": "여행",
-      "date": "2025-04-21",
-      "memo": ""
-    },
-    {
-      "id": "id0106",
-      "userId": "test3",
-      "amount": 872835,
-      "type": "income",
-      "category": "부수입",
-      "date": "2025-04-02",
-      "memo": ""
-    },
-    {
-      "id": "id0107",
-      "userId": "test3",
-      "amount": 273113,
-      "type": "expense",
-      "category": "여행",
-      "date": "2025-04-24",
-      "memo": ""
-    },
-    {
-      "id": "id0108",
-      "userId": "test3",
-      "amount": 457391,
-      "type": "expense",
-      "category": "교통비",
-      "date": "2025-04-12",
-      "memo": ""
+      "amount": 1234,
+      "memo": "test"
     }
   ],
   "incomeCategory": [
@@ -1048,14 +982,14 @@
       }
     },
     {
-      "id": "test",
-      "password": "2eed1eba9aa1dea089464c39e2968aa28861213686e254dd81634f0383efc9ed",
-      "salt": "cd867c4dcc7896ebaa7fa2163310fc04",
-      "email": "test@naver.com",
-      "name": "전효빈",
-      "birth": "2025-04-10",
+      "id": "Jaeseong",
+      "password": "72dca5fe8fc53a32969e7400865e04ddc648e0a2d3fb32c4fd06c840cc0ed65d",
+      "salt": "a9deacac6ee117bdc3ee0307cb1c09af",
+      "email": "Jaeseong@naver.com",
+      "name": "Jaeseong",
+      "birth": "2025-04-07",
       "telecom": "SKT",
-      "phone": "01063061140",
+      "phone": "01012341234",
       "agreements": {
         "privacy": true,
         "telecom": true,
