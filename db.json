@@ -119,6 +119,14 @@
       "category": "월급",
       "amount": 11111,
       "memo": "11111"
+    },
+    {
+      "id": "302f",
+      "date": "20250409",
+      "type": "income",
+      "category": "월급",
+      "amount": 1234,
+      "memo": "1234"
     }
   ],
   "incomeCategory": [
@@ -180,6 +188,38 @@
       "birth": "2025-04-03",
       "telecom": "SKT",
       "phone": "01012345678",
+      "agreements": {
+        "privacy": true,
+        "telecom": true,
+        "bank": true,
+        "authTerms": true
+      }
+    },
+    {
+      "id": "Jaeseong",
+      "password": "72dca5fe8fc53a32969e7400865e04ddc648e0a2d3fb32c4fd06c840cc0ed65d",
+      "salt": "a9deacac6ee117bdc3ee0307cb1c09af",
+      "email": "Jaeseong@naver.com",
+      "name": "Jaeseong",
+      "birth": "2025-04-07",
+      "telecom": "SKT",
+      "phone": "01012341234",
+      "agreements": {
+        "privacy": true,
+        "telecom": true,
+        "bank": true,
+        "authTerms": true
+      }
+    },
+    {
+      "id": "Admin",
+      "password": "dde08a3467b232832c8a4d582bd1bc3e68943aa39b58289987b6582db194ceb2",
+      "salt": "49f9517884a5e55d751e12bb69527396",
+      "email": "Admin@naver.com",
+      "name": "Admin",
+      "birth": "2025-04-01",
+      "telecom": "LG",
+      "phone": "01012341234",
       "agreements": {
         "privacy": true,
         "telecom": true,

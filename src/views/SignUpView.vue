@@ -18,7 +18,7 @@
         class="d-flex justify-content-center align-items-center text-center"
         style="height: 80%"
       >
-        <p class="fw-bold fs-4 text-success">지윤이 작성</p>
+        <p class="fw-bold fs-4 text-success">⭐지윤이 작성 예정⭐</p>
       </div>
 
       <form v-else @submit.prevent="submitForm">
@@ -59,6 +59,22 @@
             :class="isPasswordValid ? 'text-success' : 'text-danger'"
           >
             {{ passwordMessage }}
+          </small>
+        </div>
+
+        <!-- ✅ 비밀번호 확인 필드 추가 -->
+        <div class="mb-3">
+          <input
+            type="password"
+            class="form-control"
+            v-model="confirmPassword"
+            placeholder="비밀번호 재확인"
+          />
+          <small
+            v-if="confirmPassword"
+            :class="isPasswordMatched ? 'text-success' : 'text-danger'"
+          >
+            {{ passwordMatchMessage }}
           </small>
         </div>
 
@@ -140,7 +156,7 @@
             v-for="(value, key) in form.agreements"
             :key="key"
           >
-            <!-- '고유식별정보 처리' 항목 주석 처리 -->
+            <!-- 고유식별정보 처리 항목 제외 -->
             <template v-if="key !== 'identity'">
               <input
                 class="form-check-input"
@@ -153,21 +169,6 @@
                 {{ agreementLabels[key] }}
               </label>
             </template>
-
-            <!--
-            <template v-if="key === 'identity'">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                id="identity"
-                v-model="form.agreements.identity"
-                @change="checkIfAllAgreed"
-              />
-              <label class="form-check-label" for="identity">
-                {{ agreementLabels.identity }}
-              </label>
-            </template>
-            -->
           </div>
         </div>
 
@@ -207,6 +208,8 @@ const isIdChecked = ref(false);
 const idCheckMessage = ref('');
 const idCheckValid = ref(false);
 
+const confirmPassword = ref(''); // ✅ 비밀번호 확인
+
 const form = ref({
   id: '',
   password: '',
@@ -222,7 +225,7 @@ const form = ref({
     privacy: false,
     telecom: false,
     bank: false,
-    // identity: false, // 고유식별정보 항목 주석 처리
+    // identity: false,
     authTerms: false,
   },
 });
@@ -253,6 +256,20 @@ const isPasswordValid = computed(
   () => passwordMessage.value === '사용 가능한 비밀번호입니다.'
 );
 
+const isPasswordMatched = computed(() => {
+  return (
+    form.value.password &&
+    confirmPassword.value &&
+    form.value.password === confirmPassword.value
+  );
+});
+
+const passwordMatchMessage = computed(() => {
+  return isPasswordMatched.value
+    ? '비밀번호가 일치합니다.'
+    : '비밀번호가 일치하지 않습니다.';
+});
+
 const maxDate = new Date().toISOString().split('T')[0];
 
 const isFormValid = computed(() => {
@@ -260,6 +277,7 @@ const isFormValid = computed(() => {
   const filled =
     f.id &&
     f.password &&
+    confirmPassword.value &&
     f.email &&
     f.name &&
     f.birth &&
@@ -267,9 +285,13 @@ const isFormValid = computed(() => {
     f.phone &&
     f.agreeAll &&
     isIdChecked.value;
+
   return !isAuthRequested.value
-    ? filled && isPasswordValid.value
-    : filled && f.authCode.length === 6 && isPasswordValid.value;
+    ? filled && isPasswordValid.value && isPasswordMatched.value
+    : filled &&
+        f.authCode.length === 6 &&
+        isPasswordValid.value &&
+        isPasswordMatched.value;
 });
 
 const toggleAllAgreements = () => {
@@ -423,5 +445,5 @@ const submitForm = async () => {
 </script>
 
 <style scoped>
-/* 필요한 경우 스타일 추가 */
+/* 스타일 필요 시 추가 */
 </style>
