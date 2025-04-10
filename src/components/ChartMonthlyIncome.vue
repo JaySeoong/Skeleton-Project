@@ -23,6 +23,7 @@
 <script setup>
 import { computed, onMounted } from 'vue';
 import { useTransactionStore } from '@/stores/transactionStore';
+import { useAuthStore } from '@/stores/authStore';
 import { Line, Doughnut } from 'vue-chartjs';
 import {
   Chart as ChartJS,
@@ -36,7 +37,7 @@ import {
   PointElement,
 } from 'chart.js';
 
-// 차트 구성요소 등록
+// 📊 차트 구성요소 등록
 ChartJS.register(
   Title,
   Tooltip,
@@ -48,14 +49,24 @@ ChartJS.register(
   PointElement
 );
 
-// 거래 내역 불러오기
+// 📦 스토어 불러오기
 const store = useTransactionStore();
-onMounted(() => store.fetchTransactions());
+const authStore = useAuthStore();
 
-// 월별 수입 계산
+// 🗓 거래 불러오기 (사용자 로그인 후)
+onMounted(() => {
+  store.fetchTransactions();
+});
+
+// ✅ 사용자 거래만 필터링
+const userTransactions = computed(() =>
+  store.transactions.filter((tx) => tx.userId === authStore.user.id)
+);
+
+// 📈 월별 수입 계산
 const monthlyIncome = computed(() => {
   const result = {};
-  store.transactions.forEach(({ type, date, amount }) => {
+  userTransactions.value.forEach(({ type, date, amount }) => {
     if (type === 'income') {
       const key = date.slice(0, 7);
       result[key] = (result[key] || 0) + amount;
@@ -64,7 +75,7 @@ const monthlyIncome = computed(() => {
   return result;
 });
 
-// 꺾은선 그래프 데이터
+// 📊 꺾은선 차트 데이터
 const chartData = computed(() => {
   const labels = Object.keys(monthlyIncome.value).sort();
   return {
@@ -93,10 +104,10 @@ const chartOptions = {
 
 const hasData = computed(() => Object.keys(monthlyIncome.value).length > 0);
 
-// 카테고리별 수입 계산
+// 🍩 카테고리별 수입 계산
 const categoryIncome = computed(() => {
   const result = {};
-  store.transactions.forEach(({ type, category, amount }) => {
+  userTransactions.value.forEach(({ type, category, amount }) => {
     if (type === 'income') {
       const key = category || '기타';
       result[key] = (result[key] || 0) + amount;
@@ -105,7 +116,7 @@ const categoryIncome = computed(() => {
   return result;
 });
 
-// 도넛형 차트 데이터
+// 🍩 도넛 차트 데이터
 const categoryChartData = computed(() => {
   const labels = Object.keys(categoryIncome.value);
   const values = Object.values(categoryIncome.value);

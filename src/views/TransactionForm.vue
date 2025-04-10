@@ -210,7 +210,7 @@ const categoryOptions = computed(() => {
 // 거래 저장 및 완료 이벤트 emit
 const handleSubmit = async () => {
   const item = {
-    // id: generateDateRandomId(),
+    id: authStore.user.id,
     date: form.value.date,
     type: form.value.type,
     category: form.value.category,

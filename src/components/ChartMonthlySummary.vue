@@ -8,6 +8,7 @@
 <script setup>
 import { computed, onMounted } from 'vue';
 import { useTransactionStore } from '@/stores/transactionStore';
+import { useAuthStore } from '@/stores/authStore';
 import {
   Chart as ChartJS,
   BarElement,
@@ -33,15 +34,22 @@ ChartJS.register(
 );
 
 const store = useTransactionStore();
+const authStore = useAuthStore();
 
 onMounted(() => {
-  store.fetchTransactions();
+  store.fetchTransactions(); // 이미 userId 기반 요청이면 그대로 사용 가능
 });
 
+// ✅ 사용자 거래만 필터링
+const userTransactions = computed(() =>
+  store.transactions.filter((tx) => tx.userId === authStore.user.id)
+);
+
+// ✅ 월별 요약 계산 (수입, 지출, 순이익)
 const summaryByMonth = computed(() => {
   const summary = {};
 
-  store.transactions.forEach((t) => {
+  userTransactions.value.forEach((t) => {
     const month = t.date.slice(0, 7);
     if (!summary[month]) {
       summary[month] = { income: 0, expense: 0 };
@@ -53,6 +61,7 @@ const summaryByMonth = computed(() => {
   return summary;
 });
 
+// ✅ 차트 데이터 구성
 const chartData = computed(() => {
   const labels = Object.keys(summaryByMonth.value).sort();
   const incomeData = labels.map((label) => summaryByMonth.value[label].income);
@@ -102,12 +111,12 @@ const chartOptions = {
   scales: {
     x: {
       grid: {
-        display: false, // X축 격자 제거
+        display: false,
       },
     },
     y: {
       grid: {
-        display: false, // Y축 격자 제거
+        display: false,
       },
     },
   },

@@ -1,17 +1,17 @@
 <template>
-  <div class="bg-white p-6 rounded-xl shadow-md">
+  <!-- 📉 월별 지출 추이 -->
+  <div class="bg-white p-6 rounded-xl shadow-md mb-8">
     <h2 class="text-lg font-bold mb-4">💸 지출 분석</h2>
-    <!-- 꺾은선 차트 -->
     <Line :data="spendingLineData" :options="lineChartOptions" class="mb-6" />
   </div>
+
+  <!-- 🍩 카테고리별 지출 도넛 -->
   <div class="bg-white p-6 rounded-xl shadow-md">
     <h2 class="text-lg font-bold mb-4">💰 카테고리별 지출</h2>
-    <!-- 도넛 차트 -->
     <Doughnut
       v-if="hasCategoryData"
       :data="categoryData"
       :options="categoryOptions"
-      @click="handleClick"
     />
     <p v-else class="text-gray-500 text-sm">
       📌 지출 카테고리 데이터가 없습니다.
@@ -22,6 +22,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import { useTransactionStore } from '@/stores/transactionStore';
+import { useAuthStore } from '@/stores/authStore';
 import { Line, Doughnut } from 'vue-chartjs';
 import {
   Chart as ChartJS,
@@ -46,17 +47,23 @@ ChartJS.register(
   ArcElement
 );
 
+// 📦 Pinia 스토어
 const store = useTransactionStore();
-const selected = ref(null);
+const authStore = useAuthStore();
 
-onMounted(async () => {
-  await store.fetchTransactions();
+onMounted(() => {
+  store.fetchTransactions(); // ✅ 로그인한 사용자 거래만 가져오도록 이미 수정돼 있음
 });
 
-// ✅ 월별 지출 데이터
+// ✅ 사용자 거래 필터링
+const userTransactions = computed(() =>
+  store.transactions.filter((tx) => tx.userId === authStore.user.id)
+);
+
+// ✅ 월별 지출 계산
 const monthlySpending = computed(() => {
   const result = {};
-  store.transactions.forEach((t) => {
+  userTransactions.value.forEach((t) => {
     if (t.type === 'expense') {
       const key = t.date.slice(0, 7); // YYYY-MM
       result[key] = (result[key] || 0) + t.amount;
@@ -65,10 +72,10 @@ const monthlySpending = computed(() => {
   return result;
 });
 
-// ✅ 카테고리별 지출 데이터
+// ✅ 카테고리별 지출 계산
 const categorySpending = computed(() => {
   const result = {};
-  store.transactions.forEach((t) => {
+  userTransactions.value.forEach((t) => {
     if (t.type === 'expense') {
       const category = t.category || '기타';
       result[category] = (result[category] || 0) + t.amount;
@@ -81,7 +88,7 @@ const hasCategoryData = computed(
   () => Object.keys(categorySpending.value).length > 0
 );
 
-// ✅ 라인 차트 데이터
+// ✅ 꺾은선 차트 데이터
 const spendingLineData = computed(() => {
   const labels = Object.keys(monthlySpending.value).sort();
   const values = labels.map((label) => monthlySpending.value[label]);
@@ -110,12 +117,12 @@ const lineChartOptions = {
   scales: {
     x: {
       grid: {
-        display: false, // X축 격자 제거
+        display: false,
       },
     },
     y: {
       grid: {
-        display: false, // Y축 격자 제거
+        display: false,
       },
     },
   },

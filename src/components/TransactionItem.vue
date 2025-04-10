@@ -71,34 +71,32 @@
 </template>
 
 <script setup>
-// 📦 필요 모듈 및 컴포넌트
 import { ref, computed } from 'vue';
 import { useTransactionStore } from '@/stores/transactionStore';
 import BaseModal from '@/components/base/baseModal.vue';
 
-// 🧾 상위에서 전달된 거래 정보
 const props = defineProps({
   transaction: Object,
 });
 
-// 📌 모달 열림 여부 및 수정 대상 객체
 const showModal = ref(false);
 const editable = ref({});
 
-// ✅ 유형에 따른 카테고리 목록
 const incomeCategories = ['월급', '용돈', '기타수입'];
 const expenseCategories = ['식비', '교통비', '기타지출'];
 
-// 🔁 현재 거래의 유형에 따라 카테고리 옵션 변경
 const availableCategories = computed(() =>
   editable.value.type === 'income' ? incomeCategories : expenseCategories
 );
 
 const store = useTransactionStore();
 
-// 🔓 모달 열기 (깊은 복사)
+// 🔓 모달 열기 (userId 포함해서 깊은 복사)
 const openModal = () => {
-  editable.value = JSON.parse(JSON.stringify(props.transaction));
+  editable.value = {
+    ...JSON.parse(JSON.stringify(props.transaction)),
+    userId: props.transaction.userId, // 👈 userId 반드시 유지
+  };
   showModal.value = true;
 };
 
@@ -107,13 +105,13 @@ const closeModal = () => {
   showModal.value = false;
 };
 
-// 🔢 숫자 입력값 유효성 (양의 정수만 허용)
+// 🔢 금액 숫자만 입력
 const validateAmount = (event) => {
   const val = event.target.value.replace(/[^0-9]/g, '');
   editable.value.amount = val ? parseInt(val, 10) : '';
 };
 
-// ✅ 거래 수정 저장
+// ✅ 수정 저장 (userId 포함해서 전송)
 const saveChanges = async () => {
   if (!editable.value.amount || editable.value.amount <= 0) {
     alert('금액은 1 이상의 숫자만 입력 가능합니다.');
@@ -122,6 +120,7 @@ const saveChanges = async () => {
 
   await store.updateTransaction({
     ...editable.value,
+    userId: props.transaction.userId, // 👈 다시 명시적으로 넣어줘도 OK
     amount: parseInt(editable.value.amount, 10),
   });
 
@@ -129,7 +128,7 @@ const saveChanges = async () => {
   closeModal();
 };
 
-// ❌ 거래 삭제
+// ❌ 삭제
 const deleteItem = async () => {
   if (confirm('정말 삭제하시겠습니까?')) {
     await store.deleteTransaction(props.transaction.id);
@@ -149,7 +148,7 @@ const deleteItem = async () => {
   background: #fff;
   border-radius: 8px;
   margin-bottom: 8px;
-  cursor: pointer; /* 항목 클릭 가능 */
+  cursor: pointer;
 }
 
 .right-actions button {

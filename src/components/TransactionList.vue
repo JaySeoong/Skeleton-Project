@@ -40,6 +40,10 @@ import { useModalStore } from '@/stores/modalStore';
 import TransactionItem from './TransactionItem.vue';
 import BaseModal from '@/components/base/baseModal.vue';
 import TransactionForm from '@/views/TransactionForm.vue';
+import { useAuthStore } from '../stores/authStore';
+
+// 현재 로그인 사용자 ID 접근
+const authStore = useAuthStore();
 
 // 📥 부모로부터 전달된 현재 선택된 월
 const props = defineProps({
@@ -50,10 +54,14 @@ const props = defineProps({
 const { transactions } = storeToRefs(useTransactionStore());
 const modal = useModalStore();
 
-// ✅ 해당 월의 거래만 필터링 및 최신순 정렬
+// ✅ 해당 월 + 현재 사용자 거래만 필터링
 const filteredTransactions = computed(() =>
   transactions.value
-    .filter((tx) => tx.date.startsWith(props.selectedMonth))
+    .filter(
+      (tx) =>
+        tx.date.startsWith(props.selectedMonth) &&
+        tx.userId === authStore.user.id // 👈 로그인 사용자 기준
+    )
     .sort((a, b) => new Date(b.date) - new Date(a.date))
 );
 
