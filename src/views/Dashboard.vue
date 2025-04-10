@@ -54,17 +54,6 @@
       </nav>
       <div class="space-y-6">
         <!-- 상단 탭 메뉴 -->
-        <!-- 
-                      style="
-                background-color: #6c757d;
-                opacity: 0.7;
-                padding: 3px 10px;
-                color: white;
-                border-radius: 5px;
-        <nav class="bg-white shadow-md p-4 flex gap-4">
-        <ul class="d-flex gap-4 list-unstyled">
-         -->
-        <!-- 여기 시작 -->
         <div class="d-flex gap-3 border-bottom pb-2">
           <ul class="d-flex gap-3 list-unstyled mb-0">
             <li>
@@ -111,39 +100,6 @@
             </li>
           </ul>
         </div>
-        <!-- 여기 끝 -->
-        <!-- <div class="flex gap-4 border-b pb-2">
-          <ul>
-            <RouterLink
-              to="/dashboard/summary"
-              class="hover:text-blue-600 font-semibold text-decoration-none"
-              :class="{
-                'text-blue-600 border-b-2 border-blue-600':
-                  $route.path.includes('summary'),
-              }"
-              >월별 요약
-            </RouterLink>
-            <RouterLink
-              to="/dashboard/income"
-              class="hover:text-blue-600 font-semibold text-decoration-none"
-              :class="{
-                'text-blue-600 border-b-2 border-blue-600':
-                  $route.path.includes('income'),
-              }"
-              >수입 추이
-            </RouterLink>
-            <RouterLink
-              to="/dashboard/spending"
-              class="hover:text-blue-600 font-semibold text-decoration-none"
-              :class="{
-                'text-blue-600 border-b-2 border-blue-600':
-                  $route.path.includes('spending'),
-              }"
-              >지출 추이
-            </RouterLink>
-          </ul>
-        </div> -->
-
         <!-- 서브 페이지 표시 영역 -->
         <RouterView />
       </div>
