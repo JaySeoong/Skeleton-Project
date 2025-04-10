@@ -8,7 +8,51 @@
     >
       <!-- 내용 영역 -->
       <div class="p-4" style="height: calc(100% - 120px); overflow-y: auto">
-        <h2 class="mb-4 fw-bold text-warning text-center">프로필 설정</h2>
+        <!-- 네비게이션 바 -->
+        <nav class="d-flex bg-white shadow-md p-4 flex gap-4">
+          <ul class="d-flex gap-4 list-unstyled">
+            <li>
+              <RouterLink
+                to="/home"
+                class="font-semibold text-decoration-none text-dark hover:text-primary"
+              >
+                홈
+              </RouterLink>
+            </li>
+            <li>
+              <RouterLink
+                to="/transactions"
+                class="font-semibold text-decoration-none text-dark hover:text-primary"
+              >
+                거래내역
+              </RouterLink>
+            </li>
+            <li>
+              <RouterLink
+                to="/dashboard"
+                class="font-semibold text-decoration-none text-dark hover:text-primary"
+              >
+                통계
+              </RouterLink>
+            </li>
+            <li>
+              <RouterLink
+                to="/profile"
+                class="font-semibold text-decoration-none hover:text-primary"
+                style="
+                  background-color: #6c757d;
+                  opacity: 0.7;
+                  padding: 3px 10px;
+                  color: white;
+                  border-radius: 5px;
+                "
+              >
+                설정
+              </RouterLink>
+            </li>
+          </ul>
+        </nav>
+        <!-- <h2 class="mb-4 fw-bold text-warning text-center">프로필 설정</h2> -->
 
         <div v-if="user">
           <!-- 이름 -->

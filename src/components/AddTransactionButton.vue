@@ -1,6 +1,8 @@
 <template>
   <div class="add-button-container">
-    <button class="add-button" @click="goToTransactions">+</button>
+    <button class="add-button" @click="goToTransactions">
+      + 거래 내역 추가
+    </button>
   </div>
 </template>
 
@@ -22,18 +24,19 @@ const goToTransactions = () => {
 }
 
 .add-button {
-  background-color: #007bff;
+  background-color: #5e4b3c;
   color: white;
   padding: 0px 10px;
   border: none;
   border-radius: 8px;
-  font-size: 3rem;
-  font-weight: bold;
+  font-size: 1.5rem;
+  /* font-weight: bold; */
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
 .add-button:hover {
-  background-color: #0056b3;
+  background-color: #5e4b3c;
+  color: #ffc107;
 }
 </style>
