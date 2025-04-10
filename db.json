@@ -911,7 +911,7 @@
       "amount": 2385055,
       "type": "income",
       "category": "월급",
-      "amount": 1234,
+      "date": "2025-03-01",
       "memo": "test"
     }
   ],

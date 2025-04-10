@@ -1,19 +1,19 @@
 <template>
   <div class="add-button-container">
-    <button class="add-button" @click="goToTransactions">
+    <button class="add-button" @click="openTransactionModal">
       + 거래 내역 추가
     </button>
   </div>
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router';
+import { useModalStore } from '@/stores/modalStore';
 
-const router = useRouter();
+const modal = useModalStore();
 
-// 👉 '/transactions' 경로로 이동 (거래 내역 등록 화면)
-const goToTransactions = () => {
-  router.push('/inputview');
+const openTransactionModal = () => {
+  modal.selectedDate = null; // 새로운 거래니까 날짜 지정 없음
+  modal.showForm = true; // 모달 열기
 };
 </script>
 
