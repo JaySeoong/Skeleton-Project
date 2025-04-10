@@ -27,7 +27,7 @@
     </header>
 
     <!-- ✅ 본문 영역 (스크롤 가능)  여기가 문제-->
-    <main class="p-6">
+    <main class="main-content p-6">
       <RouterView />
 
       <!-- 거래 추가 모달 -->

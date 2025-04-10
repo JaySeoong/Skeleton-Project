@@ -329,19 +329,10 @@
     {
       "id": "id0035",
       "userId": "test",
-      "amount": 447256,
+      "amount": 444444,
       "type": "expense",
       "category": "식비",
       "date": "2025-04-14",
-      "memo": ""
-    },
-    {
-      "id": "id0036",
-      "userId": "test",
-      "amount": 475814,
-      "type": "expense",
-      "category": "문화",
-      "date": "2025-04-13",
       "memo": ""
     },
     {
@@ -919,6 +910,30 @@
       "category": "월급",
       "date": "2025-03-01",
       "memo": "test"
+    },
+    {
+      "id": "test",
+      "date": "2025-04-14",
+      "type": "income",
+      "category": "월급",
+      "amount": 11111,
+      "memo": "test"
+    },
+    {
+      "id": "test",
+      "date": "2025-04-08",
+      "type": "income",
+      "category": "월급",
+      "amount": 888,
+      "memo": ""
+    },
+    {
+      "id": "test",
+      "date": "2025-04-08",
+      "type": "income",
+      "category": "월급",
+      "amount": 555,
+      "memo": "555"
     }
   ],
   "incomeCategory": [

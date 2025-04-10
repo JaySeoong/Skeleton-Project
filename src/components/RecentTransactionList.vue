@@ -80,7 +80,7 @@ const formatDate = (dateStr) => {
 }
 
 .income {
-  color: #4caf50;
+  color: rgba(13, 110, 253, 1);
   font-weight: bold;
 }
 
