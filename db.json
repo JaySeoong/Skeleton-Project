@@ -105,7 +105,7 @@
       "id": "df30"
     },
     {
-      "date": "20250409",
+      "date": "2025-04-09",
       "type": "income",
       "category": "월급",
       "amount": 11111,
@@ -114,19 +114,28 @@
     },
     {
       "id": "3549",
-      "date": "20250409",
+      "date": "2025-04-09",
       "type": "income",
       "category": "월급",
       "amount": 11111,
       "memo": "11111"
     },
     {
+<<<<<<< HEAD
       "id": "302f",
       "date": "20250409",
       "type": "income",
       "category": "월급",
       "amount": 1234,
       "memo": "1234"
+=======
+      "id": "449f",
+      "date": "2025-04-10",
+      "type": "income",
+      "category": "월급",
+      "amount": 1234,
+      "memo": "test"
+>>>>>>> f81381c3dd1afc1097eab51d784d07260b963eef
     }
   ],
   "incomeCategory": [
@@ -196,6 +205,7 @@
       }
     },
     {
+<<<<<<< HEAD
       "id": "Jaeseong",
       "password": "72dca5fe8fc53a32969e7400865e04ddc648e0a2d3fb32c4fd06c840cc0ed65d",
       "salt": "a9deacac6ee117bdc3ee0307cb1c09af",
@@ -220,6 +230,16 @@
       "birth": "2025-04-01",
       "telecom": "LG",
       "phone": "01012341234",
+=======
+      "id": "test",
+      "password": "2eed1eba9aa1dea089464c39e2968aa28861213686e254dd81634f0383efc9ed",
+      "salt": "cd867c4dcc7896ebaa7fa2163310fc04",
+      "email": "test@naver.com",
+      "name": "전효빈",
+      "birth": "2025-04-10",
+      "telecom": "SKT",
+      "phone": "01063061140",
+>>>>>>> f81381c3dd1afc1097eab51d784d07260b963eef
       "agreements": {
         "privacy": true,
         "telecom": true,

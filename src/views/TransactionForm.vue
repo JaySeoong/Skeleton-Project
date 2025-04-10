@@ -211,7 +211,7 @@ const categoryOptions = computed(() => {
 const handleSubmit = async () => {
   const item = {
     // id: generateDateRandomId(),
-    date: form.value.date.replaceAll('-', ''),
+    date: form.value.date,
     type: form.value.type,
     category: form.value.category,
     amount: form.value.amount,
