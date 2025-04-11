@@ -1,7 +1,7 @@
 <template>
   <div class="add-button-container">
     <button class="add-button" @click="openTransactionModal">
-      + 거래 내역 추가
+      + 거래 추가
     </button>
   </div>
 </template>

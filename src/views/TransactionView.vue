@@ -1,6 +1,6 @@
 <template>
   <div
-    class="d-flex justify-content-center align-items-center min-vh-100 bg-white"
+    class="d-flex justify-content-center align-items-center heigt-100 bg-white"
   >
     <!-- 고정 크기 뷰 박스 -->
     <div

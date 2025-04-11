@@ -1,6 +1,6 @@
 <template>
   <div
-    class="container-fluid bg-light d-flex justify-content-center align-items-center min-vh-100"
+    class="container-fluid bg-light d-flex justify-content-center align-items-center height-100"
   >
     <div
       class="bg-white shadow rounded d-flex flex-column"
