@@ -1,70 +1,85 @@
 // 📁 router/index.js
 import { createRouter, createWebHistory } from 'vue-router';
 
-// auth 레이아웃용 뷰
+// ✅ auth 레이아웃에서 사용하는 페이지들 (로그인/회원가입 등)
 import IntroView from '@/views/IntroView.vue';
 import LoginView from '@/views/LoginView.vue';
 import SignUpView from '@/views/SignUpView.vue';
 import TermsAgreementView from '@/views/TermsAgreementView.vue';
+
+// ✅ default 레이아웃에서 사용하는 페이지들 (로그인 후 접근 가능한 내부 페이지)
 import ProfileView from '@/views/ProfileView.vue';
 import Home from '@/views/HomeView.vue';
-
-// default 레이아웃용 뷰뷰
 import TransactionForm from '@/views/TransactionForm.vue';
 import TransactionView from '@/views/TransactionView.vue';
 
-// Pinia store
+// ✅ Pinia 스토어 (로그인 상태 확인용)
 import { useAuthStore } from '@/stores/authStore';
 
 const routes = [
+  // ✅ 루트 접근 시 intro 페이지로 리다이렉트
   {
     path: '/',
     redirect: '/intro',
   },
+
+  // ✅ Intro 화면: 비회원 진입 시 처음 보여줄 소개 페이지
   {
     path: '/intro',
     name: 'Intro',
     component: IntroView,
     meta: { layout: 'auth', requiresAuth: false },
   },
+
+  // ✅ 로그인 페이지
   {
     path: '/login',
     name: 'Login',
     component: LoginView,
     meta: { layout: 'auth' },
   },
+
+  // ✅ 회원가입 페이지
   {
     path: '/signup',
     name: 'SignUp',
     component: SignUpView,
     meta: { layout: 'auth' },
   },
+
+  // ✅ 이용약관 동의 페이지
   {
     path: '/terms',
     name: 'TermsAgreement',
     component: TermsAgreementView,
     meta: { layout: 'auth' },
   },
+
+  // ✅ 홈 페이지: 로그인 후 진입, 기본 페이지
   {
     path: '/home',
     name: 'Home',
     component: Home,
     meta: { layout: 'default', requiresAuth: true },
   },
+
+  // ✅ 거래 등록 화면 (입력 폼 + 카테고리 선택)
   {
     path: '/inputview',
     name: 'InputView',
     component: TransactionForm,
     meta: { layout: 'default' },
   },
+
   // ✅ 거래 내역 페이지: 로그인 후 접근 가능
   {
-    // path: '/transactions', 수정 필요
     path: '/transactions',
     name: 'Transactions',
     component: TransactionView,
-    meta: { requiresAuth: true },
+    meta: { layout: 'default', requiresAuth: true },
   },
+
+  // ✅ 대시보드: 요약, 수입, 지출 통계 차트 (자식 컴포넌트 3개)
   {
     path: '/dashboard',
     redirect: '/dashboard/summary',
@@ -88,6 +103,8 @@ const routes = [
       },
     ],
   },
+
+  // ✅ 설정(프로필) 페이지
   {
     path: '/profile',
     name: 'Profile',
@@ -95,56 +112,6 @@ const routes = [
     meta: { layout: 'default', requiresAuth: true },
   },
 ];
-// ⚠️ 아직 컴포넌트가 구현되지 않았다면 주석 처리 필요
-// import DashboardView from '@/views/DashboardView.vue'
-// import TransactionForm from '@/views/TransactionForm.vue';
-
-// 더미 페이지 (각 기능상태를 보려면 주석처리)
-// {
-// path: '/',
-// name: 'Default',
-// component: Homeview,
-// meta: { layout: 'Default' },
-// },
-// ✅ 기본 리다이렉트 경로 (로그인 페이지로)
-// {
-//   path: '/',
-//   redirect: '/login',
-// },
-
-// ✅ 로그인 페이지: 구현되면 주석 해제
-// {
-//   path: '/login',
-//   name: 'Login',
-//   component: LoginView,
-//   meta: { layout: 'auth' },
-// },
-
-// ✅ 대시보드 페이지: 구현되면 주석 해제
-// {
-//   path: '/dashboard',
-//   name: 'Dashboard',
-//   component: DashboardView,
-//   meta: { requiresAuth: true },
-// },
-
-// ✅ 설정 페이지: 구현되면 주석 해제
-// {
-//   path: '/settings',
-//   name: 'Settings',
-//   component: SettingsView,
-//   meta: { requiresAuth: true },
-// },
-
-// ✅ 거래 등록 + 카테고리 선택 화면에서 사용
-// {
-//   path: '/transaction/new',
-//   name: 'TransactionForm',
-//   componenransactionFormView,
-//   meta: { requiresAuth: true },
-// }
-
-// ];
 
 const router = createRouter({
   history: createWebHistory(),
@@ -152,7 +119,9 @@ const router = createRouter({
 });
 
 /**
- * ✅ 라우터 가드: 로그인 필요 페이지는 authStore에서 로그인 여부 확인
+ * ✅ 전역 라우터 가드
+ * - requiresAuth가 true인 페이지 접근 시
+ * - authStore의 isLoggedIn이 false면 로그인 페이지로 강제 이동
  */
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore();

@@ -5,6 +5,7 @@
       <nav class="nav-bar">
         <ul class="nav-list">
           <li>
+            <!-- 현재 경로에 따라 강조되는 홈 링크 -->
             <RouterLink to="/home" :class="navClass('/home')">홈</RouterLink>
           </li>
           <li>
@@ -26,19 +27,23 @@
       </nav>
     </header>
 
-    <!-- ✅ 본문 영역 (스크롤 가능)  여기가 문제-->
+    <!-- ✅ 본문 영역 (스크롤 가능) -->
     <main class="main-content p-6">
+      <!-- 각 라우트 페이지가 표시되는 영역 -->
       <RouterView />
 
-      <!-- 거래 추가 모달 -->
+      <!-- 거래 추가 모달 (선택된 날짜로 거래 추가 가능) -->
       <BaseModal v-if="modal.showForm" @close="modal.close">
         <template #header>거래 추가</template>
+
         <template #body>
+          <!-- 거래 입력 폼 (날짜 전달 & 완료 시 이벤트 발생) -->
           <TransactionForm
             :date="modal.selectedDate"
             @completed="onAddComplete"
           />
         </template>
+
         <template #footer>
           <button @click="modal.close">닫기</button>
         </template>
@@ -54,15 +59,18 @@ import { useRoute } from 'vue-router';
 import BaseModal from '@/components/base/baseModal.vue';
 import TransactionForm from '@/views/TransactionForm.vue';
 
-const modal = useModalStore();
-const transactionStore = useTransactionStore();
-const route = useRoute();
+// 🧩 상태 관리 스토어 호출
+const modal = useModalStore(); // 모달 상태 관리
+const transactionStore = useTransactionStore(); // 거래 내역 상태 관리
+const route = useRoute(); // 현재 라우트 정보
 
+// ✅ 거래 추가 완료 시 처리 함수
 const onAddComplete = async () => {
-  await transactionStore.fetchTransactions();
-  modal.close();
+  await transactionStore.fetchTransactions(); // 거래 목록 갱신
+  modal.close(); // 모달 닫기
 };
 
+// ✅ 현재 경로와 매칭되는 링크에 활성화 클래스 부여
 const navClass = (path) => {
   return {
     'active-link': route.path.startsWith(path),
@@ -71,9 +79,10 @@ const navClass = (path) => {
 </script>
 
 <style scoped>
+/* 🧱 앱 전체 컨테이너: 모바일 기준 */
 .app-container {
-  max-width: 414px;
-  height: 896px;
+  max-width: 414px; /* 모바일 기준 너비 */
+  height: 896px; /* 전체 높이 고정 (옵션) */
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -81,9 +90,10 @@ const navClass = (path) => {
   border: 1px solid #ddd;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   position: relative;
-  overflow: hidden; /* 헤더 고정과 메인 스크롤만 허용 */
+  overflow: hidden; /* 헤더 고정, 메인만 스크롤 허용 */
 }
 
+/* 📌 네비게이션 바 고정 */
 .nav-fixed {
   position: fixed;
   top: 0;
@@ -94,12 +104,14 @@ const navClass = (path) => {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
+/* 📌 네비게이션 바 내부 */
 .nav-bar {
   padding: 12px;
   display: flex;
   justify-content: center;
 }
 
+/* 📌 네비게이션 메뉴 항목 */
 .nav-list {
   display: flex;
   justify-content: space-around;
@@ -116,15 +128,17 @@ const navClass = (path) => {
   border-radius: 6px;
 }
 
+/* ✅ 현재 경로에 해당하는 메뉴에 강조 색상 */
 .nav-list li a.active-link {
   background-color: #6c757d;
   color: white;
   font-weight: bold;
 }
 
+/* 📄 본문 영역 스타일 (패딩으로 헤더 높이 확보) */
 .main-content {
   flex: 1;
   overflow-y: auto;
-  padding: 70px 16px 16px; /* 네비게이션 높이 고려 */
+  padding: 70px 16px 16px; /* 상단 네비게이션 높이 고려한 여백 */
 }
 </style>
