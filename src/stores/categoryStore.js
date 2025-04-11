@@ -21,6 +21,7 @@ export const useCategoryStore = defineStore('category', {
     },
   },
   actions: {
+    // 수입 카테고리 목록 초기화
     async fetchIncome() {
       this.incomeCategory = [];
       this.loading = true;
@@ -35,6 +36,7 @@ export const useCategoryStore = defineStore('category', {
         this.loading = false;
       }
     },
+    // 지출 카테고리 목록 초기화
     async fetchExpense() {
       this.expenseCategory = [];
       this.loading = true;
@@ -49,6 +51,7 @@ export const useCategoryStore = defineStore('category', {
         this.loading = false;
       }
     },
+    // 카테고리 생성 함수
     async createCategory(categoryData) {
       this.loading = true;
       this.error = null;
@@ -78,6 +81,7 @@ export const useCategoryStore = defineStore('category', {
         this.loading = false;
       }
     },
+    // 카테고리 삭제 함수
     async deleteCategory(type, id) {
       this.loading = true;
       this.error = null;

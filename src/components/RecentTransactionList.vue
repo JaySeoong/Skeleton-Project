@@ -1,12 +1,16 @@
 <template>
+  <!-- 최근 거래 내역 박스 -->
   <div class="section-box">
+    <!-- 섹션 제목 -->
     <h2 class="section-title">최근 거래</h2>
+    <!-- 거래 목록 -->
     <ul class="transaction-list">
       <li
         v-for="tx in recentTransactions"
         :key="tx.id"
         class="transaction-item"
       >
+        <!-- 날짜 및 거래 타입 -->
         <span class="tx-label">
           {{ formatDate(tx.date) }}
           ·
@@ -14,6 +18,7 @@
             {{ tx.type === 'income' ? '수입 ' : '지출 ' }}
           </strong>
         </span>
+        <!-- 거래 금액 -->
         <span :class="tx.type === 'income' ? 'income' : 'expense'">
           {{ Math.abs(tx.amount).toLocaleString() }} 원
         </span>
@@ -23,6 +28,7 @@
 </template>
 
 <script setup>
+// 트랜잭션 스토어 불러오기
 import { computed, onMounted } from 'vue';
 import { useTransactionStore } from '@/stores/transactionStore';
 
@@ -33,12 +39,14 @@ onMounted(() => {
   store.fetchTransactions();
 });
 
+// 최근 거래 정렬하여 추출
 const recentTransactions = computed(() =>
   [...store.transactions]
     .sort((a, b) => new Date(b.date) - new Date(a.date))
     .slice(0, 7)
 );
 
+// 날짜 문자열 변환
 const formatDate = (dateStr) => {
   const date = new Date(dateStr);
   return `${date.getMonth() + 1}월 ${date.getDate()}일`;
@@ -46,6 +54,7 @@ const formatDate = (dateStr) => {
 </script>
 
 <style scoped>
+/* 섹션 전체 스타일 */
 .section-box {
   background: white;
   padding: 20px;
@@ -54,18 +63,21 @@ const formatDate = (dateStr) => {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
+/* 제목 스타일 */
 .section-title {
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 15px;
 }
 
+/* 목록 스타일 초기화 */
 .transaction-list {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
+/* 거래 항목 스타일 */
 .transaction-item {
   display: flex;
   justify-content: space-between;

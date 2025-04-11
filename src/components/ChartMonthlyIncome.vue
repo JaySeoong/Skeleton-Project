@@ -21,6 +21,7 @@
 </template>
 
 <script setup>
+//  모듈 및 라이브러리 임포트
 import { computed, onMounted } from 'vue';
 import { useTransactionStore } from '@/stores/transactionStore';
 import { useAuthStore } from '@/stores/authStore';
@@ -37,7 +38,7 @@ import {
   PointElement,
 } from 'chart.js';
 
-// 📊 차트 구성요소 등록
+// 차트 구성요소 등록
 ChartJS.register(
   Title,
   Tooltip,
@@ -49,21 +50,21 @@ ChartJS.register(
   PointElement
 );
 
-// 📦 스토어 불러오기
+// 스토어 불러오기
 const store = useTransactionStore();
 const authStore = useAuthStore();
 
-// 🗓 거래 불러오기 (사용자 로그인 후)
+// 거래 불러오기 (사용자 로그인 후)
 onMounted(() => {
   store.fetchTransactions();
 });
 
-// ✅ 사용자 거래만 필터링
+// 로그인한 사용자의 거래 내역만 필터링
 const userTransactions = computed(() =>
   store.transactions.filter((tx) => tx.userId === authStore.user.id)
 );
 
-// 📈 월별 수입 계산
+// 월별 수입 계산
 const monthlyIncome = computed(() => {
   const result = {};
   userTransactions.value.forEach(({ type, date, amount }) => {
@@ -75,7 +76,7 @@ const monthlyIncome = computed(() => {
   return result;
 });
 
-// 📊 꺾은선 차트 데이터
+// 월별 수입 꺾은선 차트 데이터 구성
 const chartData = computed(() => {
   const labels = Object.keys(monthlyIncome.value).sort();
   return {
@@ -93,6 +94,7 @@ const chartData = computed(() => {
   };
 });
 
+// 꺾은선 차트 옵션
 const chartOptions = {
   responsive: true,
   plugins: { legend: { position: 'top' } },
@@ -102,9 +104,10 @@ const chartOptions = {
   },
 };
 
+// 수입 데이터 유무 판단
 const hasData = computed(() => Object.keys(monthlyIncome.value).length > 0);
 
-// 🍩 카테고리별 수입 계산
+// 수입 카테고리별 합계 계산
 const categoryIncome = computed(() => {
   const result = {};
   userTransactions.value.forEach(({ type, category, amount }) => {
@@ -116,7 +119,7 @@ const categoryIncome = computed(() => {
   return result;
 });
 
-// 🍩 도넛 차트 데이터
+// 도넛 차트 데이터 구성
 const categoryChartData = computed(() => {
   const labels = Object.keys(categoryIncome.value);
   const values = Object.values(categoryIncome.value);
@@ -146,11 +149,13 @@ const categoryChartData = computed(() => {
   };
 });
 
+// 도넛 차트 옵션
 const categoryChartOptions = {
   responsive: true,
   plugins: { legend: { position: 'bottom' } },
 };
 
+// 카테고리 데이터 유무 판단
 const hasCategoryData = computed(
   () => Object.keys(categoryIncome.value).length > 0
 );

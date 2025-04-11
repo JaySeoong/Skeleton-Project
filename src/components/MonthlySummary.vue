@@ -1,9 +1,11 @@
 <template>
+  <!-- 월간 피드백 카드 -->
   <div class="card p-3 mb-4 shadow-sm text-center w-100 Bbox">
-    <!-- 코멘트 -->
+    <!-- 피드백 헤드라인 -->
     <div class="d-flex align-items-center gap-2 my-6 px-2">
       <p class="fw-bold fs-3" style="color: #ffc107">한달을 돌아보며...</p>
     </div>
+    <!-- 코멘트 출력 -->
     <p class="small fw-semibold text-muted fs-6 px-2">
       {{ feedbackComment }}
     </p>
@@ -30,12 +32,13 @@
 </template>
 
 <script setup>
+// 스토어 & Vue 기능 불러오기
 import { computed } from 'vue';
 import { useTransactionStore } from '@/stores/transactionStore';
 
 const store = useTransactionStore();
 
-// 📅 현재 달 필터링
+// 현재 날짜 기준으로 "YYYY-MM" 포맷 계산
 const selectedMonth = computed(() => {
   const now = new Date();
   const y = now.getFullYear();
@@ -43,7 +46,26 @@ const selectedMonth = computed(() => {
   return `${y}-${m}`;
 });
 
-// 📈 순수익 계산
+// 선택한 달의 거래만 필터링
+const transactionsForMonth = computed(() =>
+  store.transactions.filter((tx) => tx.date.startsWith(selectedMonth.value))
+);
+
+// 총 수입 계산
+const totalIncome = computed(() =>
+  transactionsForMonth.value
+    .filter((tx) => tx.type === 'income')
+    .reduce((sum, tx) => sum + tx.amount, 0)
+);
+
+// 총 지출 계산
+const totalExpense = computed(() =>
+  transactionsForMonth.value
+    .filter((tx) => tx.type === 'expense')
+    .reduce((sum, tx) => sum + tx.amount, 0)
+);
+
+// 순 수입 계산 및 색상 클래스 적용
 const netIncome = computed(() => totalIncome.value - totalExpense.value);
 
 const netIncomeClass = computed(() => {
@@ -52,22 +74,7 @@ const netIncomeClass = computed(() => {
   return ''; // 0이면 기본색
 });
 
-const transactionsForMonth = computed(() =>
-  store.transactions.filter((tx) => tx.date.startsWith(selectedMonth.value))
-);
-
-const totalIncome = computed(() =>
-  transactionsForMonth.value
-    .filter((tx) => tx.type === 'income')
-    .reduce((sum, tx) => sum + tx.amount, 0)
-);
-
-const totalExpense = computed(() =>
-  transactionsForMonth.value
-    .filter((tx) => tx.type === 'expense')
-    .reduce((sum, tx) => sum + tx.amount, 0)
-);
-
+// 수입 대비 지출 비율 계산
 const balanceRatio = computed(() => {
   const inc = totalIncome.value;
   const exp = totalExpense.value;
@@ -75,6 +82,7 @@ const balanceRatio = computed(() => {
   return Math.max(0, Math.min(100, ((inc - exp) / inc) * 100));
 });
 
+// 비율에 따라 피드백 메시지 생성
 const feedbackComment = computed(() => {
   const ratio = balanceRatio.value;
   if (ratio >= 75) return '이번 달은 여유롭네요!';

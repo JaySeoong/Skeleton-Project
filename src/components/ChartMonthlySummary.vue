@@ -1,4 +1,5 @@
 <template>
+  <!-- 월별 요약 차트 카드 -->
   <div class="bg-white p-6 rounded-xl shadow-md">
     <h2 class="text-lg font-bold mb-4">📊 월별 요약</h2>
     <Chart :data="chartData" :options="chartOptions" />
@@ -6,6 +7,7 @@
 </template>
 
 <script setup>
+// 외부 라이브러리 및 스토어 불러오기
 import { computed, onMounted } from 'vue';
 import { useTransactionStore } from '@/stores/transactionStore';
 import { useAuthStore } from '@/stores/authStore';
@@ -22,6 +24,7 @@ import {
 } from 'chart.js';
 import { Chart } from 'vue-chartjs';
 
+// Chart.js 구성요소 등록 (Bar + Line 혼합 차트 사용)
 ChartJS.register(
   BarElement,
   LineElement,
@@ -33,19 +36,21 @@ ChartJS.register(
   PointElement
 );
 
+// 사용자 거래 데이터 로드
 const store = useTransactionStore();
 const authStore = useAuthStore();
 
+// 컴포넌트 마운트 시 거래 데이터 로딩
 onMounted(() => {
   store.fetchTransactions(); // 이미 userId 기반 요청이면 그대로 사용 가능
 });
 
-// ✅ 사용자 거래만 필터링
+// 로그인한 사용자 거래만 필터링
 const userTransactions = computed(() =>
   store.transactions.filter((tx) => tx.userId === authStore.user.id)
 );
 
-// ✅ 월별 요약 계산 (수입, 지출, 순이익)
+// 월별 수입/지출/순이익 요약 계산
 const summaryByMonth = computed(() => {
   const summary = {};
 
@@ -61,7 +66,7 @@ const summaryByMonth = computed(() => {
   return summary;
 });
 
-// ✅ 차트 데이터 구성
+// 차트 데이터 구성 - 막대: 수입/지출, 꺾은선: 순이익
 const chartData = computed(() => {
   const labels = Object.keys(summaryByMonth.value).sort();
   const incomeData = labels.map((label) => summaryByMonth.value[label].income);
@@ -101,6 +106,7 @@ const chartData = computed(() => {
   };
 });
 
+// 차트 옵션 설정
 const chartOptions = {
   responsive: true,
   plugins: {
