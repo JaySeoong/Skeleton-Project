@@ -1,41 +1,59 @@
 <script setup>
+// Vue에서 반응형 변수(ref)를 사용하기 위한 import
 import { ref } from 'vue';
+// 페이지 이동을 위한 Vue Router 사용
 import { useRouter } from 'vue-router';
+// 인증 관련 상태 관리를 위한 Pinia 스토어 import
 import { useAuthStore } from '../stores/authStore';
+// 비밀번호 암호화를 위한 CryptoJS 라이브러리 import (현재 이 코드에서는 사용되지 않음)
 import CryptoJS from 'crypto-js';
 
+// 사용자 입력값을 저장할 반응형 변수 선언
 const username = ref('');
 const password = ref('');
+
+// 라우터 객체 사용 (페이지 이동을 위함)
 const router = useRouter();
+// 인증 스토어 사용 (로그인 처리 및 사용자 정보 접근을 위함)
 const authStore = useAuthStore();
 
+// 로그인 함수 정의
 const login = async () => {
+  // 입력값이 비어 있으면 경고 표시
   if (!username.value || !password.value) {
     alert('아이디와 비밀번호를 입력해주세요.');
     return;
   }
 
+  // authStore의 login 메서드 호출 (성공 여부 반환)
   const success = await authStore.login(username.value, password.value);
+
   if (success) {
+    // 로그인 성공 시 환영 메시지와 함께 홈으로 이동
     alert(`${authStore.user.name}님, 환영합니다.`);
     router.push('/home');
   } else {
+    // 로그인 실패 시 알림
     alert('아이디 또는 비밀번호가 일치하지 않습니다.');
   }
 };
 </script>
 
 <template>
+  <!-- 전체 화면 중앙 정렬 -->
   <div
     class="d-flex justify-content-center align-items-center min-vh-100 bg-white"
   >
+    <!-- 로그인 박스 영역 (고정된 크기) -->
     <div
       class="border shadow bg-white"
       style="width: 414px; height: 896px; display: flex; flex-direction: column"
     >
+      <!-- 로그인 콘텐츠 중앙 정렬 -->
       <div
         class="d-flex flex-column justify-content-center align-items-center flex-grow-1 px-4"
       >
+        <!-- 타이틀 영역 -->
         <h1 class="fw-bold mb-5" style="font-size: 24px; color: burlywood">
           <span class="d-block" style="font-size: 18px; color: #5e4b3c"
             >** 뱅크</span
@@ -43,8 +61,9 @@ const login = async () => {
           <span class="text-warning">24시 간편한 자산관리</span>
         </h1>
 
-        <!--  폼으로 감싸기 -->
+        <!-- 로그인 입력 폼 -->
         <form class="w-100" @submit.prevent="login">
+          <!-- 아이디 입력 필드 -->
           <div class="mt-5 mb-3">
             <input
               type="text"
@@ -53,6 +72,7 @@ const login = async () => {
               v-model="username"
             />
           </div>
+          <!-- 비밀번호 입력 필드 -->
           <div class="mb-5">
             <input
               type="password"
@@ -62,6 +82,7 @@ const login = async () => {
             />
           </div>
 
+          <!-- 로그인 버튼 -->
           <button
             type="submit"
             class="btn text-warning fw-bold w-100 mb-2"
@@ -71,6 +92,7 @@ const login = async () => {
           </button>
         </form>
 
+        <!-- 회원가입 링크 -->
         <div class="text-center mt-2" style="font-size: 14px">
           <router-link to="/terms" class="text-secondary text-decoration-none">
             회원가입
