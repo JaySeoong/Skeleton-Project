@@ -99,7 +99,7 @@ const authStore = useAuthStore();
 
 const handleSubmit = async () => {
   const item = {
-    id: authStore.user.id,
+    userId: authStore.user.id,
     date: form.value.date,
     type: form.value.type,
     category: form.value.category,

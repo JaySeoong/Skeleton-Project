@@ -910,30 +910,6 @@
       "category": "월급",
       "date": "2025-03-01",
       "memo": "test"
-    },
-    {
-      "id": "test",
-      "date": "2025-04-14",
-      "type": "income",
-      "category": "월급",
-      "amount": 11111,
-      "memo": "test"
-    },
-    {
-      "id": "test",
-      "date": "2025-04-08",
-      "type": "income",
-      "category": "월급",
-      "amount": 888,
-      "memo": ""
-    },
-    {
-      "id": "test",
-      "date": "2025-04-08",
-      "type": "income",
-      "category": "월급",
-      "amount": 555,
-      "memo": "555"
     }
   ],
   "incomeCategory": [
