@@ -6,12 +6,12 @@
       class="bg-white shadow rounded d-flex flex-column"
       style="width: 390px; height: 844px"
     >
-      <!-- 🔹 상단 타이틀 -->
+      <!--  상단 타이틀 -->
       <div class="px-4 py-3 border-bottom">
         <h5 class="text-center fw-bold mb-0">프로필 설정</h5>
       </div>
 
-      <!-- 🔸 내용 영역 (스크롤 허용) -->
+      <!--  내용 영역 (스크롤 허용) -->
       <div class="flex-grow-1 overflow-auto px-4 pt-3 pb-1">
         <div v-if="user">
           <!-- 이름 -->
@@ -67,7 +67,7 @@
         </div>
       </div>
 
-      <!-- 🔻 하단 버튼 고정 -->
+      <!--  하단 버튼 고정 -->
       <div class="mt-auto w-100 px-3" style="padding-bottom: 16px">
         <button class="btn btn-outline-secondary w-100 mb-2" @click="logout">
           로그아웃

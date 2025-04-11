@@ -18,7 +18,7 @@
         class="d-flex justify-content-center align-items-center text-center"
         style="height: 80%"
       >
-        <p class="fw-bold fs-4 text-success">⭐지윤이 작성 예정⭐</p>
+        <p class="fw-bold fs-4 text-success">⭐ 가입 완료 ⭐</p>
       </div>
 
       <form v-else @submit.prevent="submitForm">

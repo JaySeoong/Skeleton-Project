@@ -43,7 +43,7 @@ const login = async () => {
           <span class="text-warning">24시 간편한 자산관리</span>
         </h1>
 
-        <!-- ✅ 폼으로 감싸기 -->
+        <!--  폼으로 감싸기 -->
         <form class="w-100" @submit.prevent="login">
           <div class="mt-5 mb-3">
             <input
