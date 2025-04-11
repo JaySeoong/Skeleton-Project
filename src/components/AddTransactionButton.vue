@@ -3,7 +3,7 @@
   <div class="add-button-container">
     <!-- 버튼 클릭 시 모달 열기 -->
     <button class="add-button" @click="openTransactionModal">
-      + 거래 내역 추가
+      + 거래 추가
     </button>
   </div>
 </template>

@@ -1,4 +1,5 @@
 <template>
+  <!-- 화면 중앙에 회원가입 폼 배치 -->
   <div
     class="d-flex justify-content-center align-items-center min-vh-100 bg-white"
   >
@@ -6,6 +7,7 @@
       class="border shadow p-4 bg-white"
       style="width: 414px; height: 896px; overflow-y: auto"
     >
+      <!-- 상단 로고 -->
       <h1
         class="d-block mt-2 mb-4 text-warning fw-bold"
         style="font-size: 20px"
@@ -13,15 +15,18 @@
         ** 뱅크
       </h1>
 
+      <!-- 가입 완료 메시지 -->
       <div
         v-if="isSignedUp"
         class="d-flex justify-content-center align-items-center text-center"
         style="height: 80%"
       >
-        <p class="fw-bold fs-4 text-success">⭐지윤이 작성 예정⭐</p>
+        <p class="fw-bold fs-4 text-success">⭐ 가입 완료 ⭐</p>
       </div>
 
+      <!-- 회원가입 폼 -->
       <form v-else @submit.prevent="submitForm">
+        <!-- 아이디 입력 및 중복 검사 버튼 -->
         <div class="mb-3 d-flex align-items-center">
           <input
             type="text"
@@ -39,6 +44,8 @@
             중복검사
           </button>
         </div>
+
+        <!-- 아이디 중복검사 메시지 -->
         <p
           v-if="idCheckMessage"
           :class="idCheckValid ? 'text-success' : 'text-danger'"
@@ -47,6 +54,7 @@
           {{ idCheckMessage }}
         </p>
 
+        <!-- 비밀번호 입력 -->
         <div class="mb-3">
           <input
             type="password"
@@ -62,7 +70,7 @@
           </small>
         </div>
 
-        <!-- ✅ 비밀번호 확인 필드 추가 -->
+        <!-- 비밀번호 확인 입력 -->
         <div class="mb-3">
           <input
             type="password"
@@ -78,6 +86,7 @@
           </small>
         </div>
 
+        <!-- 이메일 입력 -->
         <div class="mb-3">
           <input
             type="email"
@@ -87,6 +96,7 @@
           />
         </div>
 
+        <!-- 이름 입력 -->
         <div class="mb-3">
           <input
             type="text"
@@ -96,6 +106,7 @@
           />
         </div>
 
+        <!-- 생년월일 입력 -->
         <div class="mb-3">
           <input
             type="date"
@@ -105,6 +116,7 @@
           />
         </div>
 
+        <!-- 통신사 선택 -->
         <div class="mb-4">
           <select class="form-select" v-model="form.telecom">
             <option value="">통신사 선택</option>
@@ -114,6 +126,7 @@
           </select>
         </div>
 
+        <!-- 휴대전화번호 입력 -->
         <div class="mb-3">
           <input
             type="tel"
@@ -123,6 +136,7 @@
           />
         </div>
 
+        <!-- 인증번호 입력 -->
         <div class="mb-3">
           <input
             type="text"
@@ -132,11 +146,12 @@
             maxlength="6"
             :disabled="!isAuthRequested"
           />
-          <small v-if="!isAuthRequested" class="text-muted">
-            * 인증 요청을 먼저 해주세요.
-          </small>
+          <small v-if="!isAuthRequested" class="text-muted"
+            >* 인증 요청을 먼저 해주세요.</small
+          >
         </div>
 
+        <!-- 전체 약관 동의 -->
         <div class="form-check mb-2">
           <input
             class="form-check-input"
@@ -150,13 +165,13 @@
           >
         </div>
 
+        <!-- 개별 약관 목록 -->
         <div class="ms-3 mb-3" v-if="form.showAgreements">
           <div
             class="form-check"
             v-for="(value, key) in form.agreements"
             :key="key"
           >
-            <!-- 고유식별정보 처리 항목 제외 -->
             <template v-if="key !== 'identity'">
               <input
                 class="form-check-input"
@@ -172,6 +187,7 @@
           </div>
         </div>
 
+        <!-- 가입 또는 인증요청 버튼 -->
         <button
           type="submit"
           class="btn w-100 mt-3 d-flex justify-content-center align-items-center"
@@ -192,24 +208,27 @@
 </template>
 
 <script setup>
+// 주요 라이브러리와 Pinia 스토어 import
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 import CryptoJS from 'crypto-js';
 import { useAuthStore } from '@/stores/authStore';
 
+// 라우터와 인증 스토어 초기화
 const router = useRouter();
 const authStore = useAuthStore();
 
-const isSignedUp = ref(false);
-const isAuthRequested = ref(false);
-const isLoading = ref(false);
-const isIdChecked = ref(false);
-const idCheckMessage = ref('');
-const idCheckValid = ref(false);
+// 상태 변수들 정의
+const isSignedUp = ref(false); // 가입 완료 여부
+const isAuthRequested = ref(false); // 인증 요청 여부
+const isLoading = ref(false); // 로딩 상태
+const isIdChecked = ref(false); // 아이디 중복검사 완료 여부
+const idCheckMessage = ref(''); // 아이디 중복검사 메시지
+const idCheckValid = ref(false); // 아이디 유효 여부
+const confirmPassword = ref(''); // 비밀번호 확인용 변수
 
-const confirmPassword = ref(''); // ✅ 비밀번호 확인
-
+// 회원가입 폼 데이터 초기화
 const form = ref({
   id: '',
   password: '',
@@ -225,19 +244,19 @@ const form = ref({
     privacy: false,
     telecom: false,
     bank: false,
-    // identity: false,
     authTerms: false,
   },
 });
 
+// 약관 항목에 대한 표시 이름 정의
 const agreementLabels = {
   privacy: '개인정보 이용',
   telecom: '통신사 이용약관',
   bank: '** 뱅크 개인정보보호정책',
-  // identity: '고유식별정보 처리',
   authTerms: '인증사 이용약관',
 };
 
+// 비밀번호 유효성 메시지 및 검증
 const passwordMessage = computed(() => {
   const pw = form.value.password;
   const hasUpper = /[A-Z]/.test(pw);
@@ -255,23 +274,19 @@ const passwordMessage = computed(() => {
 const isPasswordValid = computed(
   () => passwordMessage.value === '사용 가능한 비밀번호입니다.'
 );
-
-const isPasswordMatched = computed(() => {
-  return (
-    form.value.password &&
-    confirmPassword.value &&
-    form.value.password === confirmPassword.value
-  );
-});
-
-const passwordMatchMessage = computed(() => {
-  return isPasswordMatched.value
+const isPasswordMatched = computed(
+  () => form.value.password === confirmPassword.value
+);
+const passwordMatchMessage = computed(() =>
+  isPasswordMatched.value
     ? '비밀번호가 일치합니다.'
-    : '비밀번호가 일치하지 않습니다.';
-});
+    : '비밀번호가 일치하지 않습니다.'
+);
 
+// 오늘 날짜까지 선택 가능하게 제한
 const maxDate = new Date().toISOString().split('T')[0];
 
+// 폼 유효성 검증
 const isFormValid = computed(() => {
   const f = form.value;
   const filled =
@@ -285,7 +300,6 @@ const isFormValid = computed(() => {
     f.phone &&
     f.agreeAll &&
     isIdChecked.value;
-
   return !isAuthRequested.value
     ? filled && isPasswordValid.value && isPasswordMatched.value
     : filled &&
@@ -294,153 +308,18 @@ const isFormValid = computed(() => {
         isPasswordMatched.value;
 });
 
+// 전체 약관 체크 핸들러
 const toggleAllAgreements = () => {
   const check = form.value.agreeAll;
-  for (const key in form.value.agreements) {
-    form.value.agreements[key] = check;
-  }
+  for (const key in form.value.agreements) form.value.agreements[key] = check;
   form.value.showAgreements = check;
 };
 
+// 개별 약관 체크 시 전체동의 상태 갱신
 const checkIfAllAgreed = () => {
   const values = Object.values(form.value.agreements);
-  const allChecked = values.every((val) => val);
-  form.value.agreeAll = allChecked;
-  form.value.showAgreements = values.some((val) => val);
-};
-
-const checkDuplicateId = async () => {
-  try {
-    const res = await axios.get(
-      `http://localhost:3000/users?id=${form.value.id}`
-    );
-    if (res.data.length > 0) {
-      idCheckValid.value = false;
-      idCheckMessage.value = '이미 사용 중인 아이디입니다.';
-    } else {
-      idCheckValid.value = true;
-      idCheckMessage.value = '사용 가능한 아이디입니다.';
-      isIdChecked.value = true;
-    }
-  } catch (e) {
-    alert('중복검사 실패: ' + e.message);
-  }
-};
-
-const checkAuthCodeExists = async (phone) => {
-  try {
-    const res = await axios.get(
-      `http://localhost:3000/authCodes?phone=${phone}`
-    );
-    return res.data.length > 0 ? res.data[0] : null;
-  } catch (e) {
-    return null;
-  }
-};
-
-const sendAuthCode = async () => {
-  const code = Math.floor(100000 + Math.random() * 900000).toString();
-  try {
-    const exists = await checkAuthCodeExists(form.value.phone);
-    if (exists) {
-      await axios.delete(`http://localhost:3000/authCodes/${exists.id}`);
-    }
-
-    await axios.post('http://localhost:3000/authCodes', {
-      id: form.value.phone,
-      phone: form.value.phone,
-      code,
-      createdAt: new Date().toISOString(),
-    });
-    console.log('인증번호:', code);
-    alert('인증번호가 전송되었습니다.');
-
-    setTimeout(async () => {
-      const stillExists = await checkAuthCodeExists(form.value.phone);
-      if (stillExists) {
-        await axios.delete(`http://localhost:3000/authCodes/${stillExists.id}`);
-      }
-    }, 180000);
-  } catch (e) {
-    alert('인증번호 전송 실패: ' + e.message);
-  }
-};
-
-const verifyAuthCode = async () => {
-  try {
-    const saved = await checkAuthCodeExists(form.value.phone);
-    if (!saved) {
-      alert('인증번호가 존재하지 않거나 만료되었습니다.');
-      return false;
-    }
-
-    const expired = new Date() - new Date(saved.createdAt) > 180000;
-    if (form.value.authCode !== saved.code) {
-      alert('인증번호가 일치하지 않습니다.');
-      return false;
-    }
-    if (expired) {
-      alert('인증번호가 만료되었습니다.');
-      return false;
-    }
-
-    return true;
-  } catch (e) {
-    alert('인증번호 검증 오류: ' + e.message);
-    return false;
-  }
-};
-
-const submitForm = async () => {
-  if (!isAuthRequested.value) {
-    if (form.value.phone.length < 10 || form.value.phone.length > 11) {
-      alert('휴대전화번호는 10~11자리여야 합니다.');
-      return;
-    }
-    isAuthRequested.value = true;
-    await sendAuthCode();
-    return;
-  }
-
-  if (!form.value.authCode || form.value.authCode.length !== 6) {
-    alert('6자리 인증번호를 입력해주세요.');
-    return;
-  }
-
-  const verified = await verifyAuthCode();
-  if (!verified) return;
-
-  try {
-    isLoading.value = true;
-    const salt = CryptoJS.lib.WordArray.random(16).toString();
-    const hashedPassword = CryptoJS.SHA256(
-      salt + form.value.password
-    ).toString();
-    const newUser = {
-      id: form.value.id,
-      password: hashedPassword,
-      salt,
-      email: form.value.email,
-      name: form.value.name,
-      birth: form.value.birth,
-      telecom: form.value.telecom,
-      phone: form.value.phone,
-      agreements: form.value.agreements,
-    };
-
-    const success = await authStore.register(newUser);
-    if (success) {
-      isSignedUp.value = true;
-      alert('가입 완료!');
-      setTimeout(() => router.push('/login'), 2000);
-    } else {
-      alert('가입 실패');
-    }
-  } catch (e) {
-    alert('가입 실패: ' + e.message);
-  } finally {
-    isLoading.value = false;
-  }
+  form.value.agreeAll = values.every(Boolean);
+  form.value.showAgreements = values.some(Boolean);
 };
 </script>
 
