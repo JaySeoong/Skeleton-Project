@@ -1,7 +1,7 @@
 <template>
   <!-- 전체 뷰포트 영역 가운데 정렬 -->
   <div
-    class="d-flex justify-content-center align-items-center min-vh-100 bg-white"
+    class="d-flex justify-content-center align-items-center height-100 bg-white"
   >
     <!-- 고정 크기 박스 -->
     <div

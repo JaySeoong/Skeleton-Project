@@ -1,7 +1,7 @@
 <template>
   <!-- 전체 화면 중앙 정렬 및 배경 설정 -->
   <div
-    class="container-fluid bg-light d-flex justify-content-center align-items-center min-vh-100"
+    class="container-fluid bg-light d-flex justify-content-center align-items-center height-100"
   >
     <!-- 고정된 프로필 설정 박스 -->
     <div
