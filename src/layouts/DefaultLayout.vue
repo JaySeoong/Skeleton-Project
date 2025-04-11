@@ -81,6 +81,7 @@ const navClass = (path) => {
   border: 1px solid #ddd;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   position: relative;
+  overflow: hidden; /* 헤더 고정과 메인 스크롤만 허용 */
 }
 
 .nav-fixed {
@@ -122,9 +123,8 @@ const navClass = (path) => {
 }
 
 .main-content {
-  padding: 70px 16px 16px; /* 네비게이션 높이만큼 상단 패딩 */
-  overflow-y: auto;
   flex: 1;
-  height: 100%;
+  overflow-y: auto;
+  padding: 70px 16px 16px; /* 네비게이션 높이 고려 */
 }
 </style>
