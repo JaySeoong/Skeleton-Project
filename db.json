@@ -910,6 +910,24 @@
       "category": "월급",
       "date": "2025-03-01",
       "memo": "test"
+    },
+    {
+      "id": "8a87",
+      "userId": "test",
+      "date": "2025-04-10",
+      "type": "expense",
+      "category": "교통비",
+      "amount": 30000,
+      "memo": ""
+    },
+    {
+      "id": "a6c2",
+      "userId": "test",
+      "date": "2025-04-10",
+      "type": "expense",
+      "category": "식비",
+      "amount": 200000,
+      "memo": ""
     }
   ],
   "incomeCategory": [
