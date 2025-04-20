@@ -208,27 +208,23 @@
 </template>
 
 <script setup>
-// 주요 라이브러리와 Pinia 스토어 import
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 import CryptoJS from 'crypto-js';
 import { useAuthStore } from '@/stores/authStore';
 
-// 라우터와 인증 스토어 초기화
 const router = useRouter();
 const authStore = useAuthStore();
 
-// 상태 변수들 정의
-const isSignedUp = ref(false); // 가입 완료 여부
-const isAuthRequested = ref(false); // 인증 요청 여부
-const isLoading = ref(false); // 로딩 상태
-const isIdChecked = ref(false); // 아이디 중복검사 완료 여부
-const idCheckMessage = ref(''); // 아이디 중복검사 메시지
-const idCheckValid = ref(false); // 아이디 유효 여부
-const confirmPassword = ref(''); // 비밀번호 확인용 변수
+const isSignedUp = ref(false);
+const isAuthRequested = ref(false);
+const isLoading = ref(false);
+const isIdChecked = ref(false);
+const idCheckMessage = ref('');
+const idCheckValid = ref(false);
+const confirmPassword = ref('');
 
-// 회원가입 폼 데이터 초기화
 const form = ref({
   id: '',
   password: '',
@@ -248,7 +244,6 @@ const form = ref({
   },
 });
 
-// 약관 항목에 대한 표시 이름 정의
 const agreementLabels = {
   privacy: '개인정보 이용',
   telecom: '통신사 이용약관',
@@ -256,7 +251,6 @@ const agreementLabels = {
   authTerms: '인증사 이용약관',
 };
 
-// 비밀번호 유효성 메시지 및 검증
 const passwordMessage = computed(() => {
   const pw = form.value.password;
   const hasUpper = /[A-Z]/.test(pw);
@@ -283,10 +277,8 @@ const passwordMatchMessage = computed(() =>
     : '비밀번호가 일치하지 않습니다.'
 );
 
-// 오늘 날짜까지 선택 가능하게 제한
 const maxDate = new Date().toISOString().split('T')[0];
 
-// 폼 유효성 검증
 const isFormValid = computed(() => {
   const f = form.value;
   const filled =
@@ -308,18 +300,119 @@ const isFormValid = computed(() => {
         isPasswordMatched.value;
 });
 
-// 전체 약관 체크 핸들러
 const toggleAllAgreements = () => {
   const check = form.value.agreeAll;
   for (const key in form.value.agreements) form.value.agreements[key] = check;
   form.value.showAgreements = check;
 };
 
-// 개별 약관 체크 시 전체동의 상태 갱신
 const checkIfAllAgreed = () => {
   const values = Object.values(form.value.agreements);
   form.value.agreeAll = values.every(Boolean);
   form.value.showAgreements = values.some(Boolean);
+};
+
+const checkDuplicateId = async () => {
+  const userId = form.value.id.trim();
+
+  if (!userId) {
+    idCheckMessage.value = '아이디를 입력해주세요.';
+    idCheckValid.value = false;
+    return;
+  }
+
+  try {
+    const res = await axios.get(`http://localhost:3000/users?id=${userId}`);
+
+    if (res.data.length > 0) {
+      idCheckMessage.value = '이미 사용 중인 아이디입니다.';
+      idCheckValid.value = false;
+      isIdChecked.value = false;
+    } else {
+      idCheckMessage.value = '사용 가능한 아이디입니다.';
+      idCheckValid.value = true;
+      isIdChecked.value = true;
+    }
+  } catch (error) {
+    console.error('중복 검사 오류:', error);
+    idCheckMessage.value = '중복 검사 중 오류가 발생했습니다.';
+    idCheckValid.value = false;
+    isIdChecked.value = false;
+  }
+};
+
+const submitForm = async () => {
+  if (!isAuthRequested.value) {
+    isLoading.value = true;
+    try {
+      const code = Math.floor(100000 + Math.random() * 900000).toString();
+      const now = new Date().toISOString();
+      await axios.post('http://localhost:3000/authCodes', {
+        id: form.value.phone,
+        phone: form.value.phone,
+        code,
+        createdAt: now,
+      });
+      console.log('인증번호:', code);
+      alert('인증번호가 발송되었습니다.');
+      isAuthRequested.value = true;
+    } catch (error) {
+      alert('인증 요청 중 오류가 발생했습니다.');
+      console.error(error);
+    } finally {
+      isLoading.value = false;
+    }
+  } else {
+    try {
+      const res = await axios.get(
+        `http://localhost:3000/authCodes?id=${form.value.phone}`
+      );
+      const sorted = res.data.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+      const codeEntry = sorted[0];
+
+      if (!codeEntry) {
+        alert('인증번호를 먼저 요청해주세요.');
+        return;
+      }
+
+      if (form.value.authCode.trim() !== codeEntry.code.trim()) {
+        alert('인증번호가 일치하지 않습니다.');
+        return;
+      }
+    } catch (error) {
+      alert('인증번호 확인 중 오류 발생');
+      console.error(error);
+      return;
+    }
+
+    const salt = CryptoJS.lib.WordArray.random(16).toString();
+    const hashed = CryptoJS.SHA256(salt + form.value.password).toString();
+
+    const newUser = {
+      id: form.value.id,
+      password: hashed,
+      salt,
+      email: form.value.email,
+      name: form.value.name,
+      birth: form.value.birth,
+      telecom: form.value.telecom,
+      phone: form.value.phone,
+      agreements: form.value.agreements,
+    };
+
+    const success = await authStore.register(newUser);
+
+    if (success) {
+      isSignedUp.value = true;
+      setTimeout(() => {
+        router.push('/login');
+      }, 2000); // 가입 완료 메시지 보여준 후 2초 후 이동
+    } else {
+      alert('회원가입에 실패했습니다.');
+    }
+  }
 };
 </script>
 
