@@ -95,6 +95,30 @@
       "phone": "01012341234",
       "code": "306751",
       "createdAt": "2025-04-20T01:56:41.758Z"
+    },
+    {
+      "id": "01012341234",
+      "phone": "01012341234",
+      "code": "707101",
+      "createdAt": "2025-04-20T02:02:41.581Z"
+    },
+    {
+      "id": "01012341234",
+      "phone": "01012341234",
+      "code": "467147",
+      "createdAt": "2025-04-20T02:04:32.780Z"
+    },
+    {
+      "id": "01012431234",
+      "phone": "01012431234",
+      "code": "482583",
+      "createdAt": "2025-04-20T02:06:14.780Z"
+    },
+    {
+      "id": "01012341234",
+      "phone": "01012341234",
+      "code": "261041",
+      "createdAt": "2025-04-20T02:09:36.146Z"
     }
   ],
   "budget": [
@@ -1131,22 +1155,6 @@
       "birth": "2025-04-08",
       "telecom": "SKT",
       "phone": "01063061140",
-      "agreements": {
-        "privacy": true,
-        "telecom": true,
-        "bank": true,
-        "authTerms": true
-      }
-    },
-    {
-      "id": "test0420",
-      "password": "3a0e111852bf7321438bea2c91899c2a73cd37a81b1eff986c775648597346bf",
-      "salt": "dc8a0facea597ffdc92ba2947e99bb7a",
-      "email": "test0420@naver.com",
-      "name": "이재성",
-      "birth": "2025-04-04",
-      "telecom": "SKT",
-      "phone": "01012341234",
       "agreements": {
         "privacy": true,
         "telecom": true,
