@@ -9,6 +9,7 @@ Vue 3 + Composition API + Pinia 기반의 온라인 가계부 프로젝트입니
 
 ```bash
 npm install
+npx json-server db.json
 npm run dev
 ```
 
